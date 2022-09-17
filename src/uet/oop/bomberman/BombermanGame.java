@@ -8,11 +8,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
-import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.map.Grass;
+import uet.oop.bomberman.entities.map.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,9 @@ public class BombermanGame extends Application {
 
 
     public static void main(String[] args) {
+        Sound.playSound("StarWars60");
         Application.launch(BombermanGame.class);
+        Sound.stopSound("StarWars60");
     }
 
     @Override
