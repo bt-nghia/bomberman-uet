@@ -35,7 +35,7 @@ public class Sound {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            BombermanGame.class.getResourceAsStream("sound/" + sound + ".wav")
+                            BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav")
                     );
                     clip.open(inputStream);
                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
