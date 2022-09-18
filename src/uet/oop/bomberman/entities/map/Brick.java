@@ -10,6 +10,10 @@ public class Brick extends Entity {
         return isBroken;
     }
 
+    public void setBroken(boolean isBroken) {
+        this.isBroken = isBroken;
+    }
+
     public Brick(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
