@@ -2,6 +2,7 @@ package uet.oop.bomberman.controller;
 
 import javafx.scene.Scene;
 import uet.oop.bomberman.entities.player.Bomber;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class PlayerController {
     public static void bomberController(Scene scene, Bomber bomberman) {
@@ -17,6 +18,12 @@ public class PlayerController {
                     }
                 }
         );
+        scene.setOnKeyReleased(event -> {
+            if(event.getCode().toString().equals("UP")) {
+                bomberman.setImg(Sprite.player_up.getFxImage());
+            } else {
+                bomberman.setImg(Sprite.player_down.getFxImage());
+            }
+        });
     }
-
 }

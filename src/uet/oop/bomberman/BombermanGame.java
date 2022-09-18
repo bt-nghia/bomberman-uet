@@ -9,6 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.EntitySet;
+import uet.oop.bomberman.entities.enmies.Balloom;
+import uet.oop.bomberman.entities.map.Brick;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.map.Grass;
@@ -66,6 +68,11 @@ public class BombermanGame extends Application {
 
         Bomber bomberman = new Bomber(5, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
+        Brick brick = new Brick(4,4, Sprite.brick.getFxImage());
+        EntitySet.brickList.add(brick);
+
+//        Balloom balloom = new Balloom(4,7, Sprite.balloom_left1.getFxImage());
+//        EntitySet.enemyList.add(balloom);
 
         PlayerController.bomberController(scene, bomberman);
     }
@@ -94,5 +101,8 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        EntitySet.brickList.forEach(brick -> brick.render(gc));
+        EntitySet.enemyList.forEach(enemy -> enemy.render(gc));
+        EntitySet.bombList.forEach(bomb -> bomb.render(gc));
     }
 }
