@@ -1,13 +1,13 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.map.Brick;
+import uet.oop.bomberman.entities.map.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
@@ -52,5 +52,34 @@ public abstract class Entity {
 
     public void setImg(Image img) {
         this.img = img;
+    }
+
+    public Rectangle2D getBoundary() {
+        return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
+
+    public boolean intersect(Entity other) {
+        return other.getBoundary().intersects(this.getBoundary());
+    }
+
+    public boolean checkBoundBrick() {
+        for(Brick brick : EntitySet.brickList) {
+            if(this.intersect(brick)) {return true;}
+        }
+        return false;
+    }
+
+    public boolean checkBoundWall() {
+        for(Wall wall : EntitySet.wallList) {
+            if(this.intersect(wall)) {return true;}
+        }
+        return false;
+    }
+
+    public boolean checkBoundBomb() {
+        for(Bomb bomb : EntitySet.bombList) {
+            if(this.intersect(bomb)) {return true;}
+        }
+        return false;
     }
 }
