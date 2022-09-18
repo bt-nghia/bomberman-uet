@@ -10,6 +10,7 @@ public class Bomber extends Entity {
     private int flameLength = 1;
     private int speed = Sprite.SCALED_SIZE / 8;
     private boolean isAlive = true;
+    private int keepMoving = 0;
 
 //    public List<Bomb> bombs = new ArrayList<>();
 
@@ -26,28 +27,51 @@ public class Bomber extends Entity {
     public void goUp() {
         for (int i = 1; i <= this.speed; ++i) {
             this.y -= 1;
+            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.y+=1;
+                break;
+            }
         }
-        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, this.getY(), 60).getFxImage());
+        keepMoving+=this.speed;
+        if(keepMoving > 100) {keepMoving = 0;}
+        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 48).getFxImage());
     }
 
     public void goDown() {
         for (int i = 1; i <= this.speed; ++i) {
             this.y += 1;
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.y -= 1;
+            }
         }
-        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, this.getY(), 60).getFxImage()));
+        keepMoving+=this.speed;
+        if(keepMoving > 100) {keepMoving = 0;}
+        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 48).getFxImage()));
     }
 
     public void goRight() {
         for (int i = 1; i <= this.speed; ++i) {
             this.x += 1;
+            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.x-=1;
+                break;
+            }
         }
-        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, this.getX(), 60).getFxImage());
+        keepMoving+=this.speed;
+        if(keepMoving > 100) {keepMoving = 0;}
+        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 48).getFxImage());
     }
 
     public void goLeft() {
         for (int i = 1; i <= this.speed; ++i) {
             this.x -= 1;
+            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.x+=1;
+                break;
+            }
         }
-        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, this.getX(), 60).getFxImage());
+        keepMoving+=this.speed;
+        if(keepMoving > 100) {keepMoving = 0;}
+        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 48).getFxImage());
     }
 }

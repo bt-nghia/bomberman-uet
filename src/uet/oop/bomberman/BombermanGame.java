@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
+import uet.oop.bomberman.entities.EntitySet;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.map.Grass;
@@ -75,8 +76,10 @@ public class BombermanGame extends Application {
                 Entity object;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
                     object = new Wall(i, j, Sprite.wall.getFxImage());
+                    EntitySet.wallList.add((Wall) object);
                 } else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
+                    EntitySet.grassList.add((Grass) object);
                 }
                 stillObjects.add(object);
             }
