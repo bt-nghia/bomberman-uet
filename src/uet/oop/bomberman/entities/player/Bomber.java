@@ -84,6 +84,15 @@ public class Bomber extends Entity {
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.right = -1;
                 this.x+=1;
+                // intersect while moving horizontal -> round vertical to pass intersect
+                /**
+                 * 1.
+                 * #            |        * #
+                 * #            |        * #
+                 * #  <-(player)|  --->  * #    |
+                 *              |        *    <--(player) // moving vertical to solve while intersect
+                 * #            |        * #
+                 */
                 super.roundVertical();
                 break;
             }
