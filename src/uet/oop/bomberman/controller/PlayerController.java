@@ -27,9 +27,9 @@ public class PlayerController {
             } else {
                 bomberman.setImg(Sprite.player_down.getFxImage());
             }
-            bomberman.roundPosition(up, right);
-            up = -1;
-            right = -1;
+//            bomberman.roundPosition(up, right);
+//            up = -1;
+//            right = -1;
         });
     }
 }
