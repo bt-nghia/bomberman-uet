@@ -36,12 +36,13 @@ public class Bomber extends Entity {
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.up = -1;
                 this.y+=1;
+                super.roundHorizontal();
                 break;
             }
         }
         keepMoving+=this.speed;
         if(keepMoving > 100) {keepMoving = 0;}
-        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 18).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 30).getFxImage());
     }
 
     public void goDown() {
@@ -51,11 +52,13 @@ public class Bomber extends Entity {
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.up = -1;
                 this.y -= 1;
+                super.roundHorizontal();
+                break;
             }
         }
         keepMoving+=this.speed;
         if(keepMoving > 100) {keepMoving = 0;}
-        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 18).getFxImage()));
+        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 30).getFxImage()));
     }
 
     public void goRight() {
@@ -64,13 +67,14 @@ public class Bomber extends Entity {
             this.x += 1;
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 this.x-=1;
-                PlayerController.right = -11;
+                PlayerController.right = -1;
+                super.roundVertical();
                 break;
             }
         }
         keepMoving+=this.speed;
         if(keepMoving > 100) {keepMoving = 0;}
-        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 18).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 30).getFxImage());
     }
 
     public void goLeft() {
@@ -80,11 +84,12 @@ public class Bomber extends Entity {
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.right = -1;
                 this.x+=1;
+                super.roundVertical();
                 break;
             }
         }
         keepMoving+=this.speed;
         if(keepMoving > 100) {keepMoving = 0;}
-        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 18).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 30).getFxImage());
     }
 }

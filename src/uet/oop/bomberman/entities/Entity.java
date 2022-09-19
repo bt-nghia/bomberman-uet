@@ -89,23 +89,39 @@ public abstract class Entity {
         int remainY = this.y % 32;
         switch (directionUp) {
             case 1:
-                this.y-=remainY;
+                this.y-=(remainY /*> 16*/) /*? remainY : 0*/;
                 break;
             case 0:
-                this.y+=32-remainY;
+                this.y+=(32 - remainY /*> 16*/) /*? (32 - remainY) : 0*/;
                 break;
             default:
                 break;
         }
         switch (directionRight) {
             case 1:
-                this.x+=32-remainX;
+                this.x+=(32 - remainX /*> 16*/) /*? (32 - remainX) : 0*/;
                 break;
             case 0:
-                this.x-=remainX;
+                this.x-=(remainX /*> 16*/) /*? remainX : 0*/;
                 break;
             default:
                 break;
+        }
+    }
+
+    public void roundVertical() {
+        if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE);
+        }
+    }
+
+    public void roundHorizontal() {
+        if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
     }
 }
