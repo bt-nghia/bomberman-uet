@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.player;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
@@ -27,10 +28,13 @@ public class Bomber extends Entity {
 
     }
 
+    // TODO: lam tron de player di chuyen chinh xac vao 1 o
     public void goUp() {
+        PlayerController.up = 1;
         for (int i = 1; i <= this.speed; ++i) {
             this.y -= 1;
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                PlayerController.up = -1;
                 this.y+=1;
                 break;
             }
@@ -41,9 +45,11 @@ public class Bomber extends Entity {
     }
 
     public void goDown() {
+        PlayerController.up = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.y += 1;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                PlayerController.up = -1;
                 this.y -= 1;
             }
         }
@@ -53,10 +59,12 @@ public class Bomber extends Entity {
     }
 
     public void goRight() {
+        PlayerController.right = 1;
         for (int i = 1; i <= this.speed; ++i) {
             this.x += 1;
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 this.x-=1;
+                PlayerController.right = -11;
                 break;
             }
         }
@@ -66,9 +74,11 @@ public class Bomber extends Entity {
     }
 
     public void goLeft() {
+        PlayerController.right = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.x -= 1;
             if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                PlayerController.right = -1;
                 this.x+=1;
                 break;
             }
