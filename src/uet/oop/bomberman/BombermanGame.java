@@ -8,13 +8,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
-import uet.oop.bomberman.entities.EntitySet;
-import uet.oop.bomberman.entities.enmies.Balloom;
-import uet.oop.bomberman.entities.map.Brick;
-import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.map.Grass;
-import uet.oop.bomberman.entities.map.Wall;
+import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.map.Map;
+import uet.oop.bomberman.entities.map.mapblock.Brick;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -23,8 +21,9 @@ import java.util.List;
 
 public class BombermanGame extends Application {
 
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+    // fix map size
+    public static int WIDTH = 31;
+    public static int HEIGHT = 13;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -59,50 +58,36 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 render();
-                update();
+                try {
+                    update();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
         timer.start();
 
-        createMap();
-
+        Map.createMapByLevel(1);
         Bomber bomberman = new Bomber(5, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-        Brick brick = new Brick(4,4, Sprite.brick.getFxImage());
-        EntitySet.brickList.add(brick);
-
-//        Balloom balloom = new Balloom(4,7, Sprite.balloom_left1.getFxImage());
-//        EntitySet.enemyList.add(balloom);
+        Brick brick = new Brick(4, 4, Sprite.brick.getFxImage());
+        EntitySetManagement.brickList.add(brick);
 
         PlayerController.bomberController(scene, bomberman);
     }
 
-    public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                    EntitySet.wallList.add((Wall) object);
-                } else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                    EntitySet.grassList.add((Grass) object);
-                }
-                stillObjects.add(object);
-            }
-        }
-    }
-
-    public void update() {
+    public void update() throws Exception {
         entities.forEach(Entity::update);
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
+        EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
+        EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
+        EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
         entities.forEach(g -> g.render(gc));
-        EntitySet.brickList.forEach(brick -> brick.render(gc));
-        EntitySet.enemyList.forEach(enemy -> enemy.render(gc));
-        EntitySet.bombList.forEach(bomb -> bomb.render(gc));
+        EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
+        Bomber.bombList.forEach(bomb -> bomb.render(gc));
     }
 }

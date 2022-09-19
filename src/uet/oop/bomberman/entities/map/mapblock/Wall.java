@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.map;
+package uet.oop.bomberman.entities.map.mapblock;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;

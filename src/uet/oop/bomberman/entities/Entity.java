@@ -3,9 +3,10 @@ package uet.oop.bomberman.entities;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.bomb.Bomb;
-import uet.oop.bomberman.entities.map.Brick;
-import uet.oop.bomberman.entities.map.Wall;
+import uet.oop.bomberman.entities.player.Bomber;
+import uet.oop.bomberman.entities.player.bomb.Bomb;
+import uet.oop.bomberman.entities.map.mapblock.Brick;
+import uet.oop.bomberman.entities.map.mapblock.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 
@@ -63,21 +64,21 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBrick() {
-        for(Brick brick : EntitySet.brickList) {
+        for(Brick brick : EntitySetManagement.brickList) {
             if(this.intersect(brick)) {return true;}
         }
         return false;
     }
 
     public boolean checkBoundWall() {
-        for(Wall wall : EntitySet.wallList) {
+        for(Wall wall : EntitySetManagement.wallList) {
             if(this.intersect(wall)) {return true;}
         }
         return false;
     }
 
     public boolean checkBoundBomb() {
-        for(Bomb bomb : EntitySet.bombList) {
+        for(Bomb bomb : Bomber.bombList) {
             if(this.intersect(bomb)) {return true;}
         }
         return false;
