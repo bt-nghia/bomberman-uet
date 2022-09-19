@@ -83,4 +83,29 @@ public abstract class Entity {
         }
         return false;
     }
+
+    public void roundPosition(int directionUp, int directionRight) {
+        int remainX = this.x % 32;
+        int remainY = this.y % 32;
+        switch (directionUp) {
+            case 1:
+                this.y-=remainY;
+                break;
+            case 0:
+                this.y+=32-remainY;
+                break;
+            default:
+                break;
+        }
+        switch (directionRight) {
+            case 1:
+                this.x+=32-remainX;
+                break;
+            case 0:
+                this.x-=remainX;
+                break;
+            default:
+                break;
+        }
+    }
 }

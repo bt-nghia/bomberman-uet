@@ -5,6 +5,9 @@ import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class PlayerController {
+    public static int up = -1;
+    public static int right = -1;
+
     public static void bomberController(Scene scene, Bomber bomberman) {
         scene.setOnKeyPressed(event -> {
                     if (event.getCode().toString().equals("RIGHT")) {
@@ -24,6 +27,9 @@ public class PlayerController {
             } else {
                 bomberman.setImg(Sprite.player_down.getFxImage());
             }
+            bomberman.roundPosition(up, right);
+            up = -1;
+            right = -1;
         });
     }
 }
