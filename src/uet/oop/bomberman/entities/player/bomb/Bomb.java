@@ -6,11 +6,13 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomb extends Entity {
     private boolean isVisible = true;
-    private int flameLength;
+    private boolean exploded = false;
+    private int flameLength = 2;
     public boolean passOver = true;
     public int timeToExplode;
 
@@ -36,6 +38,10 @@ public class Bomb extends Entity {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public void setExploded(boolean exploded) {
+        this.exploded = exploded;
     }
 
     public void addFlameDFS() {
@@ -92,6 +98,10 @@ public class Bomb extends Entity {
         this.isVisible = isVisible;
     }
 
+    public void setPassOver(boolean passOver) {
+        this.passOver = passOver;
+    }
+
     public void setTimeToExplode() {
         Bomb temp = this;
 
@@ -101,8 +111,20 @@ public class Bomb extends Entity {
                 temp.setExplode(true);
             }
         };
+        if(this.isVisible) {
+            Timer timer = new Timer();
+            timer.schedule(timerTask, 2000L);
+        }
 
+        TimerTask timerTask1 = new TimerTask() {
+            @Override
+            public void run() {
 
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask1, 2500L);
 
     }
 }

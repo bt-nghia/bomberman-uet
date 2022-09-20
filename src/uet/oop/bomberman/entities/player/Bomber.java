@@ -3,6 +3,8 @@ package uet.oop.bomberman.entities.player;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -22,7 +24,6 @@ public class Bomber extends Entity {
         super(x, y, img);
     }
 
-
     @Override
     public void update() {
 
@@ -33,15 +34,17 @@ public class Bomber extends Entity {
         PlayerController.up = 1;
         for (int i = 1; i <= this.speed; ++i) {
             this.y -= 1;
-            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.up = -1;
-                this.y+=1;
+                this.y += 1;
                 super.roundHorizontal();
                 break;
             }
         }
-        keepMoving+=this.speed;
-        if(keepMoving > 100) {keepMoving = 0;}
+        keepMoving += this.speed;
+        if (keepMoving > 100) {
+            keepMoving = 0;
+        }
         setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 30).getFxImage());
     }
 
@@ -56,8 +59,10 @@ public class Bomber extends Entity {
                 break;
             }
         }
-        keepMoving+=this.speed;
-        if(keepMoving > 100) {keepMoving = 0;}
+        keepMoving += this.speed;
+        if (keepMoving > 100) {
+            keepMoving = 0;
+        }
         setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 30).getFxImage()));
     }
 
@@ -65,15 +70,17 @@ public class Bomber extends Entity {
         PlayerController.right = 1;
         for (int i = 1; i <= this.speed; ++i) {
             this.x += 1;
-            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
-                this.x-=1;
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.x -= 1;
                 PlayerController.right = -1;
                 super.roundVertical();
                 break;
             }
         }
-        keepMoving+=this.speed;
-        if(keepMoving > 100) {keepMoving = 0;}
+        keepMoving += this.speed;
+        if (keepMoving > 100) {
+            keepMoving = 0;
+        }
         setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 30).getFxImage());
     }
 
@@ -81,9 +88,9 @@ public class Bomber extends Entity {
         PlayerController.right = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.x -= 1;
-            if(checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.right = -1;
-                this.x+=1;
+                this.x += 1;
                 // intersect while moving horizontal -> round vertical to pass intersect
                 /**
                  * 1.
@@ -97,8 +104,56 @@ public class Bomber extends Entity {
                 break;
             }
         }
-        keepMoving+=this.speed;
-        if(keepMoving > 100) {keepMoving = 0;}
+        keepMoving += this.speed;
+        if (keepMoving > 100) {
+            keepMoving = 0;
+        }
         setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 30).getFxImage());
+    }
+
+    public boolean checkPortal() {
+        // check if player go to portal or not
+        if (EntitySetManagement.enemyList.size() > 0) {
+            return false;
+        }
+        return this.intersect(EntitySetManagement.portal);
+    }
+
+    public boolean touchEnemiesOrFlame() {
+        for (Enemy enemy : EntitySetManagement.enemyList) {
+            if (this.intersect(enemy)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean checkBoundBomb() {
+        for (Bomb bomb : bombList) {
+            double diffX = this.getX() - bomb.getX();
+            double diffY = this.getY() - bomb.getY();
+            if (!(Math.abs(diffX) < Sprite.SCALED_SIZE && Math.abs(diffY) < Sprite.SCALED_SIZE)) {
+                bomb.setPassOver(false);
+            }
+            if (bomb.passOver) {
+                return false;
+            }
+            if (this.intersect(bomb)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setUpBomberDeath() {
+        this.isAlive = false;
+        // set death animation
+        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, this.keepMoving, 60).getFxImage());
+    }
+
+    public void addBomb(Bomb bomb) {
+        this.bombList.add(bomb);
     }
 }
