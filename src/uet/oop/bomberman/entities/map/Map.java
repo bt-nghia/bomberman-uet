@@ -31,7 +31,7 @@ public class Map {
                     map2D[i][j] = line.charAt(j);
                 }
             }
-            fillImage(map2D);
+            fillMapImage(map2D);
             fileReader.close();
             bufferedReader.close();
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class Map {
         }
     }
 
-    public static void fillImage(char[][] map2D) {
+    public static void fillMapImage(char[][] map2D) {
         for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 if (i == 0 || j == 0 || i == BombermanGame.HEIGHT - 1 || j == BombermanGame.WIDTH - 1 || map2D[i][j] == '#') {
@@ -49,7 +49,7 @@ public class Map {
                 }
 
                 if (map2D[i][j] == 'x') {
-//                    EntitySet.portal = new Portal(j, i, Sprite.portal.getFxImage());
+                    // EntitySet.portal = new Portal(j, i, Sprite.portal.getFxImage());
                     // cover the portal
                     EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                 }
