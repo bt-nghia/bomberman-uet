@@ -2,7 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
-import uet.oop.bomberman.entities.enmies.Enemy;
+import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
