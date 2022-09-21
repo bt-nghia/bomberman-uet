@@ -1,13 +1,12 @@
 package uet.oop.bomberman.entities.player.bomb;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
-import uet.oop.bomberman.entities.player.Bomber;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends Entity {
     private boolean isVisible = true;
@@ -18,14 +17,16 @@ public class Flame extends Entity {
 
     @Override
     public void update() {
-
+        checkFlameBrick();
+        destroyFlameEnemy();
+        checkFlameWall();
+        checkBomber();
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
 
-    // brick can be destroyed by explosion
     private boolean checkFlameBrick() {
         for (Brick brick : EntitySetManagement.brickList) {
             if (this.intersect(brick)) {
@@ -48,13 +49,17 @@ public class Flame extends Entity {
     }
 
     private void destroyFlameEnemy() {
-        for(Enemy enemy : EntitySetManagement.enemyList) {
-            if(this.intersect(enemy));
-            enemy.setAlive(false);
+        for (Enemy enemy : EntitySetManagement.enemyList) {
+            if(this.intersect(enemy)) {
+                enemy.setAlive(false);
+            }
         }
     }
 
     private void checkBomber() {
-
+        if (this.intersect(EntitySetManagement.bomberMan)) {
+            EntitySetManagement.bomberMan.setAlive(false);
+            setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+        }
     }
 }

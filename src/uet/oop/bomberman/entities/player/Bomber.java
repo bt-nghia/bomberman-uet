@@ -13,12 +13,10 @@ import java.util.List;
 
 public class Bomber extends Entity {
 
-    private int numBombs = 1;
-    private int flameLength = 1;
     private int speed = Sprite.SCALED_SIZE / 8;
     private boolean isAlive = true;
     private int keepMoving = 0;
-    public static List<Bomb> bombList = new ArrayList<>();
+    public List<Bomb> bombList = new ArrayList<>();
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -27,6 +25,10 @@ public class Bomber extends Entity {
     @Override
     public void update() {
 
+    }
+
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
     }
 
     // TODO: lam tron de player di chuyen chinh xac vao 1 o
@@ -154,6 +156,10 @@ public class Bomber extends Entity {
     }
 
     public void addBomb(Bomb bomb) {
-        this.bombList.add(bomb);
+        bombList.add(bomb);
+    }
+
+    public void removeBomb(Bomb bomb) {
+
     }
 }

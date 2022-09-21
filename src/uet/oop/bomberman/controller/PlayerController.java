@@ -7,7 +7,6 @@ import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,50 +16,56 @@ public class PlayerController {
 
     public static void bomberController(Scene scene, Bomber bomberman) {
         scene.setOnKeyPressed(event -> {
-                    if (event.getCode().toString().equals("RIGHT")) {
-                        bomberman.goRight();
-                    } else if (event.getCode().toString().equals("LEFT")) {
-                        bomberman.goLeft();
-                    } else if (event.getCode().toString().equals("UP")) {
-                        bomberman.goUp();
-                    } else if (event.getCode().toString().equals("DOWN")) {
-                        bomberman.goDown();
-                    } else if (event.getCode().toString().equals("SPACE")) {
-                        Bomb bomb = new Bomb(bomberman.getX() / Sprite.SCALED_SIZE, bomberman.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
-                        // check duplicate bomb
-                        boolean duplicate = false;
-                        for(Bomb bombExist : Bomber.bombList) {
-                            if(bombExist.intersect(bomb)) {
-                                duplicate = true;
-                            }
-                        }
-
-                        TimerTask timerTask = new TimerTask() {
-                            @Override
-                            public void run() {
-                                bomb.setImg(Sprite.bomb_exploded.getFxImage());
-                                bomb.setVisible(true);
-                                bomb.addFlameDFS();
-                            }
-                        };
-
-                        TimerTask timerTask1 = new TimerTask() {
-                            @Override
-                            public void run() {
-                                EntitySetManagement.brickList.removeIf(Brick::isBroken);
-//                                EntitySetManagement.bomberman.removeBomb(bomb);
-//                                EntitySetManagement.removeEnemy();
-                            }
-                        };
-
-                        if (!duplicate/**/) {
-                            EntitySetManagement.bomberManManagement.addBomb(bomb);
-                            Timer timerEx = new Timer();
-                            timerEx.schedule(timerTask, 2000);
-                            Timer timerRev = new Timer();
-                            timerRev.schedule(timerTask1, 3000L);
+            switch (event.getCode().toString()) {
+                case "RIGHT":
+                    bomberman.goRight();
+                    break;
+                case "LEFT":
+                    bomberman.goLeft();
+                    break;
+                case "UP":
+                    bomberman.goUp();
+                    break;
+                case "DOWN":
+                    bomberman.goDown();
+                    break;
+                case "SPACE":
+                    Bomb bomb = new Bomb(bomberman.getX() / Sprite.SCALED_SIZE, bomberman.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
+                    // check duplicate bomb
+                    boolean duplicate = false;
+                    for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
+                        if (bombExist.intersect(bomb)) {
+                            duplicate = true;
                         }
                     }
+
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            bomb.setImg(Sprite.bomb_exploded.getFxImage());
+                            bomb.addFlameDFS();
+                            bomb.setExplode(true);
+                        }
+                    };
+
+                    TimerTask timerTask1 = new TimerTask() {
+                        @Override
+                        public void run() {
+                            EntitySetManagement.brickList.removeIf(Brick::isBroken);
+                            EntitySetManagement.bomberMan.removeBomb(bomb);
+                            EntitySetManagement.removeEnemies();
+                        }
+                    };
+
+                    if (!duplicate) {
+                        EntitySetManagement.bomberMan.addBomb(bomb);
+                        Timer timerEx = new Timer();
+                        timerEx.schedule(timerTask, 2500);
+                        Timer timerRev = new Timer();
+                        timerRev.schedule(timerTask1, 3000L);
+                    }
+                    break;
+            }
                 }
         );
         scene.setOnKeyReleased(event -> {
@@ -69,9 +74,6 @@ public class PlayerController {
             } else {
                 bomberman.setImg(Sprite.player_down.getFxImage());
             }
-//            bomberman.roundPosition(up, right);
-//            up = -1;
-//            right = -1;
         });
     }
 }
