@@ -60,9 +60,9 @@ public class PlayerController {
                     if (!duplicate) {
                         EntitySetManagement.bomberMan.addBomb(bomb);
                         Timer timerEx = new Timer();
-                        timerEx.schedule(timerTask, 2500);
+                        timerEx.schedule(timerTask, 2000);
                         Timer timerRev = new Timer();
-                        timerRev.schedule(timerTask1, 3000L);
+                        timerRev.schedule(timerTask1, 2500L);
                     }
                     break;
             }
