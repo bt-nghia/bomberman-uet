@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.player.bomb;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -10,18 +11,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomb extends Entity {
-    private boolean isVisible = true;
     private boolean exploded = false;
     private int flameLength = 2;
     public boolean passOver = true;
-    public int timeToExplode;
-
-    private List<Flame> allFlame = new ArrayList<>();
-    private List<Flame> flameUp = new ArrayList<>();
-    private List<Flame> flameDown = new ArrayList<>();
-    private List<Flame> flameLeft = new ArrayList<>();
-    private List<Flame> flameRight = new ArrayList<>();
-
+    public int timeToExplode = 0;
+    public List<Flame> allFlame = new ArrayList<>();
 
     public Bomb(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -29,73 +23,66 @@ public class Bomb extends Entity {
 
     @Override
     public void update() {
-
+        if(this.exploded) {
+            this.setImg(Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            if(this.timeToExplode == 1) {
+                this.timeToExplode++;
+                this.addFlameDFS();
+            }
+        } else {
+            if(this.timeToExplode == 0) {
+                this.timeToExplode++;
+                setTimeToExplode();
+            }
+            this.setImg(Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+        }
     }
 
-    public boolean isVisible() {
-        return isVisible;
+    public boolean exploded() {
+        return this.exploded;
     }
 
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
-
-    public void setExploded(boolean exploded) {
-        this.exploded = exploded;
+    public void setExplode(boolean explode) {
+        this.exploded = explode;
     }
 
     public void addFlameDFS() {
-        for(int i = 1; i <= flameLength; i++) {
-            if(checkBoundWall() || checkBoundBrick()) {
+        for (int i = 1; i <= flameLength; i++) {
+            if (checkBoundWall() || checkBoundBrick()) {
                 break;
             }
-            flameDown.add(new Flame(this.x, this.y + 1, Sprite.explosion_horizontal.getFxImage()));
+            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE+ i,
+                    Sprite.explosion_vertical.getFxImage()));
         }
 
-        for(int i = 1; i <= flameLength; i++) {
-            if(checkBoundWall() || checkBoundBrick()) {
+        for (int i = 1; i <= flameLength; i++) {
+            if (checkBoundWall() || checkBoundBrick()) {
                 break;
             }
-            flameUp.add(new Flame(this.x, this.y - 1, Sprite.explosion_horizontal.getFxImage()));
+            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE - i,
+                    Sprite.explosion_vertical.getFxImage()));
         }
 
-        for(int i = 1; i <= flameLength; i++) {
-            if(checkBoundWall() || checkBoundBrick()) {
+        for (int i = 1; i <= flameLength; i++) {
+            if (checkBoundWall() || checkBoundBrick()) {
                 break;
             }
-            flameRight.add(new Flame(this.x + 1, this.y, Sprite.explosion_vertical.getFxImage()));
+            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE + i, this.y/Sprite.SCALED_SIZE,
+                    Sprite.explosion_horizontal.getFxImage()));
         }
 
-        for(int i = 1; i <= flameLength; i++) {
-            if(checkBoundWall() || checkBoundBrick()) {
+        for (int i = 1; i <= flameLength; i++) {
+            if (checkBoundWall() || checkBoundBrick()) {
                 break;
             }
-            flameLeft.add(new Flame(this.x - 1, this.y, Sprite.explosion_vertical.getFxImage()));
+            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE - i, this.y/Sprite.SCALED_SIZE,
+                    Sprite.explosion_horizontal.getFxImage()));
         }
     }
 
     public List<Flame> getAllFlame() {
+        System.out.println(allFlame.size());
         return allFlame;
-    }
-
-    public List<Flame> getFlameUp() {
-        return flameUp;
-    }
-
-    public List<Flame> getFlameDown() {
-        return flameDown;
-    }
-
-    public List<Flame> getFlameLeft() {
-        return flameLeft;
-    }
-
-    public List<Flame> getFlameRight() {
-        return flameRight;
-    }
-
-    public void setExplode(boolean isVisible) {
-        this.isVisible = isVisible;
     }
 
     public void setPassOver(boolean passOver) {
@@ -111,7 +98,7 @@ public class Bomb extends Entity {
                 temp.setExplode(true);
             }
         };
-        if(this.isVisible) {
+        if (this.exploded) {
             Timer timer = new Timer();
             timer.schedule(timerTask, 2000L);
         }
@@ -119,7 +106,9 @@ public class Bomb extends Entity {
         TimerTask timerTask1 = new TimerTask() {
             @Override
             public void run() {
-
+                EntitySetManagement.removeBrick();
+                EntitySetManagement.removeBomb();
+                EntitySetManagement.removeEnemies();
             }
         };
 

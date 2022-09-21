@@ -13,13 +13,13 @@ import java.util.List;
 
 public class EntitySetManagement {
 
-//    public static List<Bomb> bombList = new ArrayList<>();
     public static List<Wall> wallList = new ArrayList<>();
     public static List<Grass> grassList = new ArrayList<>();
     public static List<Enemy> enemyList = new ArrayList<>();
     public static List<Brick> brickList = new ArrayList<>();
+    public static List<Bomber> bomberList = new ArrayList<>();
     public static Entity portal = null;
-    public static Bomber bomberManManagement = new Bomber(1, 1, Sprite.player_right.getFxImage());
+    public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
     public static void removeEnemies() {
         enemyList.removeIf(enemy -> !enemy.isAlive());
@@ -30,7 +30,7 @@ public class EntitySetManagement {
     }
 
     public static void removeBomb() {
-        Bomber.bombList.removeIf(Bomb::isVisible);
+        EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
     }
 
     public static void clearAll() {
@@ -38,6 +38,6 @@ public class EntitySetManagement {
         brickList.clear();
         grassList.clear();
         wallList.clear();
-//        bombList.clear();
+        bomberList.clear();
     }
 }

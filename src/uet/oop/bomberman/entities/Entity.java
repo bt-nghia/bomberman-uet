@@ -3,7 +3,6 @@ package uet.oop.bomberman.entities;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
@@ -17,6 +16,8 @@ public abstract class Entity {
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
+    public int animate;
+
     protected Image img;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
@@ -24,6 +25,7 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+        this.animate = 60;
     }
 
     public void render(GraphicsContext gc) {
@@ -78,7 +80,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBomb() {
-        for(Bomb bomb : Bomber.bombList) {
+        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
             if(this.intersect(bomb)) {return true;}
         }
         return false;
@@ -89,20 +91,20 @@ public abstract class Entity {
         int remainY = this.y % 32;
         switch (directionUp) {
             case 1:
-                this.y-=(remainY /*> 16*/) /*? remainY : 0*/;
+                this.y-=(remainY);
                 break;
             case 0:
-                this.y+=(32 - remainY /*> 16*/) /*? (32 - remainY) : 0*/;
+                this.y+=(32 - remainY);
                 break;
             default:
                 break;
         }
         switch (directionRight) {
             case 1:
-                this.x+=(32 - remainX /*> 16*/) /*? (32 - remainX) : 0*/;
+                this.x+=(32 - remainX);
                 break;
             case 0:
-                this.x-=(remainX /*> 16*/) /*? remainX : 0*/;
+                this.x-=remainX;
                 break;
             default:
                 break;

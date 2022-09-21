@@ -12,7 +12,10 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
+import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.player.Bomber;
+import uet.oop.bomberman.entities.player.bomb.Bomb;
+import uet.oop.bomberman.entities.player.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -68,26 +71,29 @@ public class BombermanGame extends Application {
         timer.start();
 
         Map.createMapByLevel(1);
-        Bomber bomberman = new Bomber(5, 5, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        Brick brick = new Brick(4, 4, Sprite.brick.getFxImage());
-        EntitySetManagement.brickList.add(brick);
-
-        PlayerController.bomberController(scene, bomberman);
+        PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
+        entities.add(new Flame(126, 32, Sprite.powerup_flames.getFxImage()));
+        entities.add(new Bomber(126, 32, Sprite.player_up_2.getFxImage()));
     }
 
     public void update() throws Exception {
-        entities.forEach(Entity::update);
+        EntitySetManagement.bomberMan.update();
+        EntitySetManagement.enemyList.forEach(Entity::update);
+        EntitySetManagement.grassList.forEach(Grass::update);
+        EntitySetManagement.brickList.forEach(Brick::update);
+        EntitySetManagement.bomberMan.bombList.forEach(Bomb::update);
+        EntitySetManagement.bomberMan.bombList.forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        stillObjects.forEach(g -> g.render(gc));
         EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
         EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
         EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
-        entities.forEach(g -> g.render(gc));
         EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
-        Bomber.bombList.forEach(bomb -> bomb.render(gc));
+        EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
+        EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
+        EntitySetManagement.bomberMan.render(gc);
+        entities.forEach(img -> img.render(gc));
     }
 }
