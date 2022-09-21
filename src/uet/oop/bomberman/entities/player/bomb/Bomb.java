@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class Bomb extends Entity {
     private boolean exploded = false;
-    private int flameLength = 2;
+    private int flameLength = 1;
     public boolean passOver = true;
     public int timeToExplode = 0;
     public List<Flame> allFlame = new ArrayList<>();
