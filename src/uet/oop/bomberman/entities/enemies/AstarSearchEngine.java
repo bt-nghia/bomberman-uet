@@ -5,7 +5,7 @@ import uet.oop.bomberman.BombermanGame;
 
 import java.util.*;
 
-public class Algorithm {
+public class AstarSearchEngine {
 
     private final static int ROW = 9;
     private final static int COL = 10;
@@ -42,26 +42,26 @@ public class Algorithm {
         return Math.sqrt(Math.abs(row - dest.getKey()) + Math.abs(col - dest.getValue()));
     }
 
-    private static void tracePath(cell[][] cellDetails, Pair<Integer, Integer> dest) {
-        System.out.print("PATH: ");
+    private static void tracePath(cell[][] cellDetails,Pair<Integer, Integer> src,  Pair<Integer, Integer> dest) {
+        System.out.println("PATH: ");
         int row = dest.getKey();
         int col = dest.getValue();
 
-        List<Pair<Integer, Integer>> pathStack = new ArrayList<>();
-        while (cellDetails[row][col].parentX != row && cellDetails[row][col].parentY != col) {
+        Stack<Pair<Integer, Integer>> pathStack = new Stack<>();
+        while (cellDetails[row][col].parentX != src.getKey() || cellDetails[row][col].parentY != src.getValue()) {
             pathStack.add(new Pair<>(row, col));
-            int tempCol = cellDetails[row][col].parentX;
-            int tempRow = cellDetails[row][col].parentY;
+            int tempRow = cellDetails[row][col].parentX;
+            int tempCol = cellDetails[row][col].parentY;
             row = tempRow;
             col = tempCol;
         }
 
-        pathStack.add(new Pair<>(row, col));
+        pathStack.push(new Pair<>(row, col));
+        pathStack.push(src);
         while (!pathStack.isEmpty()) {
-            Pair<Integer, Integer> node = pathStack.remove(pathStack.size()-1);
-            System.out.print("(" + node.getKey() + "," + node.getValue() + ")");
+            Pair<Integer, Integer> node = pathStack.pop();
+            System.out.println("(" + node.getKey() + "," + node.getValue() + ")");
         }
-
     }
 
     private static boolean pathProcessor(
@@ -78,8 +78,8 @@ public class Algorithm {
         if(isDestination(i, j, dest)) {
             cellDetails[i][j].parentX = pi;
             cellDetails[i][j].parentY = pj;
-//            tracePath(cellDetails, dest);
-            return true;// return isDest
+            // return isDest
+            return true;
         }
         if(!closedList[i][j] && isUnBlocked(grid, i, j)) {
             gx = cellDetails[i][j].g + 1.0;
@@ -163,7 +163,7 @@ public class Algorithm {
             if (isDest) {break;}
         }
         System.out.println("trace:\n");
-        tracePath(cellDetails, dest);
+        tracePath(cellDetails,new Pair<>(src.getKey(), src.getValue()), dest);
 
 
         System.out.println("\n" + "cell is");
