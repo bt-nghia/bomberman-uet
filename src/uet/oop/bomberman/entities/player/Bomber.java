@@ -24,7 +24,6 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-
     }
 
     public void setAlive(boolean alive) {
@@ -47,7 +46,7 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 45).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 60).getFxImage());
     }
 
     public void goDown() {
@@ -65,7 +64,7 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 45).getFxImage()));
+        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 60).getFxImage()));
     }
 
     public void goRight() {
@@ -83,7 +82,7 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 45).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 60).getFxImage());
     }
 
     public void goLeft() {
@@ -110,7 +109,7 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 45).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 60).getFxImage());
     }
 
     public boolean checkPortal() {

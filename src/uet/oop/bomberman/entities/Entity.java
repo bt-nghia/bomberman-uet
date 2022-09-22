@@ -61,8 +61,14 @@ public abstract class Entity {
         return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 
+    public static boolean checkIntersectDeep(Rectangle2D a, Rectangle2D b) {
+        if (b == null || a==null) return false;
+        return a.getMaxX() > b.getMinX() && a.getMaxY() > b.getMinY() && a.getMinX() < b.getMaxX() && a.getMinY() < b.getMaxY();
+    }
+
     public boolean intersect(Entity other) {
-        return other.getBoundary().intersects(this.getBoundary());
+//        return other.getBoundary().intersects(this.getBoundary());
+        return checkIntersectDeep(other.getBoundary(), this.getBoundary());
     }
 
     public boolean checkBoundBrick() {

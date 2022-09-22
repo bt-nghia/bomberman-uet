@@ -42,7 +42,7 @@ public class AstarSearchEngine {
         return Math.sqrt(Math.abs(row - dest.getKey()) + Math.abs(col - dest.getValue()));
     }
 
-    private static void tracePath(cell[][] cellDetails,Pair<Integer, Integer> src,  Pair<Integer, Integer> dest) {
+    private static void tracePath(cell[][] cellDetails, Pair<Integer, Integer> src,  Pair<Integer, Integer> dest) {
         System.out.println("PATH: ");
         int row = dest.getKey();
         int col = dest.getValue();
