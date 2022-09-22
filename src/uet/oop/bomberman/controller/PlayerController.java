@@ -42,7 +42,7 @@ public class PlayerController {
                     TimerTask timerTask = new TimerTask() {
                         @Override
                         public void run() {
-                            bomb.setImg(Sprite.bomb_exploded.getFxImage());
+                            bomb.setImg(Sprite.bomb_exploded2.getFxImage());
                             bomb.addFlameDFS();
                             bomb.setExplode(true);
                         }

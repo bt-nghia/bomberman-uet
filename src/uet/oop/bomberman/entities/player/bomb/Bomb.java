@@ -34,7 +34,8 @@ public class Bomb extends Entity {
                 this.timeToExplode++;
                 setTimeToExplode();
             }
-            this.setImg(Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+//            this.setImg(Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            this.setImg(Sprite.bomb.getFxImage());
         }
     }
 
@@ -48,35 +49,39 @@ public class Bomb extends Entity {
 
     public void addFlameDFS() {
         for (int i = 1; i <= flameLength; i++) {
-            if (checkBoundWall() || checkBoundBrick()) {
-                break;
-            }
-            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE+ i,
-                    Sprite.explosion_vertical.getFxImage()));
+            Flame flame = new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE + i,
+                    Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60, Sprite.SCALED_SIZE).getFxImage());
+//            if (flame.checkBoundWall() || flame.checkBoundBrick()) {
+//                break;
+//            }
+            this.allFlame.add(flame);
         }
 
         for (int i = 1; i <= flameLength; i++) {
-            if (checkBoundWall() || checkBoundBrick()) {
-                break;
-            }
-            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE - i,
-                    Sprite.explosion_vertical.getFxImage()));
+            Flame flame = new Flame(this.x/Sprite.SCALED_SIZE, this.y/Sprite.SCALED_SIZE - i,
+                    Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60, Sprite.SCALED_SIZE).getFxImage());
+//            if (flame.checkBoundWall() || flame.checkBoundBrick()) {
+//                break;
+//            }
+            this.allFlame.add(flame);
         }
 
         for (int i = 1; i <= flameLength; i++) {
-            if (checkBoundWall() || checkBoundBrick()) {
-                break;
-            }
-            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE + i, this.y/Sprite.SCALED_SIZE,
-                    Sprite.explosion_horizontal.getFxImage()));
+            Flame flame = new Flame(this.x/Sprite.SCALED_SIZE + i, this.y/Sprite.SCALED_SIZE,
+                    Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60, Sprite.SCALED_SIZE).getFxImage());
+//            if (flame.checkBoundWall() || flame.checkBoundBrick()) {
+//                break;
+//            }
+            this.allFlame.add(flame);
         }
 
         for (int i = 1; i <= flameLength; i++) {
-            if (checkBoundWall() || checkBoundBrick()) {
-                break;
-            }
-            this.allFlame.add(new Flame(this.x/Sprite.SCALED_SIZE - i, this.y/Sprite.SCALED_SIZE,
-                    Sprite.explosion_horizontal.getFxImage()));
+            Flame flame = new Flame(this.x/Sprite.SCALED_SIZE - i, this.y/Sprite.SCALED_SIZE,
+                    Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60, Sprite.SCALED_SIZE).getFxImage());
+//            if (flame.checkBoundWall() || flame.checkBoundBrick()) {
+//                break;
+//            }
+            this.allFlame.add(flame);
         }
     }
 
