@@ -17,7 +17,6 @@ public class EntitySetManagement {
     public static List<Grass> grassList = new ArrayList<>();
     public static List<Enemy> enemyList = new ArrayList<>();
     public static List<Brick> brickList = new ArrayList<>();
-    public static List<Bomber> bomberList = new ArrayList<>();
     public static Entity portal = null;
     public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
@@ -38,6 +37,5 @@ public class EntitySetManagement {
         brickList.clear();
         grassList.clear();
         wallList.clear();
-        bomberList.clear();
     }
 }
