@@ -101,11 +101,11 @@ public class Oneal extends Enemy {
         setImg(Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, keepMoving, 60).getFxImage());
     }
 
-    public Pair<Integer, Integer> nextPosition() {
-        return SearchEngine.aStarSearch(
-                Map.createMapByLevel(1),
-                new Pair<>(this.x / Sprite.SCALED_SIZE, this.y / Sprite.SCALED_SIZE),
-                new Pair<>(EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE, EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE)
-        );
-    }
+//    public Pair<Integer, Integer> nextPosition() {
+//        return SearchEngine.aStarSearch(
+//                Map.createMapByLevel(1),
+//                new Pair<>(this.x / Sprite.SCALED_SIZE, this.y / Sprite.SCALED_SIZE),
+//                new Pair<>(EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE, EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE)
+//        );
+//    }
 }
