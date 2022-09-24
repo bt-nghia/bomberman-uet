@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Map {
-    public static void createMapByLevel(int level) {
+    public static char[][] createMapByLevel(int level) {
         try {
             String path = "res/levels/Level" + level + ".txt";
             File file = new File(path);
@@ -34,8 +34,10 @@ public class Map {
             fillMapImage(map2D);
             fileReader.close();
             bufferedReader.close();
+            return map2D;
         } catch (Exception e) {
             System.out.println("map invalid: " + e.getMessage());
+            return null;
         }
     }
 

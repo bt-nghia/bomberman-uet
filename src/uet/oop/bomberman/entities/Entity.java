@@ -71,7 +71,6 @@ public abstract class Entity {
     }
 
     public boolean intersect(Entity other) {
-//        return other.getBoundary().intersects(this.getBoundary());
         return checkIntersectDeep(other.getBoundary(), this.getBoundary());
     }
 
@@ -92,6 +91,15 @@ public abstract class Entity {
     public boolean checkBoundBomb() {
         for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
             if(this.intersect(bomb)) {return true;}
+        }
+        return false;
+    }
+
+    public boolean checkBoundBombExplosion() {
+        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if(this.intersect(bomb) && bomb.exploded()) {
+                return true;
+            }
         }
         return false;
     }
@@ -135,5 +143,21 @@ public abstract class Entity {
         } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
+    }
+
+    public void goRight() {
+
+    }
+
+    public void goLeft() {
+
+    }
+
+    public void goDown() {
+
+    }
+
+    public void goUp() {
+
     }
 }
