@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomb extends Entity {
-    public int keepTransforming = 0;
+    private int keepTransforming = 0;
     private boolean exploded = false;
     private int flameLength;
     public boolean passOver = true;
@@ -34,7 +34,7 @@ public class Bomb extends Entity {
             keepTransforming = 0;
         }
         if (this.exploded) {
-            this.setImg(Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            this.setImg(Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, 90, Sprite.SCALED_SIZE).getFxImage());
             if (this.timeToExplode == 1) {
                 this.timeToExplode++;
                 this.addFlameDFS();
@@ -44,8 +44,7 @@ public class Bomb extends Entity {
                 this.timeToExplode++;
                 setTimeToExplode();
             }
-//            this.setImg(Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
-            this.setImg(Sprite.bomb.getFxImage());
+            this.setImg(Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, keepTransforming, 90).getFxImage());
         }
     }
 
@@ -114,7 +113,7 @@ public class Bomb extends Entity {
     }
 
     public List<Flame> getAllFlame() {
-        System.out.println(allFlame.size());
+//        System.out.println(allFlame.size());
         return allFlame;
     }
 

@@ -57,6 +57,10 @@ public abstract class Entity {
         this.img = img;
     }
 
+    public void setAnimate(int animate) {
+        this.animate = animate;
+    }
+
     public Rectangle2D getBoundary() {
         return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }

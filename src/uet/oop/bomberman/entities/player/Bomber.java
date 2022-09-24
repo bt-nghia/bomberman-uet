@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.player;
 
 import javafx.scene.image.Image;
+//import jdk.tools.jlink.internal.Platform;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
@@ -24,10 +25,24 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
+        if (!this.isAlive) {
+            setUpBomberDeath();
+//            EntitySetManagement.clearAll();
+//            try {
+//                Thread.sleep(3000);
+//                System.exit(0);
+//            } catch (Exception e) {
+//                System.out.println("thread not sleep");
+//            }
+        }
     }
 
     public void setAlive(boolean alive) {
         this.isAlive = alive;
+    }
+
+    public boolean isAlive() {
+        return this.isAlive;
     }
 
     // TODO: lam tron de player di chuyen chinh xac vao 1 o
@@ -149,9 +164,8 @@ public class Bomber extends Entity {
     }
 
     public void setUpBomberDeath() {
-        this.isAlive = false;
-        // set death animation
-        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, this.keepMoving, 60).getFxImage());
+        setImg(Sprite.player_dead3.getFxImage());
+//        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 60).getFxImage());
     }
 
     public void addBomb(Bomb bomb) {
