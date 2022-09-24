@@ -46,6 +46,7 @@ public class Bomber extends Entity {
     }
 
     // TODO: lam tron de player di chuyen chinh xac vao 1 o
+    @Override
     public void goUp() {
         PlayerController.up = 1;
         for (int i = 1; i <= this.speed; ++i) {
@@ -64,6 +65,7 @@ public class Bomber extends Entity {
         setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 60).getFxImage());
     }
 
+    @Override
     public void goDown() {
         PlayerController.up = 0;
         for (int i = 1; i <= this.speed; ++i) {
@@ -82,6 +84,7 @@ public class Bomber extends Entity {
         setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 60).getFxImage()));
     }
 
+    @Override
     public void goRight() {
         PlayerController.right = 1;
         for (int i = 1; i <= this.speed; ++i) {
@@ -100,6 +103,7 @@ public class Bomber extends Entity {
         setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 60).getFxImage());
     }
 
+    @Override
     public void goLeft() {
         PlayerController.right = 0;
         for (int i = 1; i <= this.speed; ++i) {

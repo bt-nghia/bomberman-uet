@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
@@ -15,6 +16,7 @@ public abstract class Enemy extends Entity {
     public static final int LEFT = 1;
     public static final int DOWN = 2;
     public static final int UP = 3;
+    private int keepMoving = 0;
 
     public int getSpeed() {
         return speed;

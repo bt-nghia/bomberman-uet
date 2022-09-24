@@ -1,17 +1,12 @@
 package uet.oop.bomberman.entities.enemies.searchengine;
 
 import javafx.util.Pair;
-import uet.oop.bomberman.BombermanGame;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.*;
 
 public class SearchEngine {
 
-    private final static int ROW = 9;
-    private final static int COL = 10;
+    private final static int ROW = 13;
+    private final static int COL = 31;
 
     static class cell {
         public int parentX = 0, parentY = 0;
@@ -34,7 +29,7 @@ public class SearchEngine {
     }
 
     private static boolean isUnBlocked(char[][] grid, int row, int col) {
-        return grid[row][col] == ' ';
+        return grid[row][col] == ' ' || grid[row][col] == 'p';
     }
 
     private static boolean isDestination(int row, int col, Pair<Integer, Integer> dest) {
@@ -45,7 +40,7 @@ public class SearchEngine {
         return Math.abs(row - dest.getKey()) + Math.abs(col - dest.getValue());
     }
 
-    private static void tracePath(cell[][] cellDetails, Pair<Integer, Integer> src,  Pair<Integer, Integer> dest) {
+    private static Pair<Integer, Integer> tracePath(cell[][] cellDetails, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
         System.out.println("PATH: ");
         int row = dest.getKey();
         int col = dest.getValue();
@@ -58,13 +53,10 @@ public class SearchEngine {
             row = tempRow;
             col = tempCol;
         }
-
         pathStack.push(new Pair<>(row, col));
-        pathStack.push(src);
-        while (!pathStack.isEmpty()) {
-            Pair<Integer, Integer> node = pathStack.pop();
-            System.out.println("(" + node.getKey() + "," + node.getValue() + ")");
-        }
+        Pair<Integer, Integer> node = pathStack.pop();
+        System.out.println("(" + node.getKey() + "," + node.getValue() + ")");
+        return node;
     }
 
     private static boolean pathProcessor(
@@ -81,7 +73,6 @@ public class SearchEngine {
         if(isDestination(i, j, dest)) {
             cellDetails[i][j].parentX = pi;
             cellDetails[i][j].parentY = pj;
-            // return isDest
             return true;
         }
         if(!closedList[i][j] && isUnBlocked(grid, i, j)) {
@@ -89,7 +80,6 @@ public class SearchEngine {
             hx = calculateHeuristicValue(i, j , dest);
             fx = hx + gx;
 
-            // fx < f -> update
             if(cellDetails[i][j].f == Double.MAX_VALUE || cellDetails[i][j].f > fx) {
                 openList.add(new Pair<>(fx, new Pair<>(i, j)));
                 // update cell
@@ -103,22 +93,22 @@ public class SearchEngine {
         return false;
     }
 
-    public static void aStarSearch(char[][] grid, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
+    public static Pair<Integer, Integer> aStarSearch(char[][] grid, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
         if(!isValid(src.getKey(), src.getValue())) {
             System.out.println("src invalid");
-            return;
+            return src;
         }
         if(!isValid(dest.getKey(), dest.getValue())) {
             System.out.println("dest invalid");
-            return;
+            return src;
         }
         if(!isUnBlocked(grid, dest.getKey(), dest.getValue()) || !isUnBlocked(grid, src.getKey(), src.getValue())) {
             System.out.println("src || dest blocked");
-            return;
+            return src;
         }
         if(isDestination(src.getKey(), src.getValue(), dest)) {
             System.out.println("src = dest");
-            return;
+            return src;
         }
         boolean[][] closedList = new boolean[ROW][COL];
         cell[][] cellDetails = new cell[ROW][COL];
@@ -166,16 +156,7 @@ public class SearchEngine {
             if (isDest) {break;}
         }
         System.out.println("trace:\n");
-        tracePath(cellDetails,new Pair<>(src.getKey(), src.getValue()), dest);
-
-
-        System.out.println("\n" + "cell is");
-        for(int ix = 0; ix < ROW; ix++) {
-            for(int jx = 0; jx < COL; jx++) {
-                System.out.print("cell pos:" + ix + " " + jx + " ");
-                System.out.println(cellDetails[ix][jx].toString());
-            }
-        }
+        return tracePath(cellDetails,new Pair<>(src.getKey(), src.getValue()), dest);
     }
 
     public static void bfsSearch(char[][] grid, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
@@ -183,41 +164,37 @@ public class SearchEngine {
     }
 
 
-    public static void main(String[] args) {
-        int level = 1;
-        try {
-            String path = "res/levels/Level" + level + ".txt";
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine().trim();
-            String[] str = line.split("\\s+");
-            // str[0] -> level
-            BombermanGame.HEIGHT = Integer.parseInt(str[1]);
-            BombermanGame.WIDTH = Integer.parseInt(str[2]);
-            char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
-
-            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
-                line = bufferedReader.readLine();
-                for (int j = 0; j < BombermanGame.WIDTH; j++) {
-                    map2D[i][j] = line.charAt(j);
-                }
-            }
-            for(int i = 0; i < BombermanGame.HEIGHT; i++) {
-                for(int j = 0; j < BombermanGame.WIDTH; j++) {
-//                    if(i==11 && j==13) {System.out.print("$");}
-//                    else if(i==4 && j==7) {
-//                        System.out.print("!");
-//                    }
-//                    else
-                        System.out.print(map2D[i][j]);
-                }
-                System.out.println();
-            }
-            System.out.println("src" + "(" + map2D[11][13]+ ")");
-            aStarSearch(map2D, new Pair<>(11, 13), new Pair<>(4, 7));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public static void main(String[] args) {
+//        int level = 1;
+//        try {
+//            String path = "res/levels/Level" + level + ".txt";
+//            File file = new File(path);
+//            FileReader fileReader = new FileReader(file);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            String line = bufferedReader.readLine().trim();
+//            String[] str = line.split("\\s+");
+//            // str[0] -> level
+//            BombermanGame.HEIGHT = Integer.parseInt(str[1]);
+//            BombermanGame.WIDTH = Integer.parseInt(str[2]);
+//            char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+//
+//            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+//                line = bufferedReader.readLine();
+//                for (int j = 0; j < BombermanGame.WIDTH; j++) {
+//                    map2D[i][j] = line.charAt(j);
+//                }
+//            }
+//            for(int i = 0; i < BombermanGame.HEIGHT; i++) {
+//                for(int j = 0; j < BombermanGame.WIDTH; j++) {
+//                        System.out.print(map2D[i][j]);
+//                }
+//                System.out.println();
+//            }
+//            System.out.println("src" + "(" + map2D[11][13]+ ")");
+//            Pair<Integer, Integer> pair = aStarSearch(map2D, new Pair<>(5,7), new Pair<>(1, 2));
+//            System.out.println("(" + pair.getKey() + "," + pair.getValue() + ")");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 }

@@ -54,7 +54,7 @@ public class Flame extends Entity {
 
     private void destroyFlameEnemy() {
         for (Enemy enemy : EntitySetManagement.enemyList) {
-            if(this.intersect(enemy)) {
+            if(this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
                 enemy.setAlive(false);
             }
         }

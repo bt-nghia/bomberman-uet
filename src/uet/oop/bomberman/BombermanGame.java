@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
@@ -74,6 +75,7 @@ public class BombermanGame extends Application {
         PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
         entities.add(new Flame(126, 32, Sprite.powerup_flames.getFxImage()));
         entities.add(new Bomber(126, 32, Sprite.player_up_2.getFxImage()));
+        EntitySetManagement.enemyList.add(new Oneal(5, 7, Sprite.oneal_right1.getFxImage()));
     }
 
     public void update() throws Exception {
@@ -87,10 +89,10 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
         EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
         EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
         EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
+        EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
         EntitySetManagement.bomberMan.render(gc);
