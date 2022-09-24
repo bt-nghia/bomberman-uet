@@ -10,6 +10,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame extends Entity {
     private boolean isVisible = true;
+//    private int keepTransforming = 0;
 
     public Flame(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -21,6 +22,9 @@ public class Flame extends Entity {
         destroyFlameEnemy();
         checkFlameWall();
         checkBomber();
+//        keepTransforming++;
+//        if(keepTransforming > 100) {keepTransforming = 0;}
+//        setAnimate(keepTransforming);
     }
 
     public void setVisible(boolean visible) {
@@ -59,7 +63,11 @@ public class Flame extends Entity {
     private void checkBomber() {
         if (this.intersect(EntitySetManagement.bomberMan)) {
             EntitySetManagement.bomberMan.setAlive(false);
-            setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+        }
+        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if(bomb.intersect(EntitySetManagement.bomberMan)) {
+                EntitySetManagement.bomberMan.setAlive(false);
+            }
         }
     }
 }
