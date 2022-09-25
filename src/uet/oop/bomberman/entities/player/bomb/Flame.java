@@ -22,9 +22,6 @@ public class Flame extends Entity {
         destroyFlameEnemy();
         checkFlameWall();
         checkBomber();
-//        keepTransforming++;
-//        if(keepTransforming > 100) {keepTransforming = 0;}
-//        setAnimate(keepTransforming);
     }
 
     public void setVisible(boolean visible) {

@@ -2,6 +2,8 @@ package uet.oop.bomberman.entities.map;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.enemies.Balloom;
+import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
@@ -12,7 +14,9 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Map {
-    public static char[][] createMapByLevel(int level) {
+    public static char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+
+    public static void createMapByLevel(int level) {
         try {
             String path = "res/levels/Level" + level + ".txt";
             File file = new File(path);
@@ -23,8 +27,6 @@ public class Map {
             // str[0] -> level
             BombermanGame.HEIGHT = Integer.parseInt(str[1]);
             BombermanGame.WIDTH = Integer.parseInt(str[2]);
-            char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
-
             for (int i = 0; i < BombermanGame.HEIGHT; i++) {
                 line = bufferedReader.readLine();
                 for (int j = 0; j < BombermanGame.WIDTH; j++) {
@@ -34,10 +36,8 @@ public class Map {
             fillMapImage(map2D);
             fileReader.close();
             bufferedReader.close();
-            return map2D;
         } catch (Exception e) {
             System.out.println("map invalid: " + e.getMessage());
-            return null;
         }
     }
 
@@ -56,16 +56,37 @@ public class Map {
                     EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                 }
 
+//                if (map2D[i][j] == '2') {
+//                    EntitySetManagement.enemyList.add(new Oneal(j, i, Sprite.oneal_right1.getFxImage()));
+//                }
+//                if(map2D[i][j] == '1') {
+//                    EntitySetManagement.enemyList.add(new Balloom(j, i, Sprite.balloom_left1.getFxImage()));
+//                }
                 // portal behind the brick->render before that brick
                 switch (map2D[i][j]) {
-                    case '*':
-                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+//                    case '*':
+//                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+//                        break;
+//                    // monster case ...
+                    case '6':
+                        EntitySetManagement.wallList.add(new Wall(j, i, Sprite.wall.getFxImage()));
                         break;
-                    // monster case ...
+                    case '8':
+                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                     default:
                         break;
                 }
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        createMapByLevel(2);
+        for(int i = 0; i < 15; i++) {
+            for(int j = 0; j < 29; j++) {
+                System.out.print(map2D[i][j]);
+            }
+            System.out.println();
         }
     }
 }
