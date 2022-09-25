@@ -2,6 +2,7 @@ package uet.oop.bomberman.controller;
 
 import javafx.scene.Scene;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
@@ -32,6 +33,7 @@ public class PlayerController {
                 case "SPACE":
                     Bomb bomb = new Bomb(bomberman.getX() / Sprite.SCALED_SIZE, bomberman.getY() / Sprite.SCALED_SIZE, Sprite.bomb_2.getFxImage())  ;
                     // check duplicate bomb
+                    Map.map2D[bomb.getY()/32][bomb.getX()/32] = '6';
                     boolean duplicate = false;
                     for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
                         if (bombExist.intersect(bomb)) {

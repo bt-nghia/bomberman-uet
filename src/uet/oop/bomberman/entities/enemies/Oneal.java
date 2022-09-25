@@ -9,6 +9,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 public class Oneal extends Enemy {
+    int slow = 0;
     int keepMoving = 0;
 
     public Oneal(int x, int y, Image img) {
@@ -17,34 +18,41 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-//        Pair<Integer, Integer> pair = nextPosition();
-//        int tx = this.y / Sprite.SCALED_SIZE;
-//        int ty = this.x / Sprite.SCALED_SIZE;
-//
-//
-//        if (tx > pair.getValue()) {
-//            moveLeft();
-//        }
-//        if (tx < pair.getValue()) {
-//            moveRight();
-//        }
-//        if (ty > pair.getKey()) {
-//            moveUp();
-//        }
-//        if (ty < pair.getKey()) {
-//            moveDown();
-//        }
+        keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
+        System.out.println("pos: " + this.y/32 + " " + this.x/32);
+        int destRow = EntitySetManagement.bomberMan.getY()/Sprite.SCALED_SIZE;
+        int destCol = EntitySetManagement.bomberMan.getX()/Sprite.SCALED_SIZE;
+
+        Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
+        slow = slow > 100 ? 0 : slow+1;
+        if(this.y < pair.getKey() * 32) {
+            if(slow % 2 == 0) {
+                goDown();
+            }
+        }
+        if(this.y > pair.getKey() * 32) {
+            if(slow % 2 == 0) {
+                goUp();
+            }
+        }
+        if(this.x > pair.getValue() * 32) {
+            if(slow % 2 == 0) {
+                goLeft();
+            }
+        }
+        if(this.x < pair.getValue() * 32) {
+            if (slow % 2 == 0) {
+                goRight();
+            }
+        }
     }
 
     @Override
     public void goUp() {
-        if (keepMoving > 100) {
-            keepMoving = 0;
-        }
-        keepMoving++;
-        for (int i = 0; i < 32; i++) {
+        System.out.println("u");
+        for (int i = 0; i < 2; i++) {
             this.y--;
-            if (checkBoundBomb() || checkBoundBrick() || checkBoundBrick()) {
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 this.y++;
                 break;
             }
@@ -54,11 +62,8 @@ public class Oneal extends Enemy {
 
     @Override
     public void goRight() {
-        if (keepMoving > 100) {
-            keepMoving = 0;
-        }
-        keepMoving++;
-        for (int i = 0; i < 32; i++) {
+        System.out.println("r");
+        for (int i = 0; i < 2; i++) {
             this.x++;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
                 this.x--;
@@ -70,12 +75,8 @@ public class Oneal extends Enemy {
 
     @Override
     public void goLeft() {
-        if (keepMoving > 100) {
-            keepMoving = 0;
-        }
-        keepMoving++;
-        this.x -= 5;
-        for (int i = 0; i < 32; i++) {
+        System.out.println("l");
+        for (int i = 0; i < 2; i++) {
             this.x--;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
                 this.x++;
@@ -87,13 +88,10 @@ public class Oneal extends Enemy {
 
     @Override
     public void goDown() {
-        if (keepMoving > 100) {
-            keepMoving = 0;
-        }
-        keepMoving++;
-        for (int i = 0; i < 32; i++) {
+        System.out.println("d");
+        for (int i = 0; i < 2; i++) {
             this.y++;
-            if (checkBoundBomb() || checkBoundBrick() || checkBoundBrick()) {
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 this.y--;
                 break;
             }
@@ -101,11 +99,11 @@ public class Oneal extends Enemy {
         setImg(Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, keepMoving, 60).getFxImage());
     }
 
-//    public Pair<Integer, Integer> nextPosition() {
-//        return SearchEngine.aStarSearch(
-//                Map.createMapByLevel(1),
-//                new Pair<>(this.x / Sprite.SCALED_SIZE, this.y / Sprite.SCALED_SIZE),
-//                new Pair<>(EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE, EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE)
-//        );
-//    }
+    public Pair<Integer, Integer> nextPosition(int row, int col) {
+        return SearchEngine.aStarSearch(
+                Map.map2D,
+                new Pair<>(this.y / Sprite.SCALED_SIZE, this.x / Sprite.SCALED_SIZE),
+                new Pair<>(row, col)
+        );
+    }
 }

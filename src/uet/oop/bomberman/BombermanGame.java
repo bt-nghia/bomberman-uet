@@ -14,7 +14,6 @@ import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
-import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.entities.player.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
@@ -26,19 +25,17 @@ import java.util.List;
 public class BombermanGame extends Application {
 
     // fix map size
-    public static int WIDTH = 31;
-    public static int HEIGHT = 13;
+    public static int WIDTH = 29;
+    public static int HEIGHT = 15;
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
 
 
     public static void main(String[] args) {
-        Sound.playSound("StarWars60");
+//        Sound.playSound("StarWars60");
         Application.launch(BombermanGame.class);
-        Sound.stopSound("StarWars60");
+//        Sound.stopSound("StarWars60");
     }
 
     @Override
@@ -70,11 +67,8 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
-        Map.createMapByLevel(1);
+        Map.createMapByLevel(2);
         PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
-        entities.add(new Flame(126, 32, Sprite.powerup_flames.getFxImage()));
-        entities.add(new Bomber(126, 32, Sprite.player_up_2.getFxImage()));
         EntitySetManagement.enemyList.add(new Oneal(5, 7, Sprite.oneal_right1.getFxImage()));
     }
 
@@ -96,6 +90,5 @@ public class BombermanGame extends Application {
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
         EntitySetManagement.bomberMan.render(gc);
-        entities.forEach(img -> img.render(gc));
     }
 }
