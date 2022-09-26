@@ -6,6 +6,8 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.util.Random;
 
 public class Kondorian extends Enemy{
+    private int keepMoving = 1;
+    private int lastMove = 1;
 
     public Kondorian(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -13,63 +15,83 @@ public class Kondorian extends Enemy{
 
     @Override
     public void update() {
-//        if (isAlive()) {
-//            if (this.getSpeedX() == 0) {
-//                this.y += this.getSpeedY();
-//                if (checkBoundWall() || checkBoundBomb() || getY() % Sprite.SCALED_SIZE == 0) {
-//                    if (getY() % Sprite.SCALED_SIZE != 0) {
-//                        this.y -= this.getSpeedY();
-//                    }
-////                    this.randomDirection();
-//                }
-//            } else {
-//                this.x += this.getSpeedX();
-//                if (checkBoundBomb() || checkBoundWall() || getX() % Sprite.SCALED_SIZE == 0) {
-//                    if (getX() % Sprite.SCALED_SIZE != 0) {
-//                        this.x -= this.getSpeedX();
-//                    }
-////                    this.randomDirection();
-//                }
-//            }
-//        } else {
-////            this.img = Sprite.kondoria_die.getFxImage();
-//        }
-//        if (isAlive()) {
-//            if (this.getSpeedX() > 0) {
-//                this.img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2
-//                        , Sprite.kondoria_right3, this.x, Sprite.DEFAULT_SIZE).getFxImage();
-//            } else if (this.getSpeedX() < 0){
-//                this.img = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2
-//                        , Sprite.kondoria_left3, this.x, Sprite.DEFAULT_SIZE).getFxImage();
-//            } else if (this.getSpeedY() > 0) {
-//                this.img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2
-//                        , Sprite.kondoria_right3, this.y, Sprite.DEFAULT_SIZE).getFxImage();
-//            } else {
-//                this.img = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2
-//                        , Sprite.kondoria_left3, this.y, Sprite.DEFAULT_SIZE).getFxImage();
-//            }
-//        } else {
-////            this.img = Sprite.kondoria_die.getFxImage();
-//        }
-        int randomDirection = randomMove();
-        switch (randomDirection) {
+        if(keepMoving == 32) {
+            lastMove = randomMove();
+            keepMoving = 0;
+        }
+        keepMoving++;
+        switch (lastMove) {
             case 1:
-                goDown();
+                goUp();
                 break;
             case 2:
-                goLeft();
+                goDown();
                 break;
             case 3:
                 goRight();
                 break;
-            case 4:
-                goUp();
+            default:
+                goLeft();
                 break;
         }
     }
 
     public int randomMove() {
-        return (int) ((Math.random() * (4 - 1)) + 1);
+        Random rand = new Random();
+        int direction = rand.nextInt(4) + 1;
+        return direction;
+    }
+
+    @Override
+    public void goUp() {
+//        System.out.println("u");
+        for (int i = 0; i < 1; i++) {
+            this.y--;
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.y++;
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, keepMoving, 60).getFxImage());
+    }
+
+    @Override
+    public void goRight() {
+//        System.out.println("r");
+        for (int i = 0; i < 1; i++) {
+            this.x++;
+            if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
+                this.x--;
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, keepMoving, 60).getFxImage());
+    }
+
+    @Override
+    public void goLeft() {
+//        System.out.println("l");
+        for (int i = 0; i < 1; i++) {
+            this.x--;
+            if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
+                this.x++;
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, keepMoving, 60).getFxImage());
+    }
+
+    @Override
+    public void goDown() {
+//        System.out.println("d");
+        for (int i = 0; i < 1; i++) {
+            this.y++;
+            if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                this.y--;
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, keepMoving, 60).getFxImage());
     }
 
 }

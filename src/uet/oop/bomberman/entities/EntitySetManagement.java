@@ -25,7 +25,7 @@ public class EntitySetManagement {
     }
 
     public static void removeBrick() {
-        brickList.removeIf(Brick::isBroken);
+        brickList.removeIf(Brick::countDownEnd);
     }
 
     public static void removeBomb() {

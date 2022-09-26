@@ -16,7 +16,6 @@ public abstract class Enemy extends Entity {
     public static final int LEFT = 1;
     public static final int DOWN = 2;
     public static final int UP = 3;
-    private int keepMoving = 0;
 
     public int getSpeed() {
         return speed;
@@ -54,35 +53,35 @@ public abstract class Enemy extends Entity {
         super(xUnit, yUnit, img);
     }
 
-    public void generateRandomDirection() {
-        Random rand = new Random();
-        int direction = rand.nextInt(4);
-        switch (direction) {
-            case RIGHT:
-                this.speedX = this.getSpeed();
-                this.speedY = 0;
-                break;
-            case LEFT:
-                this.speedX = this.getSpeed() * -1;
-                this.speedY = 0;
-                break;
-            case UP:
-                this.speedY = this.getSpeed();
-                this.speedX = 0;
-                break;
-            case DOWN:
-                this.speedY = this.getSpeed() * -1;
-                this.speedX = 0;
-                break;
-        }
-    }
-
-    public void generateRandomSpeed() {
-        Random rand = new Random();
-        this.speed = rand.nextInt(1) + 1;
-    }
-
-    public void chaseBomber() {
-
-    }
+//    public void generateRandomDirection() {
+//        Random rand = new Random();
+//        int direction = rand.nextInt(4);
+//        switch (direction) {
+//            case RIGHT:
+//                this.speedX = this.getSpeed();
+//                this.speedY = 0;
+//                break;
+//            case LEFT:
+//                this.speedX = this.getSpeed() * -1;
+//                this.speedY = 0;
+//                break;
+//            case UP:
+//                this.speedY = this.getSpeed();
+//                this.speedX = 0;
+//                break;
+//            case DOWN:
+//                this.speedY = this.getSpeed() * -1;
+//                this.speedX = 0;
+//                break;
+//        }
+//    }
+//
+//    public void generateRandomSpeed() {
+//        Random rand = new Random();
+//        this.speed = rand.nextInt(1) + 1;
+//    }
+//
+//    public void chaseBomber() {
+//
+//    }
 }

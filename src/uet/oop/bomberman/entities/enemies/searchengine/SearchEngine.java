@@ -47,7 +47,7 @@ public class SearchEngine {
     }
 
     private static Pair<Integer, Integer> tracePath(cell[][] cellDetails, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
-        System.out.println("PATH: ");
+//        System.out.println("PATH: ");
         int row = dest.getKey();
         int col = dest.getValue();
 
@@ -62,14 +62,14 @@ public class SearchEngine {
         pathStack.push(new Pair<>(row, col));
         if (!pathStack.isEmpty()) {
             Pair<Integer, Integer> node = pathStack.pop();
-            System.out.println("(" + node.getKey() + "," + node.getValue() + ")");
+//            System.out.println("(" + node.getKey() + "," + node.getValue() + ")");
             return node;
         }
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                System.out.println(i + " " + j + " " + cellDetails[i][j].toString());
-            }
-        }
+//        for (int i = 0; i < ROW; i++) {
+//            for (int j = 0; j < COL; j++) {
+//                System.out.println(i + " " + j + " " + cellDetails[i][j].toString());
+//            }
+//        }
         return src;
     }
 
@@ -114,19 +114,19 @@ public class SearchEngine {
 
     public static Pair<Integer, Integer> aStarSearch(char[][] grid, Pair<Integer, Integer> src, Pair<Integer, Integer> dest) {
         if (!isValid(src.getKey(), src.getValue())) {
-            System.out.println("src invalid");
+//            System.out.println("src invalid");
             return src;
         }
         if (!isValid(dest.getKey(), dest.getValue())) {
-            System.out.println("dest invalid");
+//            System.out.println("dest invalid");
             return src;
         }
         if (!isUnBlocked(grid, dest.getKey(), dest.getValue()) || !isUnBlocked(grid, src.getKey(), src.getValue())) {
-            System.out.println("src || dest blocked");
+//            System.out.println("src || dest blocked");
             return src;
         }
         if (isDestination(src.getKey(), src.getValue(), dest)) {
-            System.out.println("src = dest");
+//            System.out.println("src = dest");
             return src;
         }
         boolean[][] closedList = new boolean[ROW][COL];
@@ -206,7 +206,7 @@ public class SearchEngine {
                 break;
             }
         }
-        System.out.println("trace:\n");
+//        System.out.println("trace:\n");
         return tracePath(cellDetails, new Pair<>(src.getKey(), src.getValue()), dest);
     }
 
