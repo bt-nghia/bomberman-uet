@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 public class Brick extends Entity {
     private int keepMoving = 0;
+    private int countDown = 25;
 
     private boolean isBroken = false;
 
@@ -22,6 +23,10 @@ public class Brick extends Entity {
 
     public Brick(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
+    }
+
+    public boolean countDownEnd() {
+        return this.countDown <= 0;
     }
 
     public void setDestroyedImg() {
@@ -44,6 +49,7 @@ public class Brick extends Entity {
     @Override
     public void update() {
         if (this.isBroken) {
+            this.countDown--;
             setDestroyedImg();
         }
     }

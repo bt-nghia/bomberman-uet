@@ -53,7 +53,7 @@ public class PlayerController {
                     TimerTask timerTask1 = new TimerTask() {
                         @Override
                         public void run() {
-                            EntitySetManagement.brickList.removeIf(Brick::isBroken);
+                            EntitySetManagement.brickList.removeIf(Brick::countDownEnd);
                             EntitySetManagement.bomberMan.removeBomb(bomb);
                             EntitySetManagement.removeEnemies();
                         }

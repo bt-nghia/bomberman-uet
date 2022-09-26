@@ -14,6 +14,7 @@ import java.util.List;
 
 public class Bomber extends Entity {
 
+    private int countDownDes = 2500;
     private int speed = Sprite.SCALED_SIZE / 8;
     private boolean isAlive = true;
     private int keepMoving = 0;
@@ -23,9 +24,15 @@ public class Bomber extends Entity {
         super(x, y, img);
     }
 
+    public boolean timeSup() {
+        if(countDownDes == 0) {return true;}
+        return false;
+    }
+
     @Override
     public void update() {
         if (!this.isAlive) {
+            countDownDes--;
             setUpBomberDeath();
 //            EntitySetManagement.clearAll();
 //            try {
