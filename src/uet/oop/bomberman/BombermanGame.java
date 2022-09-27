@@ -11,6 +11,7 @@ import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Kondorian;
+import uet.oop.bomberman.entities.enemies.Minvo;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
@@ -18,10 +19,6 @@ import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.entities.player.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.sound.Sound;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BombermanGame extends Application {
 
@@ -71,7 +68,8 @@ public class BombermanGame extends Application {
         Map.createMapByLevel(2);
         PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
         EntitySetManagement.enemyList.add(new Oneal(5, 7, Sprite.oneal_right1.getFxImage()));
-        EntitySetManagement.enemyList.add(new Kondorian(6,7,Sprite.kondoria_right1.getFxImage()));
+        EntitySetManagement.enemyList.add(new Kondorian(6, 7, Sprite.kondoria_right1.getFxImage()));
+        EntitySetManagement.enemyList.add(new Minvo(6, 9, Sprite.minvo_right1.getFxImage()));
     }
 
     public void update() throws Exception {

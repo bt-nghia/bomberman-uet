@@ -11,6 +11,11 @@ public class Minvo extends Enemy {
 
     @Override
     public void update() {
+        keepMoving++;
+        if(keepMoving > 1000) {
+            keepMoving = 0;
+        }
+        this.generateRandomSpeed();
         if (isAlive()) {
             if (this.getSpeedX() == 0) {
                 this.y += this.getSpeedY();
@@ -18,7 +23,7 @@ public class Minvo extends Enemy {
                     if (getY() % Sprite.SCALED_SIZE != 0) {
                         this.y -= this.getSpeedY();
                     }
-//                    this.randomDirection();
+                    this.generateRandomDirection();
                 }
             } else {
                 this.x += this.getSpeedX();
@@ -26,12 +31,11 @@ public class Minvo extends Enemy {
                     if (getX() % Sprite.SCALED_SIZE != 0) {
                         this.x -= this.getSpeedX();
                     }
-//                    this.randomDirection();
+                    this.generateRandomDirection();
                 }
             }
         } else {
-//            this.setImg(Sprite.movingSprite(Sprite.enemy_die1, Sprite.enemy_die2, Sprite.enemy_die3
-//                    , this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+            this.setImg(Sprite.minvo_dead.getFxImage());
         }
         if (isAlive()) {
             if (this.getSpeedX() > 0) {
@@ -48,7 +52,7 @@ public class Minvo extends Enemy {
                         , Sprite.minvo_left3, this.y, Sprite.DEFAULT_SIZE).getFxImage();
             }
         } else {
-//            this.img = Sprite.minvo_die.getFxImage();
+            this.img = Sprite.minvo_dead.getFxImage();
         }
     }
 }

@@ -8,9 +8,10 @@ import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Flame extends Entity {
-    private boolean isVisible = true;
-//    private int keepTransforming = 0;
 
     public Flame(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -24,14 +25,9 @@ public class Flame extends Entity {
         checkBomber();
     }
 
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
-
     private boolean checkFlameBrick() {
         for (Brick brick : EntitySetManagement.brickList) {
             if (this.intersect(brick)) {
-                this.isVisible = false;
                 brick.setBroken(true);
                 return true;
             }
@@ -42,7 +38,6 @@ public class Flame extends Entity {
     private boolean checkFlameWall() {
         for (Wall wall : EntitySetManagement.wallList) {
             if (this.intersect(wall)) {
-                this.isVisible = false;
                 return true;
             }
         }

@@ -112,28 +112,24 @@ public class Bomb extends Entity {
     public void setTimeToExplode() {
         Bomb temp = this;
 
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                temp.setExplode(true);
-            }
-        };
-        if (this.exploded) {
-            Timer timer = new Timer();
-            timer.schedule(timerTask, 2000L);
-        }
-
         TimerTask timerTask1 = new TimerTask() {
             @Override
             public void run() {
-                EntitySetManagement.removeBrick();
                 EntitySetManagement.removeBomb();
                 EntitySetManagement.removeEnemies();
             }
         };
 
+        TimerTask timerTask2 = new TimerTask() {
+            @Override
+            public void run() {
+                EntitySetManagement.removeBrick();
+            }
+        };
+
         Timer timer = new Timer();
         timer.schedule(timerTask1, 2500L);
+        timer.schedule(timerTask2, 2700L);
 
     }
 
@@ -144,6 +140,7 @@ public class Bomb extends Entity {
             keepTransforming = 0;
         }
         if (this.exploded) {
+            // remove obstacle in map 0 -> grass
             Map.map2D[this.getY()/32][this.getX()/32] = '0';
             this.setImg(Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, 90, Sprite.SCALED_SIZE).getFxImage());
             if (this.timeToExplode == 1) {
