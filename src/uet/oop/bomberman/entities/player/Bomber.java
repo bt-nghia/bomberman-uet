@@ -22,6 +22,8 @@ public class Bomber extends Entity {
     public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
 
+    public static int flameLength = 1;
+
     public int getNumberOfBomb() {
         return numberOfBomb;
     }

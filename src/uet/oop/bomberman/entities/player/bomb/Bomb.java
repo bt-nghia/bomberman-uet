@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Bomb extends Entity {
 
     public Bomb(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
+        this.flameLength = Bomber.flameLength;
     }
 
     public void setFlameLength(int flameLength) {
