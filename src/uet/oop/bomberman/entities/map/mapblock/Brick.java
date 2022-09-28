@@ -2,14 +2,11 @@ package uet.oop.bomberman.entities.map.mapblock;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.graphics.Sprite;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Brick extends Entity {
     private int keepMoving = 0;
-    private int countDown = 25;
 
     private boolean isBroken = false;
 
@@ -25,32 +22,39 @@ public class Brick extends Entity {
         super(xUnit, yUnit, img);
     }
 
-    public boolean countDownEnd() {
-        return this.countDown <= 0;
-    }
 
     public void setDestroyedImg() {
-        keepMoving++;
-        setImg(Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, keepMoving, Sprite.SCALED_SIZE).getFxImage());
-    }
-
-    public void delayRemoveWall() {
-        TimerTask time = new TimerTask() {
-            @Override
-            public void run() {
-                setDestroyedImg();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(time, 0);
-        this.isBroken = true;
+        this.keepMoving++;
+        this.setImg(
+                Sprite.movingSprite(
+                        Sprite.brick_exploded,
+                        Sprite.brick_exploded1,
+                        Sprite.brick_exploded2,
+                        keepMoving,
+                        Sprite.SCALED_SIZE
+                ).getFxImage());
     }
 
     @Override
     public void update() {
-        if (this.isBroken) {
-            this.countDown--;
-            setDestroyedImg();
+        keepMoving++;
+        if (keepMoving > 100) {
+            keepMoving = 0;
         }
+        if (isBroken) {
+            // add item handle
+            this.setImg(
+                    Sprite.movingSprite(
+                            Sprite.brick_exploded,
+                            Sprite.brick_exploded1,
+                            Sprite.brick_exploded2,
+                            keepMoving,
+                            30
+                    ).getFxImage());
+        }
+    }
+
+    public void removeBroken() {
+        EntitySetManagement.brickList.removeIf(Brick::isBroken);
     }
 }

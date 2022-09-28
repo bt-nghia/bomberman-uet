@@ -1,47 +1,41 @@
 package uet.oop.bomberman.entities.player;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-//import jdk.tools.jlink.internal.Platform;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Bomber extends Entity {
-
-    private int countDownDes = 2500;
     private int speed = Sprite.SCALED_SIZE / 8;
     private boolean isAlive = true;
     private int keepMoving = 0;
     public List<Bomb> bombList = new ArrayList<>();
+    private int numberOfBomb = 1;
 
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
-    }
-
-    public boolean timeSup() {
-        if(countDownDes == 0) {return true;}
-        return false;
+    public Bomber(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
     }
 
     @Override
     public void update() {
         if (!this.isAlive) {
-            countDownDes--;
             setUpBomberDeath();
-//            EntitySetManagement.clearAll();
-//            try {
-//                Thread.sleep(3000);
-//                System.exit(0);
-//            } catch (Exception e) {
-//                System.out.println("thread not sleep");
-//            }
         }
+    }
+
+    public void render(GraphicsContext gc) {
+//        gc.drawImage(this.img, x + 2, y - 2);
+        gc.drawImage(this.img, x, y);
     }
 
     public void setAlive(boolean alive) {
@@ -69,7 +63,12 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.player_up,
+                Sprite.player_up_1,
+                Sprite.player_up_2,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     @Override
@@ -88,7 +87,12 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg((Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, keepMoving, 60).getFxImage()));
+        setImg((Sprite.movingSprite(
+                Sprite.player_down,
+                Sprite.player_down_1,
+                Sprite.player_down_2,
+                keepMoving, 60
+        ).getFxImage()));
     }
 
     @Override
@@ -107,7 +111,12 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.player_right,
+                Sprite.player_right_1,
+                Sprite.player_right_2,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     @Override
@@ -135,7 +144,12 @@ public class Bomber extends Entity {
         if (keepMoving > 100) {
             keepMoving = 0;
         }
-        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.player_left,
+                Sprite.player_left_1,
+                Sprite.player_left_2,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     public boolean checkPortal() {
@@ -175,8 +189,7 @@ public class Bomber extends Entity {
     }
 
     public void setUpBomberDeath() {
-        setImg(Sprite.player_dead3.getFxImage());
-//        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 60).getFxImage());
     }
 
     public void addBomb(Bomb bomb) {
@@ -185,5 +198,37 @@ public class Bomber extends Entity {
 
     public void removeBomb(Bomb bomb) {
 
+    }
+
+    public void plantTheBomb() {
+        Bomb bomb = new Bomb(
+                this.getX() / Sprite.SCALED_SIZE,
+                this.getY() / Sprite.SCALED_SIZE,
+                Sprite.bomb_2.getFxImage());
+
+        // place an obstacle in map
+        Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '6';
+        // check duplicate bomb
+        boolean duplicate = false;
+        for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
+            if (bombExist.intersect(bomb)) {
+                duplicate = true;
+            }
+        }
+
+        // set time to explode
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                bomb.setImg(Sprite.bomb_exploded2.getFxImage());
+                bomb.addFlameDFS();
+                bomb.setExplode(true);
+            }
+        };
+        if (!duplicate && EntitySetManagement.bomberMan.bombList.size() <= numberOfBomb) {
+            EntitySetManagement.bomberMan.addBomb(bomb);
+            Timer timerEx = new Timer();
+            timerEx.schedule(timerTask, 2000);
+        }
     }
 }

@@ -18,29 +18,30 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
+        checkBomber();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
 //        System.out.println("pos: " + this.y/32 + " " + this.x/32);
-        int destRow = EntitySetManagement.bomberMan.getY()/Sprite.SCALED_SIZE;
-        int destCol = EntitySetManagement.bomberMan.getX()/Sprite.SCALED_SIZE;
+        int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;
+        int destCol = EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE;
 
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
-        slow = slow > 100 ? 0 : slow+1;
-        if(this.y < pair.getKey() * 32) {
-            if(slow % 2 == 0) {
+        slow = slow > 100 ? 0 : slow + 1;
+        if (this.y < pair.getKey() * 32) {
+            if (slow % 2 == 0) {
                 goDown();
             }
         }
-        if(this.y > pair.getKey() * 32) {
-            if(slow % 2 == 0) {
+        if (this.y > pair.getKey() * 32) {
+            if (slow % 2 == 0) {
                 goUp();
             }
         }
-        if(this.x > pair.getValue() * 32) {
-            if(slow % 2 == 0) {
+        if (this.x > pair.getValue() * 32) {
+            if (slow % 2 == 0) {
                 goLeft();
             }
         }
-        if(this.x < pair.getValue() * 32) {
+        if (this.x < pair.getValue() * 32) {
             if (slow % 2 == 0) {
                 goRight();
             }
@@ -57,7 +58,12 @@ public class Oneal extends Enemy {
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.oneal_right1,
+                Sprite.oneal_right2,
+                Sprite.oneal_right3,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     @Override
@@ -70,7 +76,12 @@ public class Oneal extends Enemy {
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.oneal_right1,
+                Sprite.oneal_right2,
+                Sprite.oneal_right3,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     @Override
@@ -83,7 +94,12 @@ public class Oneal extends Enemy {
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.oneal_left1,
+                Sprite.oneal_left2,
+                Sprite.oneal_left3,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     @Override
@@ -96,7 +112,12 @@ public class Oneal extends Enemy {
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, keepMoving, 60).getFxImage());
+        setImg(Sprite.movingSprite(
+                Sprite.oneal_left1,
+                Sprite.oneal_left2,
+                Sprite.oneal_left3,
+                keepMoving, 60
+        ).getFxImage());
     }
 
     public Pair<Integer, Integer> nextPosition(int row, int col) {
