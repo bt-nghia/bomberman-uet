@@ -38,8 +38,8 @@ public class Sound {
                             BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav")
                     );
                     clip.open(inputStream);
-                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(-20.0f);
+//                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+//                    gainControl.setValue(-20.0f);
                     clip.stop();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
