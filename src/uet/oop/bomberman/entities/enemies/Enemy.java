@@ -91,4 +91,9 @@ public abstract class Enemy extends Entity {
             EntitySetManagement.bomberMan.setAlive(false);
         }
     }
+
+    @Override
+    public void update() {
+        checkBomber();
+    }
 }
