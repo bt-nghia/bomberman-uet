@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.entities.enemies.Enemy;
@@ -17,6 +18,7 @@ public class EntitySetManagement {
     public static List<Grass> grassList = new ArrayList<>();
     public static List<Enemy> enemyList = new ArrayList<>();
     public static List<Brick> brickList = new ArrayList<>();
+    public static List<Item> itemList = new ArrayList<>();
     public static Entity portal = null;
     public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 

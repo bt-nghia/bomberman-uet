@@ -22,6 +22,14 @@ public class Bomber extends Entity {
     public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
 
+    public int getNumberOfBomb() {
+        return numberOfBomb;
+    }
+
+    public void setNumberOfBomb(int numberOfBomb) {
+        this.numberOfBomb = numberOfBomb;
+    }
+
     public Bomber(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
