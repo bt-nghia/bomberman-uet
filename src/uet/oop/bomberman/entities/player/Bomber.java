@@ -32,6 +32,14 @@ public class Bomber extends Entity {
         this.numberOfBomb = numberOfBomb;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     public Bomber(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
