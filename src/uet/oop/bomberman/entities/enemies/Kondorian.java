@@ -15,7 +15,7 @@ public class Kondorian extends Enemy {
 
     @Override
     public void update() {
-        checkBomber();
+        super.update();
         if (keepMoving == 32) {
             lastMove = randomMove();
             keepMoving = 0;

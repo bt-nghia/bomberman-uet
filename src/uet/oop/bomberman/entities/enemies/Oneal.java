@@ -18,7 +18,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        checkBomber();
+        super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
 //        System.out.println("pos: " + this.y/32 + " " + this.x/32);
         int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;

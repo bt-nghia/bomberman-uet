@@ -11,7 +11,7 @@ public class Minvo extends Enemy {
 
     @Override
     public void update() {
-        checkBomber();
+        super.update();
         keepMoving++;
         if (keepMoving > 1000) {
             keepMoving = 0;
