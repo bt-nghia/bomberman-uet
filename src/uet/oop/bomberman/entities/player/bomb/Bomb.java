@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,6 +176,13 @@ public class Bomb extends Entity {
     public void setTimeToExplode() {
         Bomb temp = this;
 
+        TimerTask soundTask = new TimerTask() {
+            @Override
+            public void run() {
+                Sound.playSound("explosion");
+            }
+        };
+
         TimerTask timerTask1 = new TimerTask() {
             @Override
             public void run() {
@@ -187,10 +195,12 @@ public class Bomb extends Entity {
             public void run() {
                 EntitySetManagement.removeBrick();
                 EntitySetManagement.removeEnemies();
+                Sound.stopSound("explosion");
             }
         };
 
         Timer timer = new Timer();
+        timer.schedule(soundTask, 2000);
         timer.schedule(timerTask1, 2500L);
         timer.schedule(timerTask2, 2530L);
 

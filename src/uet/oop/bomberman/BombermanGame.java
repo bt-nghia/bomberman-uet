@@ -19,6 +19,7 @@ import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.player.bomb.Bomb;
 import uet.oop.bomberman.entities.player.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
 
@@ -31,9 +32,9 @@ public class BombermanGame extends Application {
 
 
     public static void main(String[] args) {
-//        Sound.playSound("StarWars60");
+        Sound.playSound("StarWars60");
         Application.launch(BombermanGame.class);
-//        Sound.stopSound("StarWars60");
+        Sound.stopSound("StarWars60");
     }
 
     @Override

@@ -52,8 +52,7 @@ public class Bomber extends Entity {
     }
 
     public void render(GraphicsContext gc) {
-//        gc.drawImage(this.img, x + 2, y - 2);
-        gc.drawImage(this.img, x, y);
+        gc.drawImage(this.img, (x + 4), y);
     }
 
     public void setAlive(boolean alive) {
