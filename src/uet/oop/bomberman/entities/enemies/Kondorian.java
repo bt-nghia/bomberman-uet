@@ -5,7 +5,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class Kondorian extends Enemy{
+public class Kondorian extends Enemy {
     private int keepMoving = 1;
     private int lastMove = 1;
 
@@ -15,7 +15,8 @@ public class Kondorian extends Enemy{
 
     @Override
     public void update() {
-        if(keepMoving == 32) {
+        checkBomber();
+        if (keepMoving == 32) {
             lastMove = randomMove();
             keepMoving = 0;
         }
@@ -52,7 +53,14 @@ public class Kondorian extends Enemy{
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, keepMoving, 60).getFxImage());
+        setImg(
+                Sprite.movingSprite(
+                        Sprite.kondoria_right1,
+                        Sprite.kondoria_right2,
+                        Sprite.kondoria_right3,
+                        keepMoving,
+                        60
+                ).getFxImage());
     }
 
     @Override
@@ -65,7 +73,14 @@ public class Kondorian extends Enemy{
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, keepMoving, 60).getFxImage());
+        setImg(
+                Sprite.movingSprite(
+                        Sprite.kondoria_right1,
+                        Sprite.kondoria_right2,
+                        Sprite.kondoria_right3,
+                        keepMoving,
+                        60
+                ).getFxImage());
     }
 
     @Override
@@ -78,7 +93,14 @@ public class Kondorian extends Enemy{
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, keepMoving, 60).getFxImage());
+        setImg(
+                Sprite.movingSprite(
+                        Sprite.kondoria_left1,
+                        Sprite.kondoria_left2,
+                        Sprite.kondoria_left3,
+                        keepMoving,
+                        60
+                ).getFxImage());
     }
 
     @Override
@@ -91,7 +113,14 @@ public class Kondorian extends Enemy{
                 break;
             }
         }
-        setImg(Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, keepMoving, 60).getFxImage());
+        setImg(
+                Sprite.movingSprite(
+                        Sprite.kondoria_left1,
+                        Sprite.kondoria_left2,
+                        Sprite.kondoria_left3,
+                        keepMoving,
+                        60
+                ).getFxImage());
     }
 
 }

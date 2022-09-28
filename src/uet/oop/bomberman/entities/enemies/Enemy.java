@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
@@ -84,5 +85,10 @@ public abstract class Enemy extends Entity {
 
     public void chaseBomber() {
 
+    }
+    public void checkBomber() {
+        if(this.intersect(EntitySetManagement.bomberMan)) {
+            EntitySetManagement.bomberMan.setAlive(false);
+        }
     }
 }

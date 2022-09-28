@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.player.bomb;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
@@ -25,7 +26,7 @@ public class Flame extends Entity {
         checkBomber();
     }
 
-    private boolean checkFlameBrick() {
+    public boolean checkFlameBrick() {
         for (Brick brick : EntitySetManagement.brickList) {
             if (this.intersect(brick)) {
                 brick.setBroken(true);
@@ -35,7 +36,7 @@ public class Flame extends Entity {
         return false;
     }
 
-    private boolean checkFlameWall() {
+    public boolean checkFlameWall() {
         for (Wall wall : EntitySetManagement.wallList) {
             if (this.intersect(wall)) {
                 return true;
@@ -44,7 +45,7 @@ public class Flame extends Entity {
         return false;
     }
 
-    private void destroyFlameEnemy() {
+    public void destroyFlameEnemy() {
         for (Enemy enemy : EntitySetManagement.enemyList) {
             if(this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
                 enemy.setAlive(false);
@@ -52,7 +53,7 @@ public class Flame extends Entity {
         }
     }
 
-    private void checkBomber() {
+    public void checkBomber() {
         if (this.intersect(EntitySetManagement.bomberMan)) {
             EntitySetManagement.bomberMan.setAlive(false);
         }

@@ -5,9 +5,6 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class Brick extends Entity {
     private int keepMoving = 0;
 
@@ -28,23 +25,32 @@ public class Brick extends Entity {
 
     public void setDestroyedImg() {
         this.keepMoving++;
-        this.setImg(Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, keepMoving, Sprite.SCALED_SIZE).getFxImage());
+        this.setImg(
+                Sprite.movingSprite(
+                        Sprite.brick_exploded,
+                        Sprite.brick_exploded1,
+                        Sprite.brick_exploded2,
+                        keepMoving,
+                        Sprite.SCALED_SIZE
+                ).getFxImage());
     }
 
     @Override
     public void update() {
         keepMoving++;
-        if(keepMoving > 100) {
+        if (keepMoving > 100) {
             keepMoving = 0;
         }
         if (isBroken) {
             // add item handle
             this.setImg(
-                    Sprite.movingSprite(Sprite.brick_exploded,
-                    Sprite.brick_exploded1,
-                    Sprite.brick_exploded2,
-                    keepMoving,
-                    30).getFxImage());
+                    Sprite.movingSprite(
+                            Sprite.brick_exploded,
+                            Sprite.brick_exploded1,
+                            Sprite.brick_exploded2,
+                            keepMoving,
+                            30
+                    ).getFxImage());
         }
     }
 
