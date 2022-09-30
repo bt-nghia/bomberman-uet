@@ -45,7 +45,6 @@ public class Flame extends Entity {
         for (Enemy enemy : EntitySetManagement.enemyList) {
             if (this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
                 enemy.setAlive(false);
-                BombermanGame.score += 100;
             }
         }
     }

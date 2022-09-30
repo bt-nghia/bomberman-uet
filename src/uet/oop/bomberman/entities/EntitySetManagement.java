@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.entities.bomb.Bomb;
@@ -23,7 +24,10 @@ public class EntitySetManagement {
     public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
     public static void removeEnemies() {
+        int size = enemyList.size();
         enemyList.removeIf(enemy -> !enemy.isAlive());
+        int newSize = enemyList.size();
+        BombermanGame.score+=(size - newSize) * 1000;
     }
 
     public static void removeBrick() {
