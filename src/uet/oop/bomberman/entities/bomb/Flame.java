@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
+import uet.oop.bomberman.sound.Sound;
 
 public class Flame extends Entity {
 
@@ -19,7 +20,7 @@ public class Flame extends Entity {
         checkFlameBrick();
         destroyFlameEnemy();
         checkFlameWall();
-        checkBomber();
+        checkFlameBomber();
     }
 
     public boolean checkFlameBrick() {
@@ -49,13 +50,16 @@ public class Flame extends Entity {
         }
     }
 
-    public void checkBomber() {
+    public void checkFlameBomber() {
+        boolean alive = true;
         if (this.intersect(EntitySetManagement.bomberMan)) {
             EntitySetManagement.bomberMan.setAlive(false);
+            alive = false;
         }
         for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
             if (bomb.intersect(EntitySetManagement.bomberMan)) {
                 EntitySetManagement.bomberMan.setAlive(false);
+                alive = false;
             }
         }
     }

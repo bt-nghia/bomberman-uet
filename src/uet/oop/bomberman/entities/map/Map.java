@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.items.FlameItem;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.BufferedReader;
@@ -66,6 +67,9 @@ public class Map {
 //                }
                 // portal behind the brick->render before that brick
                 switch (map2D[i][j]) {
+                    case 'p':
+                        EntitySetManagement.bomberMan = new Bomber(j, i, Sprite.player_right.getFxImage());
+                        break;
                     case '1':
                         EntitySetManagement.enemyList.add(new Balloom(j, i, Sprite.balloom_left3.getFxImage()));
                         break;

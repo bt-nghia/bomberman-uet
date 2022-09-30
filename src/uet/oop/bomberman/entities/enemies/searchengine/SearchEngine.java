@@ -58,13 +58,9 @@ public abstract class SearchEngine {
                 return pathStack.pop();
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
+//            System.out.println("player blocked");
             return src;
         }
-//        for (int i = 0; i < ROW; i++) {
-//            for (int j = 0; j < COL; j++) {
-//                System.out.println(i + " " + j + " " + cellDetails[i][j].toString());
-//            }
-//        }
         return src;
     }
 }

@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Bomber extends Entity {
     private int keepMoving = 0;
     public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
+    private int countDeathUpdate = 1;
 
     public static int flameLength = 1;
 
@@ -47,9 +49,28 @@ public class Bomber extends Entity {
     @Override
     public void update() {
         if (!this.isAlive) {
-            setUpBomberDeath();
+//            if(countDeathUpdate == 1) {
+            TimerTask timerTaskPlayerDeath = new TimerTask() {
+                @Override
+                public void run() {
+                    Sound.playSound("enemyDeath");
+                    setUpBomberDeath();
+                    Sound.stopSound("enemyDeath");
+                }
+            };
+            TimerTask endGame = new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            };
+            Timer timer = new Timer();
+            if(countDeathUpdate > 0) {
+                timer.schedule(timerTaskPlayerDeath, 100L);
+                countDeathUpdate--;
+            }
+            timer.schedule(endGame, 1800L);
         }
-        System.out.println(this.x/32 + " " + this.y/32);
     }
 
     @Override
@@ -86,7 +107,7 @@ public class Bomber extends Entity {
                 Sprite.player_up,
                 Sprite.player_up_1,
                 Sprite.player_up_2,
-                keepMoving, 60
+                keepMoving, 54
         ).getFxImage());
     }
 
@@ -110,7 +131,7 @@ public class Bomber extends Entity {
                 Sprite.player_down,
                 Sprite.player_down_1,
                 Sprite.player_down_2,
-                keepMoving, 60
+                keepMoving, 54
         ).getFxImage()));
     }
 
@@ -134,7 +155,7 @@ public class Bomber extends Entity {
                 Sprite.player_right,
                 Sprite.player_right_1,
                 Sprite.player_right_2,
-                keepMoving, 60
+                keepMoving, 54
         ).getFxImage());
     }
 
@@ -167,7 +188,7 @@ public class Bomber extends Entity {
                 Sprite.player_left,
                 Sprite.player_left_1,
                 Sprite.player_left_2,
-                keepMoving, 60
+                keepMoving, 54
         ).getFxImage());
     }
 
@@ -208,7 +229,9 @@ public class Bomber extends Entity {
     }
 
     public void setUpBomberDeath() {
-        setImg(Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 60).getFxImage());
+        keepMoving++;
+        if(keepMoving > 400) {keepMoving = 0;}
+        setImg(Sprite.movingSprite(Sprite.player_dead3, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 180).getFxImage());
     }
 
     public void addBomb(Bomb bomb) {
@@ -226,6 +249,7 @@ public class Bomber extends Entity {
                 Sprite.bomb_2.getFxImage());
 
         // place an obstacle in map
+        // set != brick and wall
         Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '*';
         // check duplicate bomb
         boolean duplicate = false;

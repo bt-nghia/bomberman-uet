@@ -18,7 +18,6 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        System.out.println("oneal" + this.x/32 + " " + this.y/32);
         super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
         int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;
@@ -53,7 +52,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goUp() {
-        System.out.println("u");
+//        System.out.println("u");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
@@ -71,7 +70,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goRight() {
-        System.out.println("r");
+//        System.out.println("r");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x++;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -89,7 +88,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goLeft() {
-        System.out.println("l");
+//        System.out.println("l");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x--;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -107,7 +106,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goDown() {
-        System.out.println("d");
+//        System.out.println("d");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
