@@ -5,11 +5,11 @@ import javafx.util.Pair;
 import java.util.Stack;
 
 public abstract class SearchEngine {
-    public final static int ROW = 15;
-    public final static int COL = 29;
+    public final static int ROW = 13;
+    public final static int COL = 31;
 
     public static class cell {
-        public int parentX = 0, parentY = 0;
+        public int parentX = -1, parentY = -1;
         public double f, g, h;
 
         @Override
@@ -29,7 +29,7 @@ public abstract class SearchEngine {
     }
 
     public static boolean isUnBlocked(char[][] grid, int row, int col) {
-        return grid[row][col] != '6' && grid[row][col] != '8';
+        return grid[row][col] != '#' && grid[row][col] != '*';
     }
 
     public static boolean isDestination(int row, int col, Pair<Integer, Integer> dest) {
@@ -45,17 +45,20 @@ public abstract class SearchEngine {
         int col = dest.getValue();
 
         Stack<Pair<Integer, Integer>> pathStack = new Stack<>();
-        while (cellDetails[row][col].parentX != src.getKey() || cellDetails[row][col].parentY != src.getValue()) {
-            pathStack.add(new Pair<>(row, col));
-            int tempRow = cellDetails[row][col].parentX;
-            int tempCol = cellDetails[row][col].parentY;
-            row = tempRow;
-            col = tempCol;
-        }
-        pathStack.push(new Pair<>(row, col));
-        if (!pathStack.isEmpty()) {
-            Pair<Integer, Integer> node = pathStack.pop();
-            return node;
+        try {
+            while (cellDetails[row][col].parentX != src.getKey() || cellDetails[row][col].parentY != src.getValue()) {
+                pathStack.add(new Pair<>(row, col));
+                int tempRow = cellDetails[row][col].parentX;
+                int tempCol = cellDetails[row][col].parentY;
+                row = tempRow;
+                col = tempCol;
+            }
+            pathStack.push(new Pair<>(row, col));
+            if (!pathStack.isEmpty()) {
+                return pathStack.pop();
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return src;
         }
 //        for (int i = 0; i < ROW; i++) {
 //            for (int j = 0; j < COL; j++) {

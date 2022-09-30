@@ -9,7 +9,7 @@ import java.util.Random;
 
 public abstract class Enemy extends Entity {
 
-    private int speed = 1;
+    private int speed = 2;
     private int speedX = this.speed;
     private int speedY = 0;
     private boolean isAlive = true;
@@ -80,7 +80,7 @@ public abstract class Enemy extends Entity {
 
     public void generateRandomSpeed() {
         Random rand = new Random();
-        this.speed = rand.nextInt(3) + 1;
+        this.speed = rand.nextInt(3) + 2;
     }
 
     public void chaseBomber() {
