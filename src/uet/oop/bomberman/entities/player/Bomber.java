@@ -7,7 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.Map;
-import uet.oop.bomberman.entities.player.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -51,6 +51,7 @@ public class Bomber extends Entity {
         }
     }
 
+    @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(this.img, (x + 4), y);
     }

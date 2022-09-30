@@ -3,7 +3,6 @@ package uet.oop.bomberman.entities.items;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.player.Bomber;
-import uet.oop.bomberman.entities.player.bomb.Bomb;
 
 public class FlameItem extends Item {
 

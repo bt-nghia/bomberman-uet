@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import uet.oop.bomberman.entities.EntitySetManagement;
-import uet.oop.bomberman.entities.enemies.searchengine.SearchEngine;
+import uet.oop.bomberman.entities.enemies.searchengine.AStar;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -20,7 +20,6 @@ public class Oneal extends Enemy {
     public void update() {
         super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
-//        System.out.println("pos: " + this.y/32 + " " + this.x/32);
         int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;
         int destCol = EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE;
 
@@ -121,7 +120,7 @@ public class Oneal extends Enemy {
     }
 
     public Pair<Integer, Integer> nextPosition(int row, int col) {
-        return SearchEngine.aStarSearch(
+        return AStar.aStarSearch(
                 Map.map2D,
                 new Pair<>(this.y / Sprite.SCALED_SIZE, this.x / Sprite.SCALED_SIZE),
                 new Pair<>(row, col)

@@ -1,16 +1,12 @@
-package uet.oop.bomberman.entities.player.bomb;
+package uet.oop.bomberman.entities.bomb;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
-import uet.oop.bomberman.graphics.Sprite;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Flame extends Entity {
 
@@ -47,8 +43,9 @@ public class Flame extends Entity {
 
     public void destroyFlameEnemy() {
         for (Enemy enemy : EntitySetManagement.enemyList) {
-            if(this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
+            if (this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
                 enemy.setAlive(false);
+                BombermanGame.score += 100;
             }
         }
     }
@@ -57,8 +54,8 @@ public class Flame extends Entity {
         if (this.intersect(EntitySetManagement.bomberMan)) {
             EntitySetManagement.bomberMan.setAlive(false);
         }
-        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if(bomb.intersect(EntitySetManagement.bomberMan)) {
+        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if (bomb.intersect(EntitySetManagement.bomberMan)) {
                 EntitySetManagement.bomberMan.setAlive(false);
             }
         }
