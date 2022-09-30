@@ -24,8 +24,8 @@ import uet.oop.bomberman.sound.Sound;
 public class BombermanGame extends Application {
 
     // fix map size
-    public static int WIDTH = 29;
-    public static int HEIGHT = 15;
+    public static int WIDTH = 31;
+    public static int HEIGHT = 13;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -73,11 +73,11 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-        Map.createMapByLevel(2);
+        Map.createMapByLevel(1);
         PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
-        EntitySetManagement.enemyList.add(new Oneal(5, 7, Sprite.oneal_right1.getFxImage()));
-        EntitySetManagement.enemyList.add(new Kondorian(6, 7, Sprite.kondoria_right1.getFxImage()));
-        EntitySetManagement.enemyList.add(new Minvo(6, 9, Sprite.minvo_right1.getFxImage()));
+//        EntitySetManagement.enemyList.add(new Oneal(5, 7, Sprite.oneal_right1.getFxImage()));
+//        EntitySetManagement.enemyList.add(new Kondorian(6, 7, Sprite.kondoria_right1.getFxImage()));
+//        EntitySetManagement.enemyList.add(new Minvo(6, 9, Sprite.minvo_right1.getFxImage()));
     }
 
     public void update() throws Exception {

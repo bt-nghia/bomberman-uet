@@ -35,6 +35,9 @@ public class Kondorian extends Enemy {
                 goLeft();
                 break;
         }
+        if(!this.isAlive()) {
+            setImg(Sprite.kondoria_dead.getFxImage());
+        }
     }
 
     public int randomMove() {

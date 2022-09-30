@@ -214,7 +214,7 @@ public class Bomb extends Entity {
         }
         if (this.exploded) {
             // remove obstacle in map 0 -> grass
-            Map.map2D[this.getY() / 32][this.getX() / 32] = '0';
+            Map.map2D[this.getY() / 32][this.getX() / 32] = ' ';
             this.setImg(
                     Sprite.movingSprite(
                             Sprite.bomb_exploded,

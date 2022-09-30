@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.map.mapblock;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Brick extends Entity {
@@ -51,6 +52,7 @@ public class Brick extends Entity {
                             keepMoving,
                             30
                     ).getFxImage());
+            Map.map2D[getY()/32][getX()/32] = ' ';
         }
     }
 

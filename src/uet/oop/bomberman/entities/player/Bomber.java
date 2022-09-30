@@ -49,6 +49,7 @@ public class Bomber extends Entity {
         if (!this.isAlive) {
             setUpBomberDeath();
         }
+        System.out.println(this.x/32 + " " + this.y/32);
     }
 
     @Override
@@ -225,7 +226,7 @@ public class Bomber extends Entity {
                 Sprite.bomb_2.getFxImage());
 
         // place an obstacle in map
-        Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '6';
+        Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '*';
         // check duplicate bomb
         boolean duplicate = false;
         for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
