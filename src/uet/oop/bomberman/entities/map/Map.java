@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.map;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.items.FlameItem;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
@@ -71,6 +72,11 @@ public class Map {
                         break;
                     case '8':
                         EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        break;
+                    case '9':
+                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.itemList.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                        break;
                     default:
                         break;
                 }

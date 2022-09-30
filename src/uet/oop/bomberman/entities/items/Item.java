@@ -18,10 +18,7 @@ public abstract class Item extends Entity {
     public abstract void update();
 
     protected boolean checkBoundBomber() {
-        if(this.intersect(EntitySetManagement.bomberMan)) {
-            return true;
-        }
-        return false;
+        return this.intersect(EntitySetManagement.bomberMan);
     }
 
     public boolean isVisible() {

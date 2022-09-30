@@ -16,8 +16,8 @@ import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
-import uet.oop.bomberman.entities.player.bomb.Bomb;
-import uet.oop.bomberman.entities.player.bomb.Flame;
+import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -29,6 +29,11 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
+
+    public static int score = 0;
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false ;
 
 
     public static void main(String[] args) {
@@ -53,10 +58,12 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
+        stage.getIcons().add(Sprite.player_right_1.getFxImage());
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                stage.setTitle(calculateFPSandSCORE(l));
                 render();
                 try {
                     update();
@@ -86,10 +93,27 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
         EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
+        EntitySetManagement.itemList.forEach(item -> item.render(gc));
         EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
         EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
         EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
         EntitySetManagement.bomberMan.render(gc);
+    }
+
+    public String calculateFPSandSCORE(long now) {
+        long oldFrameTime = frameTimes[frameTimeIndex] ;
+        frameTimes[frameTimeIndex] = now;
+        frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+        if (frameTimeIndex == 0) {
+            arrayFilled = true ;
+        }
+        if (arrayFilled) {
+            long elapsedNanos = now - oldFrameTime ;
+            long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+            double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+            return "Bomberman64   " + String.format(" FPS : %.2f", frameRate) + "   SCORE : " + score;
+        }
+        return "Bomberman64";
     }
 }
