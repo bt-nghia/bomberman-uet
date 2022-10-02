@@ -49,7 +49,6 @@ public class Bomber extends Entity {
     @Override
     public void update() {
         if (!this.isAlive) {
-//            if(countDeathUpdate == 1) {
             TimerTask timerTaskPlayerDeath = new TimerTask() {
                 @Override
                 public void run() {
@@ -58,18 +57,19 @@ public class Bomber extends Entity {
                     Sound.stopSound("enemyDeath");
                 }
             };
-            TimerTask endGame = new TimerTask() {
-                @Override
-                public void run() {
-                    System.exit(0);
-                }
-            };
+            // TODO : fix death when place 2 bombs
+//            TimerTask endGame = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    System.exit(0);
+//                }
+//            };
             Timer timer = new Timer();
             if(countDeathUpdate > 0) {
                 timer.schedule(timerTaskPlayerDeath, 100L);
                 countDeathUpdate--;
             }
-            timer.schedule(endGame, 1800L);
+//            timer.schedule(endGame, 1000L);
         }
     }
 
@@ -168,14 +168,6 @@ public class Bomber extends Entity {
                 PlayerController.right = -1;
                 this.x += 1;
                 // intersect while moving horizontal -> round vertical to pass intersect
-                /**
-                 * 1.
-                 * #            |        * #
-                 * #            |        * #
-                 * #  <-(player)|  --->  * #    |
-                 *              |        *    <--(player) // moving vertical to solve while intersect
-                 * #            |        * #
-                 */
                 super.roundVertical();
                 break;
             }
@@ -243,35 +235,40 @@ public class Bomber extends Entity {
     }
 
     public void plantTheBomb() {
-        Bomb bomb = new Bomb(
-                this.getX() / Sprite.SCALED_SIZE,
-                this.getY() / Sprite.SCALED_SIZE,
-                Sprite.bomb_2.getFxImage());
+        if(EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
+            Bomb bomb = new Bomb(
+                    this.getX() / Sprite.SCALED_SIZE,
+                    this.getY() / Sprite.SCALED_SIZE,
+                    Sprite.bomb_2.getFxImage());
 
-        // place an obstacle in map
-        // set != brick and wall
-        Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '*';
-        // check duplicate bomb
-        boolean duplicate = false;
-        for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
-            if (bombExist.intersect(bomb)) {
-                duplicate = true;
+            // place an obstacle in map
+            // set != brick and wall
+            Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '*';
+            // check duplicate bomb
+            boolean duplicate = false;
+            for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
+                if (bombExist.intersect(bomb)) {
+                    duplicate = true;
+                }
             }
-        }
-
-        // set time to explode
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                bomb.setImg(Sprite.bomb_exploded2.getFxImage());
-                bomb.addFlameDFS();
-                bomb.setExplode(true);
+            try {
+                // set time to explode
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        bomb.setImg(Sprite.bomb_exploded2.getFxImage());
+                        bomb.addFlameDFS();
+                        bomb.setExplode(true);
+                    }
+                };
+                if (!duplicate) {
+                    EntitySetManagement.bomberMan.addBomb(bomb);
+                    Timer timerEx = new Timer();
+                    timerEx.schedule(timerTask, 2000);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        };
-        if (!duplicate && EntitySetManagement.bomberMan.bombList.size() <= numberOfBomb) {
-            EntitySetManagement.bomberMan.addBomb(bomb);
-            Timer timerEx = new Timer();
-            timerEx.schedule(timerTask, 2000);
         }
     }
 }

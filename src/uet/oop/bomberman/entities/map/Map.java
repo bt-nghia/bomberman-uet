@@ -5,7 +5,9 @@ import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Balloom;
 import uet.oop.bomberman.entities.enemies.Minvo;
 import uet.oop.bomberman.entities.enemies.Oneal;
+import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
@@ -58,17 +60,10 @@ public class Map {
                     // cover the portal
                     EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                 }
-
-//                if (map2D[i][j] == '2') {
-//                    EntitySetManagement.enemyList.add(new Oneal(j, i, Sprite.oneal_right1.getFxImage()));
-//                }
-//                if(map2D[i][j] == '1') {
-//                    EntitySetManagement.enemyList.add(new Balloom(j, i, Sprite.balloom_left1.getFxImage()));
-//                }
-                // portal behind the brick->render before that brick
                 switch (map2D[i][j]) {
                     case 'p':
                         EntitySetManagement.bomberMan = new Bomber(j, i, Sprite.player_right.getFxImage());
+                        map2D[i][j] = ' ';
                         break;
                     case '1':
                         EntitySetManagement.enemyList.add(new Balloom(j, i, Sprite.balloom_left3.getFxImage()));
@@ -85,9 +80,21 @@ public class Map {
                     case '*':
                         EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                         break;
-                    case '9':
+                    case 'b':
+                        EntitySetManagement.itemList.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
                         EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        EntitySetManagement.itemList.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                        // set map brick so A_star can work
+                        map2D[i][j] = '*';
+                        break;
+                    case 'f':
+                        EntitySetManagement.itemList.add(new FlameItem(j, i , Sprite.powerup_flames.getFxImage()));
+                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        map2D[i][j] = '*';
+                        break;
+                    case 's':
+                        EntitySetManagement.itemList.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        map2D[i][j] = '*';
                         break;
                     default:
                         break;
