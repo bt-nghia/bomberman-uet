@@ -24,7 +24,7 @@ public class Bomber extends Entity implements Move {
     public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
     private int countDeathUpdate = 1;
-
+    private boolean rounded = false;
     public static int flameLength = 1;
 
     public int getNumberOfBomb() {
@@ -58,7 +58,7 @@ public class Bomber extends Entity implements Move {
                     Sound.stopSound("enemyDeath");
                 }
             };
-            // TODO : fix death when place 2 bombs
+            // TODO : fix death when place 2 bombs at the same time
 //            TimerTask endGame = new TimerTask() {
 //                @Override
 //                public void run() {
@@ -149,7 +149,7 @@ public class Bomber extends Entity implements Move {
                     BombermanGame.moveCamera(-1, 0);
                 }
                 this.x -= 1;
-                super.roundVertical();
+                rounded = super.roundVertical();
                 break;
             }
         }
@@ -167,22 +167,26 @@ public class Bomber extends Entity implements Move {
 
     @Override
     public void goLeft() {
+        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             if (canMoveCamera()) {
                 BombermanGame.moveCamera(-1, 0);
+                count--;
             }
             // special case
             if (this.x == (BombermanGame.WIDTH - 8) * 32) {
                 BombermanGame.moveCamera(-1, 0);
+                count++;
             }
             this.x -= 1;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 if (canMoveCamera()) {
                     BombermanGame.moveCamera(1, 0);
+                    count--;
                 }
                 this.x += 1;
                 // intersect while moving horizontal -> round vertical to pass intersect
-                super.roundVertical();
+                rounded = super.roundVertical();
                 break;
             }
         }
@@ -196,6 +200,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_left_2,
                 keepMoving, 30
         ).getFxImage());
+//        System.out.println("count: " + count);
     }
 
     public boolean checkPortal() {
@@ -269,18 +274,18 @@ public class Bomber extends Entity implements Move {
             }
             try {
                 // set time to explode
-                TimerTask timerTask = new TimerTask() {
-                    @Override
-                    public void run() {
-                        bomb.setImg(Sprite.bomb_exploded2.getFxImage());
-                        bomb.addFlameDFS();
-                        bomb.setExplode(true);
-                    }
-                };
                 if (!duplicate) {
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            bomb.setImg(Sprite.bomb_exploded2.getFxImage());
+                            bomb.addFlameDFS();
+                            bomb.setExplode(true);
+                        }
+                    };
                     EntitySetManagement.bomberMan.addBomb(bomb);
                     Timer timerEx = new Timer();
-                    timerEx.schedule(timerTask, 2000);
+                    timerEx.schedule(timerTask, 3000);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

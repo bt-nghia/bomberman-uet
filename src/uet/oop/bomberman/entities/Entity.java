@@ -8,7 +8,6 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
-import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 
@@ -24,7 +23,7 @@ public abstract class Entity {
     protected Image img;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    public Entity( int xUnit, int yUnit, Image img) {
+    public Entity(int xUnit, int yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
@@ -34,6 +33,7 @@ public abstract class Entity {
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
+
     public abstract void update();
 
     public int getX() {
@@ -69,7 +69,7 @@ public abstract class Entity {
     }
 
     public static boolean checkIntersectDeep(Rectangle2D a, Rectangle2D b) {
-        if (b == null || a==null) return false;
+        if (b == null || a == null) return false;
         return a.getMaxX() > b.getMinX() && a.getMaxY() > b.getMinY() && a.getMinX() < b.getMaxX() && a.getMinY() < b.getMaxY();
     }
 
@@ -78,29 +78,35 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBrick() {
-        for(Brick brick : EntitySetManagement.brickList) {
-            if(this.intersect(brick)) {return true;}
+        for (Brick brick : EntitySetManagement.brickList) {
+            if (this.intersect(brick)) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean checkBoundWall() {
-        for(Wall wall : EntitySetManagement.wallList) {
-            if(this.intersect(wall)) {return true;}
+        for (Wall wall : EntitySetManagement.wallList) {
+            if (this.intersect(wall)) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean checkBoundBomb() {
-        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if(this.intersect(bomb)) {return true;}
+        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if (this.intersect(bomb)) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean checkBoundBombExplosion() {
-        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if(this.intersect(bomb) && bomb.exploded()) {
+        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if (this.intersect(bomb) && bomb.exploded()) {
                 return true;
             }
         }
@@ -112,47 +118,53 @@ public abstract class Entity {
         int remainY = this.y % 32;
         switch (directionUp) {
             case 1:
-                this.y-=(remainY);
+                this.y -= (remainY);
                 break;
             case 0:
-                this.y+=(32 - remainY);
+                this.y += (32 - remainY);
                 break;
             default:
                 break;
         }
         switch (directionRight) {
             case 1:
-                this.x+=(32 - remainX);
+                this.x += (32 - remainX);
                 break;
             case 0:
-                this.x-=remainX;
+                this.x -= remainX;
                 break;
             default:
                 break;
         }
     }
 
-    public void roundVertical() {
-        if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+    public boolean roundVertical() {
+        int oldY = this.y;
+        if (this.y % Sprite.SCALED_SIZE > 2 * Sprite.SCALED_SIZE / 3) {
             this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
-        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+        } else if (this.y % Sprite.SCALED_SIZE < Sprite.SCALED_SIZE / 3) {
             this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE);
         }
+        int newY = this.y;
+        return oldY != newY;
     }
 
-    public void roundHorizontal() {
+    public boolean roundHorizontal() {
 //        System.out.print(this.x + " ");
         int oldX = this.x;
-        if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+        if (this.x % Sprite.SCALED_SIZE > 2 * Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
-        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+        } else if (this.x % Sprite.SCALED_SIZE < Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
-        System.out.println(this.x);
+//        System.out.println(this.x);
         int newX = this.x;
 //        System.out.println(oldX + " " + newX);
 //        System.out.println(newX - oldX);
-//        BombermanGame.moveCamera(- newX + oldX, 0);
+        if (this.x >= 7 * 32 && this.x <= (BombermanGame.WIDTH - 8) * 32) {
+            BombermanGame.moveCamera(newX - oldX, 0);
+        }
+        return oldX != newX;
     }
 
     public Rectangle getRect() {

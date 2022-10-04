@@ -200,9 +200,9 @@ public class Bomb extends Entity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(soundTask, 2000);
-        timer.schedule(timerTask1, 2500L);
-        timer.schedule(timerTask2, 2530L);
+        timer.schedule(soundTask, 3010);
+        timer.schedule(timerTask1, 3500L);
+        timer.schedule(timerTask2, 3530L);
 
     }
 
