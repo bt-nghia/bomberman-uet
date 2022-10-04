@@ -3,13 +3,12 @@ package uet.oop.bomberman.entities.player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.Move;
+import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.Map;
-import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -67,7 +66,7 @@ public class Bomber extends Entity implements Move {
 //                }
 //            };
             Timer timer = new Timer();
-            if(countDeathUpdate > 0) {
+            if (countDeathUpdate > 0) {
                 timer.schedule(timerTaskPlayerDeath, 100L);
                 countDeathUpdate--;
             }
@@ -91,20 +90,15 @@ public class Bomber extends Entity implements Move {
     // TODO: lam tron de player di chuyen chinh xac vao 1 o
     @Override
     public void goUp() {
-        PlayerController.up = 1;
-        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.y -= 1;
-            count--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
-                PlayerController.up = -1;
                 this.y += 1;
-                count++;
                 super.roundHorizontal();
                 break;
             }
         }
-        BombermanGame.moveCamera(0, count);
+//        BombermanGame.moveCamera(0, count);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -113,26 +107,20 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_up,
                 Sprite.player_up_1,
                 Sprite.player_up_2,
-                keepMoving, 54
+                keepMoving, 30
         ).getFxImage());
     }
 
     @Override
     public void goDown() {
-        int count = 0;
-        PlayerController.up = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.y += 1;
-            count++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
-                PlayerController.up = -1;
                 this.y -= 1;
-                count--;
                 super.roundHorizontal();
                 break;
             }
         }
-        BombermanGame.moveCamera(0, count);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -141,26 +129,30 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_down,
                 Sprite.player_down_1,
                 Sprite.player_down_2,
-                keepMoving, 54
+                keepMoving, 30
         ).getFxImage()));
     }
 
     @Override
     public void goRight() {
-        PlayerController.right = 1;
-        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
+            if (canMoveCamera()) {
+                BombermanGame.moveCamera(1, 0);
+            }
+            // special case
+            if (this.x == 7 * 32) {
+                BombermanGame.moveCamera(1, 0);
+            }
             this.x += 1;
-            count++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
+                if (canMoveCamera()) {
+                    BombermanGame.moveCamera(-1, 0);
+                }
                 this.x -= 1;
-                count--;
-                PlayerController.right = -1;
                 super.roundVertical();
                 break;
             }
         }
-        BombermanGame.moveCamera(count, 0);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -169,27 +161,31 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_right,
                 Sprite.player_right_1,
                 Sprite.player_right_2,
-                keepMoving, 54
+                keepMoving, 30
         ).getFxImage());
     }
 
     @Override
     public void goLeft() {
-        PlayerController.right = 0;
-        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
+            if (canMoveCamera()) {
+                BombermanGame.moveCamera(-1, 0);
+            }
+            // special case
+            if (this.x == (BombermanGame.WIDTH - 8) * 32) {
+                BombermanGame.moveCamera(-1, 0);
+            }
             this.x -= 1;
-            count--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
-                PlayerController.right = -1;
+                if (canMoveCamera()) {
+                    BombermanGame.moveCamera(1, 0);
+                }
                 this.x += 1;
-                count++;
                 // intersect while moving horizontal -> round vertical to pass intersect
                 super.roundVertical();
                 break;
             }
         }
-        BombermanGame.moveCamera(count, 0);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -198,7 +194,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_left,
                 Sprite.player_left_1,
                 Sprite.player_left_2,
-                keepMoving, 54
+                keepMoving, 30
         ).getFxImage());
     }
 
@@ -240,7 +236,9 @@ public class Bomber extends Entity implements Move {
 
     public void setUpBomberDeath() {
         keepMoving++;
-        if(keepMoving > 400) {keepMoving = 0;}
+        if (keepMoving > 400) {
+            keepMoving = 0;
+        }
         setImg(Sprite.movingSprite(Sprite.player_dead3, Sprite.player_dead2, Sprite.player_dead3, keepMoving, 180).getFxImage());
     }
 
@@ -253,7 +251,7 @@ public class Bomber extends Entity implements Move {
     }
 
     public void plantTheBomb() {
-        if(EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
+        if (EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
             Bomb bomb = new Bomb(
                     this.getX() / Sprite.SCALED_SIZE,
                     this.getY() / Sprite.SCALED_SIZE,
@@ -288,5 +286,9 @@ public class Bomber extends Entity implements Move {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public boolean canMoveCamera() {
+        return this.x >= 7 * 32 && this.x <= (BombermanGame.WIDTH - 8) * 32;
     }
 }

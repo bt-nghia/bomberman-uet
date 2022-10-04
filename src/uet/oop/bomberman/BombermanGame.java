@@ -37,15 +37,6 @@ public class BombermanGame extends Application {
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
-    private Timeline t;
-
-    private int speed = 100;
-    private boolean up;
-    private boolean down;
-    private boolean left;
-    private boolean right;
-
-
     public static void main(String[] args) {
         Sound.playSound("backGroundSound");
         Application.launch(BombermanGame.class);
@@ -63,7 +54,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // Tao scene
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 15 * 32, Sprite.SCALED_SIZE * HEIGHT);
         stage.setScene(scene);
         stage.show();
 

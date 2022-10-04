@@ -5,9 +5,6 @@ import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class PlayerController {
-    public static int up = -1;
-    public static int right = -1;
-
     public static void bomberController(Scene scene, Bomber bomberman) {
         if(bomberman.isAlive()) {
             scene.setOnKeyPressed(event -> {

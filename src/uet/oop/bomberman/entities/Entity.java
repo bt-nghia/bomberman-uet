@@ -141,11 +141,18 @@ public abstract class Entity {
     }
 
     public void roundHorizontal() {
+//        System.out.print(this.x + " ");
+        int oldX = this.x;
         if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
         } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
+        System.out.println(this.x);
+        int newX = this.x;
+//        System.out.println(oldX + " " + newX);
+//        System.out.println(newX - oldX);
+//        BombermanGame.moveCamera(- newX + oldX, 0);
     }
 
     public Rectangle getRect() {
