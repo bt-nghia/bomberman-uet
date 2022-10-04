@@ -1,21 +1,25 @@
 package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
-import uet.oop.bomberman.entities.bomb.Bomb;
-import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -25,13 +29,21 @@ public class BombermanGame extends Application {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
 
-    private GraphicsContext gc;
-    private Canvas canvas;
+    private static GraphicsContext gc;
+    private static Canvas canvas;
 
     public static int score = 0;
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
-    private boolean arrayFilled = false ;
+    private boolean arrayFilled = false;
+
+    private Timeline t;
+
+    private int speed = 100;
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
 
 
     public static void main(String[] args) {
@@ -45,29 +57,22 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-
+        gc.translate(0, 0);
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
-        Scene scene = new Scene(root);
-
-        // Them scene vao stage
+        Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
         stage.show();
-        stage.getIcons().add(Sprite.player_right_1.getFxImage());
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 stage.setTitle(calculateFPSandSCORE(l));
                 render();
-                try {
-                    update();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                update();
             }
         };
         timer.start();
@@ -106,18 +111,23 @@ public class BombermanGame extends Application {
     }
 
     public String calculateFPSandSCORE(long now) {
-        long oldFrameTime = frameTimes[frameTimeIndex] ;
+        long oldFrameTime = frameTimes[frameTimeIndex];
         frameTimes[frameTimeIndex] = now;
-        frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+        frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
         if (frameTimeIndex == 0) {
-            arrayFilled = true ;
+            arrayFilled = true;
         }
         if (arrayFilled) {
-            long elapsedNanos = now - oldFrameTime ;
-            long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
-            double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+            long elapsedNanos = now - oldFrameTime;
+            long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+            double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
             return "Bomberman64   " + String.format(" FPS : %.2f", frameRate) + "   SCORE : " + score;
         }
         return "Bomberman64";
+    }
+
+    public static void moveCamera(int x, int y) {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.translate(-x, -y);
     }
 }

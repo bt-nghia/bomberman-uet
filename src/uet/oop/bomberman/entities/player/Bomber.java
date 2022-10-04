@@ -2,9 +2,11 @@ package uet.oop.bomberman.entities.player;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.bomb.Bomb;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Bomber extends Entity {
+public class Bomber extends Entity implements Move {
     private int speed = Sprite.SCALED_SIZE / 8;
     private boolean isAlive = true;
     private int keepMoving = 0;
@@ -90,15 +92,19 @@ public class Bomber extends Entity {
     @Override
     public void goUp() {
         PlayerController.up = 1;
+        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.y -= 1;
+            count--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.up = -1;
                 this.y += 1;
+                count++;
                 super.roundHorizontal();
                 break;
             }
         }
+        BombermanGame.moveCamera(0, count);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -113,16 +119,20 @@ public class Bomber extends Entity {
 
     @Override
     public void goDown() {
+        int count = 0;
         PlayerController.up = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.y += 1;
+            count++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.up = -1;
                 this.y -= 1;
+                count--;
                 super.roundHorizontal();
                 break;
             }
         }
+        BombermanGame.moveCamera(0, count);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -138,15 +148,19 @@ public class Bomber extends Entity {
     @Override
     public void goRight() {
         PlayerController.right = 1;
+        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.x += 1;
+            count++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 this.x -= 1;
+                count--;
                 PlayerController.right = -1;
                 super.roundVertical();
                 break;
             }
         }
+        BombermanGame.moveCamera(count, 0);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;
@@ -162,16 +176,20 @@ public class Bomber extends Entity {
     @Override
     public void goLeft() {
         PlayerController.right = 0;
+        int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             this.x -= 1;
+            count--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 PlayerController.right = -1;
                 this.x += 1;
+                count++;
                 // intersect while moving horizontal -> round vertical to pass intersect
                 super.roundVertical();
                 break;
             }
         }
+        BombermanGame.moveCamera(count, 0);
         keepMoving += this.speed;
         if (keepMoving > 100) {
             keepMoving = 0;

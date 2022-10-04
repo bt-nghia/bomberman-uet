@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.map;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Balloom;
+import uet.oop.bomberman.entities.enemies.Kondorian;
 import uet.oop.bomberman.entities.enemies.Minvo;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.items.BombItem;
@@ -73,6 +74,9 @@ public class Map {
                         break;
                     case '3':
                         EntitySetManagement.enemyList.add(new Minvo(j, i, Sprite.minvo_right1.getFxImage()));
+                        break;
+                    case '4':
+                        EntitySetManagement.enemyList.add(new Kondorian(j, i, Sprite.kondoria_right1.getFxImage()));
                         break;
                     case '#':
                         EntitySetManagement.wallList.add(new Wall(j, i, Sprite.wall.getFxImage()));

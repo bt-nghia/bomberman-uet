@@ -3,12 +3,15 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.entities.enemies.searchengine.AStar;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Random;
 
-public class Oneal extends Enemy {
+
+public class Oneal extends Enemy implements Move {
     int slow = 0;
     int keepMoving = 0;
 
@@ -25,28 +28,47 @@ public class Oneal extends Enemy {
 
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
         slow = slow > 100 ? 0 : slow + 1;
-        if (this.y < pair.getKey() * 32) {
-            if (slow % 2 == 0) {
-                goDown();
+        if (pair.getKey() * Sprite.SCALED_SIZE == this.y && pair.getValue() * Sprite.SCALED_SIZE == this.x) {
+            Random random = new Random();
+            int direction = random.nextInt(4);
+            switch (direction) {
+                case RIGHT:
+                    goRight();
+                    break;
+                case LEFT:
+                    goLeft();
+                    break;
+                case UP:
+                    goUp();
+                    break;
+                case DOWN:
+                    goDown();
+                    break;
             }
-        }
-        if (this.y > pair.getKey() * 32) {
-            if (slow % 2 == 0) {
-                goUp();
+        } else {
+            if (this.y < pair.getKey() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goDown();
+                }
             }
-        }
-        if (this.x > pair.getValue() * 32) {
-            if (slow % 2 == 0) {
-                goLeft();
+            if (this.y > pair.getKey() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goUp();
+                }
             }
-        }
-        if (this.x < pair.getValue() * 32) {
-            if (slow % 2 == 0) {
-                goRight();
+            if (this.x > pair.getValue() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goLeft();
+                }
             }
-        }
-        if (!this.isAlive()) {
-            setImg(Sprite.oneal_dead.getFxImage());
+            if (this.x < pair.getValue() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goRight();
+                }
+            }
+            if (!this.isAlive()) {
+                setImg(Sprite.oneal_dead.getFxImage());
+            }
         }
     }
 
