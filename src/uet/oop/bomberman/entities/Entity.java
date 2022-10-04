@@ -3,9 +3,12 @@ package uet.oop.bomberman.entities;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 
@@ -138,26 +141,25 @@ public abstract class Entity {
     }
 
     public void roundHorizontal() {
+//        System.out.print(this.x + " ");
+        int oldX = this.x;
         if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
         } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
+        System.out.println(this.x);
+        int newX = this.x;
+//        System.out.println(oldX + " " + newX);
+//        System.out.println(newX - oldX);
+//        BombermanGame.moveCamera(- newX + oldX, 0);
     }
 
-    public void goRight() {
-
-    }
-
-    public void goLeft() {
-
-    }
-
-    public void goDown() {
-
-    }
-
-    public void goUp() {
-
+    public Rectangle getRect() {
+        return new Rectangle(
+                this.x * Sprite.SCALED_SIZE / 2,
+                this.y * Sprite.SCALED_SIZE / 2,
+                Sprite.SCALED_SIZE,
+                Sprite.SCALED_SIZE);
     }
 }

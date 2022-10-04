@@ -3,12 +3,15 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.entities.enemies.searchengine.AStar;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Random;
 
-public class Oneal extends Enemy {
+
+public class Oneal extends Enemy implements Move {
     int slow = 0;
     int keepMoving = 0;
 
@@ -18,7 +21,6 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        System.out.println("oneal" + this.x/32 + " " + this.y/32);
         super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
         int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;
@@ -26,34 +28,53 @@ public class Oneal extends Enemy {
 
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
         slow = slow > 100 ? 0 : slow + 1;
-        if (this.y < pair.getKey() * 32) {
-            if (slow % 2 == 0) {
-                goDown();
+        if (pair.getKey() * Sprite.SCALED_SIZE == this.y && pair.getValue() * Sprite.SCALED_SIZE == this.x) {
+            Random random = new Random();
+            int direction = random.nextInt(4);
+            switch (direction) {
+                case RIGHT:
+                    goRight();
+                    break;
+                case LEFT:
+                    goLeft();
+                    break;
+                case UP:
+                    goUp();
+                    break;
+                case DOWN:
+                    goDown();
+                    break;
             }
-        }
-        if (this.y > pair.getKey() * 32) {
-            if (slow % 2 == 0) {
-                goUp();
+        } else {
+            if (this.y < pair.getKey() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goDown();
+                }
             }
-        }
-        if (this.x > pair.getValue() * 32) {
-            if (slow % 2 == 0) {
-                goLeft();
+            if (this.y > pair.getKey() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goUp();
+                }
             }
-        }
-        if (this.x < pair.getValue() * 32) {
-            if (slow % 2 == 0) {
-                goRight();
+            if (this.x > pair.getValue() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goLeft();
+                }
             }
-        }
-        if (!this.isAlive()) {
-            setImg(Sprite.oneal_dead.getFxImage());
+            if (this.x < pair.getValue() * Sprite.SCALED_SIZE) {
+                if (slow % 2 == 0) {
+                    goRight();
+                }
+            }
+            if (!this.isAlive()) {
+                setImg(Sprite.oneal_dead.getFxImage());
+            }
         }
     }
 
     @Override
     public void goUp() {
-        System.out.println("u");
+//        System.out.println("u");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
@@ -71,7 +92,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goRight() {
-        System.out.println("r");
+//        System.out.println("r");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x++;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -89,7 +110,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goLeft() {
-        System.out.println("l");
+//        System.out.println("l");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x--;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -107,7 +128,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void goDown() {
-        System.out.println("d");
+//        System.out.println("d");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {

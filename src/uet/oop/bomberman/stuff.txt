@@ -1,0 +1,117 @@
+//        MenuBar menuBar = new MenuBar();
+//        Menu test = new Menu("options");
+//        MenuItem item = new MenuItem("exit");
+//        item.setOnAction(i -> {
+//            System.exit(0);
+//        });
+//        test.getItems().addAll(item);
+//        menuBar.getMenus().addAll(test);
+//        menuBar.setTranslateX(0);
+//        menuBar.setTranslateY(32 * 13);
+//        BorderPane borderPane = new BorderPane();
+//        borderPane.setTop(menuBar);
+//
+//        Button button = new Button("pause");
+//        button.setOnAction(b->{
+//            // add pause
+//            System.exit(0);
+//        });
+//        button.setLayoutX(menuBar.getLayoutX() + 100);
+//        button.setLayoutY(32 * 13);
+root.getChildren().add(borderPane);
+//        root.getChildren().add(button);
+        // Tao scene
+//        Scene scene = new Scene(root);
+//
+//        // Them scene vao stage
+//        stage.setScene(scene);
+//        stage.show();
+//        stage.getIcons().add(Sprite.player_right_1.getFxImage());
+Rectangle playerCamera = new Rectangle(
+//                WIDTH * Sprite.SCALED_SIZE / 2, HEIGHT * Sprite.SCALED_SIZE / 2,
+//                Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+//        Pane pane = new Pane(canvas);
+//        pane.setMinSize(WIDTH * Sprite.SCALED_SIZE, HEIGHT * Sprite.SCALED_SIZE);
+//        pane.setMaxSize(WIDTH * Sprite.SCALED_SIZE, HEIGHT * Sprite.SCALED_SIZE);
+//        pane.setPrefSize(WIDTH * Sprite.SCALED_SIZE, HEIGHT * Sprite.SCALED_SIZE);
+//        pane.getChildren().add(playerCamera);
+pane.getChildren().add(EntitySetManagement.bomberMan.getRect());
+//        root.getChildren().add(pane);
+ Rectangle clip = new Rectangle();
+//        clip.widthProperty().bind(scene.widthProperty());
+//        clip.heightProperty().bind(scene.heightProperty());
+//
+//        clip.xProperty().bind(Bindings.createDoubleBinding(
+//                () -> clampRange(
+//                        EntitySetManagement.bomberMan.getX() - scene.getWidth() / 2,
+//                        0,
+//                        pane.getWidth() - scene.getWidth()),
+//                        EntitySetManagement.bomberMan.getRect().xProperty(), scene.widthProperty()));
+//        clip.yProperty().bind(Bindings.createDoubleBinding(
+//                () -> clampRange(
+//                        EntitySetManagement.bomberMan.getY() - scene.getHeight() / 2,
+//                        0,
+//                        pane.getHeight() - scene.getHeight()),
+//                        EntitySetManagement.bomberMan.getRect().yProperty(), scene.heightProperty()));
+//        pane.setClip(clip);
+//        pane.translateXProperty().bind(clip.xProperty().multiply(-1));
+//        pane.translateYProperty().bind(clip.yProperty().multiply(-1));
+
+//    private Pane createBackground() {
+//
+//        List<Integer> filledTiles = sampleWithoutReplacement(numFilledTiles, numTilesHoriz * numTilesVert);
+//
+//        Canvas canvas = new Canvas(numTilesHoriz * tileSize, numTilesVert * tileSize);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        gc.setFill(Color.GREEN);
+//
+//        Pane pane = new Pane(canvas);
+//
+//        pane.setMinSize(numTilesHoriz * tileSize, numTilesVert * tileSize);
+//        pane.setPrefSize(numTilesHoriz * tileSize, numTilesVert * tileSize);
+//        pane.setMaxSize(numTilesHoriz * tileSize, numTilesVert * tileSize);
+//
+//        for (Integer tile : filledTiles) {
+//            int x = (tile % numTilesHoriz) * tileSize ;
+//            int y = (tile / numTilesHoriz) * tileSize ;
+//            gc.fillRect(x, y, tileSize, tileSize);
+//        }
+//
+//        return pane ;
+//    }
+//
+//    private List<Integer> sampleWithoutReplacement(int sampleSize, int populationSize) {
+//        Random rng = new Random();
+//        List<Integer> population = new ArrayList<>();
+//        for (int i = 0 ; i < populationSize; i++)
+//            population.add(i);
+//        List<Integer> sample = new ArrayList<>();
+//        for (int i = 0 ; i < sampleSize ; i++)
+//            sample.add(population.remove(rng.nextInt(population.size())));
+//        return sample;
+//    }
+
+    private double clampRange(double value, double min, double max) {
+        if (value < min) return min ;
+        if (value > max) return max ;
+        return value ;
+    }
+
+    private void processKey(KeyCode code, boolean on) {
+        switch (code) {
+            case LEFT:
+                left = on ;
+                break ;
+            case RIGHT:
+                right = on ;
+                break ;
+            case UP:
+                up = on ;
+                break ;
+            case DOWN:
+                down = on ;
+                break ;
+            default:
+                break ;
+        }
+    }

@@ -24,18 +24,38 @@ public class EntitySetManagement {
     public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
     public static void removeEnemies() {
-        int size = enemyList.size();
-        enemyList.removeIf(enemy -> !enemy.isAlive());
-        int newSize = enemyList.size();
-        BombermanGame.score+=(size - newSize) * 1000;
+        try {
+            int size = enemyList.size();
+            enemyList.removeIf(enemy -> !enemy.isAlive());
+            int newSize = enemyList.size();
+            BombermanGame.score += (size - newSize) * 1000;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void removeBrick() {
-        brickList.removeIf(Brick::isBroken);
+        try {
+            brickList.removeIf(Brick::isBroken);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void removeBomb() {
-        EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
+        try {
+            EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void removeUsedItems() {
+        try {
+            EntitySetManagement.itemList.removeIf(Item::isUsed);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void clearAll() {

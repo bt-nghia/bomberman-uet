@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public abstract class Enemy extends Entity {
     public static final int DOWN = 2;
     public static final int UP = 3;
     protected int keepMoving = 0;
+    protected int deathCount = 0;
 
     public int getSpeed() {
         return speed;
@@ -92,8 +94,35 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    public void randomMove() {
+        if (this.getSpeedX() == 0) {
+            this.y += this.getSpeedY();
+            if (checkBoundWall() || checkBoundBomb() || checkBoundBrick() || getY() % Sprite.SCALED_SIZE == 0) {
+                if (getY() % Sprite.SCALED_SIZE != 0) {
+                    this.y -= this.getSpeedY();
+                }
+                this.generateRandomDirection();
+            }
+        } else {
+            this.x += this.getSpeedX();
+            if (checkBoundBrick() || checkBoundBomb() || checkBoundWall() || getX() % Sprite.SCALED_SIZE == 0) {
+                if (getX() % Sprite.SCALED_SIZE != 0) {
+                    this.x -= this.getSpeedX();
+                }
+                this.generateRandomDirection();
+            }
+        }
+    }
+
     @Override
     public void update() {
+        if (!this.isAlive) {
+            if (deathCount == 0) {
+                Sound.playSound("enemyDeath");
+                Sound.stopSound("enemyDeath");
+                deathCount = 1;
+            }
+        }
         checkBomber();
     }
 }

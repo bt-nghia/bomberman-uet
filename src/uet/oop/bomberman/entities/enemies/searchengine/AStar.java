@@ -171,7 +171,7 @@ public class AStar extends SearchEngine {
                 }
                 System.out.println();
             }
-            System.out.println("src" + "(" + map2D[11][13] + ")");
+//            System.out.println("src" + "(" + map2D[11][13] + ")");
             aStarSearch(map2D, new Pair<>(5, 7), new Pair<>(11, 11));
         } catch (Exception e) {
             System.out.println(e.getMessage());

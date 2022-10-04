@@ -1,11 +1,12 @@
 package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class Kondorian extends Enemy {
+public class Kondorian extends Enemy implements Move {
     private int keepMoving = 1;
     private int lastMove = 1;
 
@@ -17,18 +18,18 @@ public class Kondorian extends Enemy {
     public void update() {
         super.update();
         if (keepMoving == 32) {
-            lastMove = randomMove();
+            lastMove = randomDirec();
             keepMoving = 0;
         }
         keepMoving++;
         switch (lastMove) {
-            case 1:
+            case UP:
                 goUp();
                 break;
-            case 2:
+            case DOWN:
                 goDown();
                 break;
-            case 3:
+            case RIGHT:
                 goRight();
                 break;
             default:
@@ -40,9 +41,9 @@ public class Kondorian extends Enemy {
         }
     }
 
-    public int randomMove() {
+    public int randomDirec() {
         Random rand = new Random();
-        int direction = rand.nextInt(4) + 1;
+        int direction = rand.nextInt(4);
         return direction;
     }
 
