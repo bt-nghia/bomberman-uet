@@ -59,18 +59,18 @@ public class Bomber extends Entity implements Move {
                 }
             };
             // TODO : fix death when place 2 bombs at the same time
-//            TimerTask endGame = new TimerTask() {
-//                @Override
-//                public void run() {
-//                    System.exit(0);
-//                }
-//            };
+            TimerTask endGame = new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            };
             Timer timer = new Timer();
             if (countDeathUpdate > 0) {
                 timer.schedule(timerTaskPlayerDeath, 100L);
                 countDeathUpdate--;
             }
-//            timer.schedule(endGame, 1000L);
+            timer.schedule(endGame, 1000L);
         }
     }
 

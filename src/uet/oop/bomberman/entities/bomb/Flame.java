@@ -57,23 +57,47 @@ public class Flame extends Entity {
         switch (direction) {
             case 1:
             case 2:
-                setImg(Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_vertical,
+                        Sprite.explosion_vertical1,
+                        Sprite.explosion_vertical2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
             case 3:
             case 4:
-                setImg(Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_horizontal,
+                        Sprite.explosion_horizontal1,
+                        Sprite.explosion_horizontal2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
             case 5:
-                setImg(Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_vertical_top_last,
+                        Sprite.explosion_vertical_top_last1,
+                        Sprite.explosion_vertical_top_last2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
             case 6:
-                setImg(Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_vertical_down_last,
+                        Sprite.explosion_vertical_down_last1,
+                        Sprite.explosion_vertical_down_last2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
             case 7:
-                setImg(Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_horizontal_right_last,
+                        Sprite.explosion_horizontal_right_last1,
+                        Sprite.explosion_horizontal_right_last2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
             case 8:
-                setImg(Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
+                setImg(Sprite.movingSprite(
+                        Sprite.explosion_horizontal_left_last,
+                        Sprite.explosion_horizontal_left_last1,
+                        Sprite.explosion_horizontal_left_last2,
+                        Bomb.animation, Sprite.SCALED_SIZE * 3 / 2).getFxImage());
                 break;
         }
     }
@@ -110,7 +134,7 @@ public class Flame extends Entity {
             EntitySetManagement.bomberMan.setAlive(false);
         }
         for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if (bomb.intersect(EntitySetManagement.bomberMan)) {
+            if (bomb.intersect(EntitySetManagement.bomberMan) && bomb.exploded()) {
                 EntitySetManagement.bomberMan.setAlive(false);
             }
         }
