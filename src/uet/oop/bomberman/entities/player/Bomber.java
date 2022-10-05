@@ -140,7 +140,7 @@ public class Bomber extends Entity implements Move {
                 BombermanGame.moveCamera(1, 0);
             }
             // special case
-            if (this.x == 7 * 32) {
+            if (this.x == 7 * Sprite.SCALED_SIZE) {
                 BombermanGame.moveCamera(1, 0);
             }
             this.x += 1;
@@ -174,7 +174,7 @@ public class Bomber extends Entity implements Move {
                 count--;
             }
             // special case
-            if (this.x == (BombermanGame.WIDTH - 8) * 32) {
+            if (this.x == (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
                 BombermanGame.moveCamera(-1, 0);
                 count++;
             }
@@ -264,7 +264,7 @@ public class Bomber extends Entity implements Move {
 
             // place an obstacle in map
             // set != brick and wall
-            Map.map2D[bomb.getY() / 32][bomb.getX() / 32] = '*';
+            Map.map2D[bomb.getY() / Sprite.SCALED_SIZE][bomb.getX() / Sprite.SCALED_SIZE] = '*';
             // check duplicate bomb
             boolean duplicate = false;
             for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
@@ -294,6 +294,6 @@ public class Bomber extends Entity implements Move {
     }
 
     public boolean canMoveCamera() {
-        return this.x >= 7 * 32 && this.x <= (BombermanGame.WIDTH - 8) * 32;
+        return this.x >= 7 * Sprite.SCALED_SIZE && this.x <= (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE;
     }
 }

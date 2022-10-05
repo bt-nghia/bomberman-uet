@@ -114,21 +114,21 @@ public abstract class Entity {
     }
 
     public void roundPosition(int directionUp, int directionRight) {
-        int remainX = this.x % 32;
-        int remainY = this.y % 32;
+        int remainX = this.x % Sprite.SCALED_SIZE;
+        int remainY = this.y % Sprite.SCALED_SIZE;
         switch (directionUp) {
             case 1:
                 this.y -= (remainY);
                 break;
             case 0:
-                this.y += (32 - remainY);
+                this.y += (Sprite.SCALED_SIZE - remainY);
                 break;
             default:
                 break;
         }
         switch (directionRight) {
             case 1:
-                this.x += (32 - remainX);
+                this.x += (Sprite.SCALED_SIZE - remainX);
                 break;
             case 0:
                 this.x -= remainX;
@@ -161,7 +161,7 @@ public abstract class Entity {
         int newX = this.x;
 //        System.out.println(oldX + " " + newX);
 //        System.out.println(newX - oldX);
-        if (this.x >= 7 * 32 && this.x <= (BombermanGame.WIDTH - 8) * 32) {
+        if (this.x >= 7 * Sprite.SCALED_SIZE && this.x <= (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
             BombermanGame.moveCamera(newX - oldX, 0);
         }
         return oldX != newX;

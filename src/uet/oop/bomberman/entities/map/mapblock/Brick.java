@@ -26,15 +26,15 @@ public class Brick extends Entity {
 
     public void setDestroyedImg() {
         this.keepMoving++;
-        if(keepMoving > 200) keepMoving = 0;
-        if(keepMoving >= 0 && keepMoving < 10) {
+        if (keepMoving > 200) keepMoving = 0;
+        if (keepMoving >= 0 && keepMoving < 10) {
             this.setImg(Sprite.brick_exploded.getFxImage());
-        } else if(keepMoving >= 10 && keepMoving < 20) {
+        } else if (keepMoving >= 10 && keepMoving < 20) {
             this.setImg(Sprite.brick_exploded1.getFxImage());
         } else {
             this.setImg(Sprite.brick_exploded2.getFxImage());
         }
-        Map.map2D[getY()/32][getX()/32] = ' ';
+        Map.map2D[getY() / Sprite.SCALED_SIZE][getX() / Sprite.SCALED_SIZE] = ' ';
     }
 
     @Override

@@ -91,7 +91,7 @@ public class Map {
                         map2D[i][j] = '*';
                         break;
                     case 'f':
-                        EntitySetManagement.itemList.add(new FlameItem(j, i , Sprite.powerup_flames.getFxImage()));
+                        EntitySetManagement.itemList.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
                         EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                         map2D[i][j] = '*';
                         break;
@@ -109,8 +109,8 @@ public class Map {
 
     public static void main(String[] args) {
         createMapByLevel(2);
-        for(int i = 0; i < 13; i++) {
-            for(int j = 0; j < 31; j++) {
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 31; j++) {
                 System.out.print(map2D[i][j]);
             }
             System.out.println();

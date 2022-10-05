@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Minvo extends Enemy implements Move{
+public class Minvo extends Enemy implements Move {
     public Minvo(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         this.setSpeed(2);
