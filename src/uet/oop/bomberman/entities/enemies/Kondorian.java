@@ -17,7 +17,7 @@ public class Kondorian extends Enemy implements Move {
     @Override
     public void update() {
         super.update();
-        if (keepMoving == 32) {
+        if (keepMoving == Sprite.SCALED_SIZE) {
             lastMove = randomDirec();
             keepMoving = 0;
         }
@@ -36,7 +36,7 @@ public class Kondorian extends Enemy implements Move {
                 goLeft();
                 break;
         }
-        if(!this.isAlive()) {
+        if (!this.isAlive()) {
             setImg(Sprite.kondoria_dead.getFxImage());
         }
     }

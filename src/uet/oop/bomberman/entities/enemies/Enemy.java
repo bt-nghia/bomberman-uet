@@ -88,8 +88,9 @@ public abstract class Enemy extends Entity {
     public void chaseBomber() {
 
     }
+
     public void checkBomber() {
-        if(this.intersect(EntitySetManagement.bomberMan)) {
+        if (this.intersect(EntitySetManagement.bomberMan)) {
             EntitySetManagement.bomberMan.setAlive(false);
         }
     }

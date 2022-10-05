@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class PlayerController {
     public static void bomberController(Scene scene, Bomber bomberman) {
-        if(bomberman.isAlive()) {
+        if (bomberman.isAlive()) {
             scene.setOnKeyPressed(event -> {
                         switch (event.getCode().toString()) {
                             case "RIGHT":

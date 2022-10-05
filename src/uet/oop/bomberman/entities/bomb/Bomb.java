@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomb extends Entity {
+    public static int animation = 0;
     private int bombNum = 1;
     private int keepTransforming = 0;
     private boolean exploded = false;
@@ -62,19 +63,19 @@ public class Bomb extends Entity {
         for (int i = 1; i <= flameLength; i++) {
             Flame flame = new Flame(this.x / Sprite.SCALED_SIZE, this.y / Sprite.SCALED_SIZE + i,
                     (i == flameLength) ?
-                        Sprite.movingSprite(
-                                Sprite.explosion_vertical_down_last,
-                                Sprite.explosion_vertical_down_last1,
-                                Sprite.explosion_vertical_down_last2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage() :
-                        Sprite.movingSprite(
-                                Sprite.explosion_vertical,
-                                Sprite.explosion_vertical1,
-                                Sprite.explosion_vertical2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage()
-                    );
+                            Sprite.movingSprite(
+                                    Sprite.explosion_vertical_down_last,
+                                    Sprite.explosion_vertical_down_last1,
+                                    Sprite.explosion_vertical_down_last2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage() :
+                            Sprite.movingSprite(
+                                    Sprite.explosion_vertical,
+                                    Sprite.explosion_vertical1,
+                                    Sprite.explosion_vertical2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage(), (i == flameLength) ? Flame.F_downLast : Flame.F_down
+            );
             if (flame.checkBoundWall()) {
                 break;
             }
@@ -89,19 +90,22 @@ public class Bomb extends Entity {
         for (int i = 1; i <= flameLength; i++) {
             Flame flame = new Flame(this.x / Sprite.SCALED_SIZE, this.y / Sprite.SCALED_SIZE - i,
                     (i == flameLength) ?
-                        Sprite.movingSprite(
-                                Sprite.explosion_vertical_top_last,
-                                Sprite.explosion_vertical_top_last1,
-                                Sprite.explosion_vertical_top_last2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage() :
-                        Sprite.movingSprite(
-                                Sprite.explosion_vertical,
-                                Sprite.explosion_vertical1,
-                                Sprite.explosion_vertical2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage()
-                    );
+                            Sprite.movingSprite(
+                                    Sprite.explosion_vertical_top_last,
+                                    Sprite.explosion_vertical_top_last1,
+                                    Sprite.explosion_vertical_top_last2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage() :
+                            Sprite.movingSprite(
+                                    Sprite.explosion_vertical,
+                                    Sprite.explosion_vertical1,
+                                    Sprite.explosion_vertical2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage(), (i == flameLength) ? Flame.F_upLast : Flame.F_up
+            );
+            if (i == flameLength) {
+
+            }
             if (flame.checkBoundWall()) {
                 break;
             }
@@ -115,19 +119,19 @@ public class Bomb extends Entity {
         for (int i = 1; i <= flameLength; i++) {
             Flame flame = new Flame(this.x / Sprite.SCALED_SIZE + i, this.y / Sprite.SCALED_SIZE,
                     (i == flameLength) ?
-                        Sprite.movingSprite(
-                                Sprite.explosion_horizontal_right_last,
-                                Sprite.explosion_horizontal_right_last1,
-                                Sprite.explosion_horizontal_right_last2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage() :
-                        Sprite.movingSprite(
-                                Sprite.explosion_horizontal,
-                                Sprite.explosion_horizontal1,
-                                Sprite.explosion_horizontal2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage()
-                    );
+                            Sprite.movingSprite(
+                                    Sprite.explosion_horizontal_right_last,
+                                    Sprite.explosion_horizontal_right_last1,
+                                    Sprite.explosion_horizontal_right_last2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage() :
+                            Sprite.movingSprite(
+                                    Sprite.explosion_horizontal,
+                                    Sprite.explosion_horizontal1,
+                                    Sprite.explosion_horizontal2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage(), (i == flameLength) ? Flame.F_rightLast : Flame.F_right
+            );
             if (flame.checkBoundWall()) {
                 break;
             }
@@ -141,19 +145,19 @@ public class Bomb extends Entity {
         for (int i = 1; i <= flameLength; i++) {
             Flame flame = new Flame(this.x / Sprite.SCALED_SIZE - i, this.y / Sprite.SCALED_SIZE,
                     (i == flameLength) ?
-                        Sprite.movingSprite(
-                                Sprite.explosion_horizontal_left_last,
-                                Sprite.explosion_horizontal_left_last1,
-                                Sprite.explosion_horizontal_left_last2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage() :
-                        Sprite.movingSprite(
-                                Sprite.explosion_horizontal,
-                                Sprite.explosion_horizontal1,
-                                Sprite.explosion_horizontal2,
-                                animate, Sprite.SCALED_SIZE
-                        ).getFxImage()
-                    );
+                            Sprite.movingSprite(
+                                    Sprite.explosion_horizontal_left_last,
+                                    Sprite.explosion_horizontal_left_last1,
+                                    Sprite.explosion_horizontal_left_last2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage() :
+                            Sprite.movingSprite(
+                                    Sprite.explosion_horizontal,
+                                    Sprite.explosion_horizontal1,
+                                    Sprite.explosion_horizontal2,
+                                    animate, Sprite.SCALED_SIZE
+                            ).getFxImage(), (i == flameLength) ? Flame.F_leftLast : Flame.F_left
+            );
             if (flame.checkBoundWall()) {
                 break;
             }
@@ -200,9 +204,9 @@ public class Bomb extends Entity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(soundTask, 2000);
-        timer.schedule(timerTask1, 2500L);
-        timer.schedule(timerTask2, 2530L);
+        timer.schedule(soundTask, 3010);
+        timer.schedule(timerTask1, 3500L);
+        timer.schedule(timerTask2, 3530L);
 
     }
 
@@ -214,7 +218,7 @@ public class Bomb extends Entity {
         }
         if (this.exploded) {
             // remove obstacle in map 0 -> grass
-            Map.map2D[this.getY() / 32][this.getX() / 32] = ' ';
+            Map.map2D[this.getY() / Sprite.SCALED_SIZE][this.getX() / Sprite.SCALED_SIZE] = ' ';
             this.setImg(
                     Sprite.movingSprite(
                             Sprite.bomb_exploded,
@@ -238,6 +242,17 @@ public class Bomb extends Entity {
                             Sprite.bomb_2,
                             keepTransforming, 90
                     ).getFxImage());
+        }
+        if (this.exploded) {
+            if (animation >= Sprite.SCALED_SIZE * 3 / 2) {animation = 0;}
+            animation++;
+            setImg(Sprite.movingSprite(
+                    Sprite.bomb_exploded,
+                    Sprite.bomb_exploded1,
+                    Sprite.bomb_exploded2,
+                    animation,
+                    Sprite.SCALED_SIZE * 3 / 2
+            ).getFxImage());
         }
     }
 }

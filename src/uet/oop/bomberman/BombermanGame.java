@@ -1,15 +1,11 @@
 package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
@@ -54,9 +50,10 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // Tao scene
-        Scene scene = new Scene(root, 15 * 32, Sprite.SCALED_SIZE * HEIGHT);
+        Scene scene = new Scene(root, 15 * Sprite.SCALED_SIZE, Sprite.SCALED_SIZE * HEIGHT);
         stage.setScene(scene);
         stage.show();
+        stage.getIcons().add(Sprite.player_right_1.getFxImage());
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -112,7 +109,7 @@ public class BombermanGame extends Application {
             long elapsedNanos = now - oldFrameTime;
             long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
             double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
-            return "Bomberman64   " + String.format(" FPS : %.2f", frameRate) + "   SCORE : " + score;
+            return "Bomberman64 |  " + String.format(" FPS : %.2f", frameRate) + "   SCORE : " + score;
         }
         return "Bomberman64";
     }
