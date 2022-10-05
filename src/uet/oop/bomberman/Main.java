@@ -9,6 +9,7 @@ public class Main {
                         "    | _ \\/ _ \\ '  \\| '_ \\/ -_) '_| '  \\/ _` | ' \\  / _ \\_  _|\n" +
                         "    |___/\\___/_|_|_|_.__/\\___|_| |_|_|_\\__,_|_||_| \\___/ |_| \n");
         BombermanGame.main(args);
+//        ScrollAndClipBackground.main(args);
         System.exit(0);
     }
 }

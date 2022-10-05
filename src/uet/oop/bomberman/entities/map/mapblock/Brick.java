@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.map.mapblock;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Brick extends Entity {
@@ -25,32 +26,21 @@ public class Brick extends Entity {
 
     public void setDestroyedImg() {
         this.keepMoving++;
-        this.setImg(
-                Sprite.movingSprite(
-                        Sprite.brick_exploded,
-                        Sprite.brick_exploded1,
-                        Sprite.brick_exploded2,
-                        keepMoving,
-                        Sprite.SCALED_SIZE
-                ).getFxImage());
+        if (keepMoving > 200) keepMoving = 0;
+        if (keepMoving >= 0 && keepMoving < 10) {
+            this.setImg(Sprite.brick_exploded.getFxImage());
+        } else if (keepMoving >= 10 && keepMoving < 20) {
+            this.setImg(Sprite.brick_exploded1.getFxImage());
+        } else {
+            this.setImg(Sprite.brick_exploded2.getFxImage());
+        }
+        Map.map2D[getY() / Sprite.SCALED_SIZE][getX() / Sprite.SCALED_SIZE] = ' ';
     }
 
     @Override
     public void update() {
-        keepMoving++;
-        if (keepMoving > 100) {
-            keepMoving = 0;
-        }
         if (isBroken) {
-            // add item handle
-            this.setImg(
-                    Sprite.movingSprite(
-                            Sprite.brick_exploded,
-                            Sprite.brick_exploded1,
-                            Sprite.brick_exploded2,
-                            keepMoving,
-                            30
-                    ).getFxImage());
+            this.setDestroyedImg();
         }
     }
 
