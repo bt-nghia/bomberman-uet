@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
@@ -17,6 +18,7 @@ import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.menu.Menu;
 import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
@@ -24,14 +26,16 @@ public class BombermanGame extends Application {
     // fix map size
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-
-    private static GraphicsContext gc;
-    private static Canvas canvas;
-
+    public static int CAMERA_WIDTH = 21;
+    public static int CAMERA_HEIGHT = 13;
+    public static GraphicsContext gc;
+    public static Canvas canvas;
     public static int score = 0;
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
+    public static boolean gameStart = false;
+    public static int STATUS_BAR_HEIGHT = 32;
 
     public static void main(String[] args) {
         Sound.playSound("backGroundSound");
@@ -45,22 +49,31 @@ public class BombermanGame extends Application {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         gc.translate(0, 0);
+
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
 
+        // tao menu
+        Menu.createMenu(root);
+
         // Tao scene
-        Scene scene = new Scene(root, 15 * Sprite.SCALED_SIZE, Sprite.SCALED_SIZE * HEIGHT);
+        Scene scene = new Scene(root, CAMERA_WIDTH * Sprite.SCALED_SIZE, CAMERA_HEIGHT * Sprite.SCALED_SIZE + STATUS_BAR_HEIGHT);
         stage.setScene(scene);
         stage.show();
-        stage.getIcons().add(Sprite.player_right_1.getFxImage());
+        stage.getIcons().add(new Image("textures/iconGame.png"));
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                if (!gameStart) {
+                    Menu.showMenu();
+                }
                 stage.setTitle(calculateFPSandSCORE(l));
-                render();
-                update();
+                if (gameStart) {
+                    render();
+                    update();
+                }
             }
         };
         timer.start();
@@ -109,13 +122,9 @@ public class BombermanGame extends Application {
             long elapsedNanos = now - oldFrameTime;
             long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
             double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
-            return "Bomberman64 |  " + String.format(" FPS : %.2f", frameRate) + "   SCORE : " + score;
+            return "Bomberman64 |  " + String.format(" FPS : %.2f", frameRate);
         }
         return "Bomberman64";
     }
 
-    public static void moveCamera(int x, int y) {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.translate(-x, -y);
-    }
 }

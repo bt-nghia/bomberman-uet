@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 
 public class BombermanButton extends Button {
     private final String FONT_PATH = "res/buttons/kenvector_future.ttf";
-    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('res/buttons/button_pressed.png');";
-    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('res/buttons/button.png');";
+    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('buttons/button_pressed.png');";
+    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('buttons/button.png');";
 
     public BombermanButton(String text){
         setText(text);
