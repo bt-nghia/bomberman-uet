@@ -39,7 +39,7 @@ public class Sound {
                     );
                     clip.open(inputStream);
 //                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-//                    gainControl.setValue(-20.0f);
+//                    gainControl.setValue(0f);
                     clip.stop();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

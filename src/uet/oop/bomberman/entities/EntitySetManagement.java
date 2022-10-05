@@ -1,12 +1,13 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.entities.items.Item;
-import uet.oop.bomberman.entities.player.Bomber;
-import uet.oop.bomberman.entities.player.bomb.Bomb;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
+import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -23,15 +24,38 @@ public class EntitySetManagement {
     public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
     public static void removeEnemies() {
-        enemyList.removeIf(enemy -> !enemy.isAlive());
+        try {
+            int size = enemyList.size();
+            enemyList.removeIf(enemy -> !enemy.isAlive());
+            int newSize = enemyList.size();
+            BombermanGame.score += (size - newSize) * 1000;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void removeBrick() {
-        brickList.removeIf(Brick::isBroken);
+        try {
+            brickList.removeIf(Brick::isBroken);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void removeBomb() {
-        EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
+        try {
+            EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void removeUsedItems() {
+        try {
+            EntitySetManagement.itemList.removeIf(Item::isUsed);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void clearAll() {

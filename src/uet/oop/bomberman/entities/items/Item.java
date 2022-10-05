@@ -1,14 +1,14 @@
 package uet.oop.bomberman.entities.items;
 
-import uet.oop.bomberman.entities.Entity;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
-import uet.oop.bomberman.entities.player.Bomber;
-
-import java.util.Iterator;
 
 public abstract class Item extends Entity {
-    protected boolean isVisible = false;
+    protected boolean isVisible = true;
+    protected boolean isUsed = false;
+    protected int count = 0;
+    protected boolean safeTodelete = false;
 
     public Item(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -18,10 +18,7 @@ public abstract class Item extends Entity {
     public abstract void update();
 
     protected boolean checkBoundBomber() {
-        if(this.intersect(EntitySetManagement.bomberMan)) {
-            return true;
-        }
-        return false;
+        return this.intersect(EntitySetManagement.bomberMan);
     }
 
     public boolean isVisible() {
@@ -32,7 +29,19 @@ public abstract class Item extends Entity {
         isVisible = visible;
     }
 
+    public boolean isUsed() {
+        return isUsed;
+    }
+
+    public void setUsed(boolean used) {
+        isUsed = used;
+    }
+
     public void removeItem() {
-        EntitySetManagement.itemList.removeIf(Item::checkBoundBomber);
+        try {
+            EntitySetManagement.itemList.removeIf(Item::checkBoundBomber);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
