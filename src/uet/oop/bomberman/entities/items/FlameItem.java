@@ -16,6 +16,7 @@ public class FlameItem extends Item {
         if(this.intersect(EntitySetManagement.bomberMan)) {
             int len = Bomber.flameLength;
             Bomber.flameLength = len + 1;
+//            this.isVisible
         }
     }
 }
