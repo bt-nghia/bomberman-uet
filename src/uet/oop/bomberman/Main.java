@@ -1,6 +1,10 @@
 package uet.oop.bomberman;
 
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+import uet.oop.bomberman.view.ViewManager;
+
+public class Main  {
     public static void main(String[] args) {
         // add label
         System.out.println(
@@ -12,4 +16,19 @@ public class Main {
 //        ScrollAndClipBackground.main(args);
         System.exit(0);
     }
+//    public static void main(String [] args){
+//        launch(args);
+//    }
+//
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//            try{
+//                ViewManager manager = new ViewManager();
+//                primaryStage = manager.getMainStage();
+//                primaryStage.show();
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//            }
+//    }
 }
