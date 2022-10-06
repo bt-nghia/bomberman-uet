@@ -34,7 +34,7 @@ public class BombermanGame extends Application {
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
-    public static boolean gameStart = false;
+    public static int gameStart = 0;
     public static int STATUS_BAR_HEIGHT = 32;
 
     public static void main(String[] args) {
@@ -61,18 +61,19 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root, CAMERA_WIDTH * Sprite.SCALED_SIZE, CAMERA_HEIGHT * Sprite.SCALED_SIZE + STATUS_BAR_HEIGHT);
         stage.setScene(scene);
         stage.show();
-        stage.getIcons().add(new Image("textures/iconGame.png"));
+        stage.getIcons().add(new Image("textures/head.png"));
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (!gameStart) {
-                    Menu.showMenu();
+                if (gameStart == 0) {
+                    Menu.startMenu();
                 }
                 stage.setTitle(calculateFPSandSCORE(l));
-                if (gameStart) {
+                if (gameStart == 1) {
                     render();
                     update();
+                    Menu.updateMenu(l);
                 }
             }
         };

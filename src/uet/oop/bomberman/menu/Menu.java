@@ -14,9 +14,10 @@ public class Menu {
     public static Text level, bomb, time, score;
     private static ImageView startScreen;
     private static ImageView startButton;
+    private static ImageView exitButton;
 
     public static void createMenu(Group root) {
-        level = new Text("Level: 1");
+        level = new Text("LEVEL: 1");
         level.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         level.setFill(Color.WHITE);
         level.setX(100);
@@ -34,21 +35,32 @@ public class Menu {
         score.setX(300 + 200);
         score.setY(23);
 
-        startButton = new ImageView("buttons/button_pressed.png");
-        startButton.setLayoutX(250);
+        startButton = new ImageView("buttons/button.png");
+        startButton.setLayoutX(150);
         startButton.setLayoutY(300 + Sprite.SCALED_SIZE);
         startButton.setFitHeight(40);
         startButton.setFitWidth(160);
 
-        startScreen = new ImageView("textures/startScreen.png");
+        exitButton = new ImageView("buttons/button.png");
+        exitButton.setLayoutX(350);
+        exitButton.setLayoutY(300 + Sprite.SCALED_SIZE);
+        exitButton.setFitWidth(160);
+        exitButton.setFitHeight(40);
+
+        startScreen = new ImageView("textures/menuBomber.png");
         startScreen.setX(0);
         startScreen.setY(0);
         startScreen.setFitHeight(BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE);
         startScreen.setFitWidth(BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE);
-        root.getChildren().addAll(startScreen, startButton);
+        root.getChildren().addAll(startScreen, startButton, exitButton);
 
         startButton.setOnMouseClicked(event -> {
-            BombermanGame.gameStart = true;
+            BombermanGame.gameStart = 1;
+            exitMenu();
+        });
+
+        exitButton.setOnMouseClicked(event -> {
+            System.exit(0);
             exitMenu();
         });
 
@@ -60,17 +72,20 @@ public class Menu {
         root.getChildren().add(pane);
     }
 
-    public static void updateMenu() {
-        score.setText("Score: " + BombermanGame.score);
+    public static void updateMenu(long l) {
+        score.setText("SCORE: " + BombermanGame.score);
+//        time.setText("TIME: " + (l - 10941714950200L));
     }
 
-    public static void showMenu() {
+    public static void startMenu() {
         startScreen.setVisible(true);
         startButton.setVisible(true);
+        exitButton.setVisible(true);
     }
 
     public static void exitMenu() {
         startScreen.setVisible(false);
         startButton.setVisible(false);
+        exitButton.setVisible(false);
     }
 }
