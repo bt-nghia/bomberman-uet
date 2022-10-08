@@ -219,7 +219,6 @@ public class Bomber extends Entity implements Move {
                 return true;
             }
         }
-
         return false;
     }
 

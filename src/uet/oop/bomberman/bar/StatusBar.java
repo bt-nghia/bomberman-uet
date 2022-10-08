@@ -43,5 +43,4 @@ public class StatusBar {
     public static void updateMenu(long l) {
         score.setText("SCORE: " + BombermanGame.score);
     }
-
 }

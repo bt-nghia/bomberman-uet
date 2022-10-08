@@ -19,6 +19,7 @@ import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.menu.start.ViewManager;
 import uet.oop.bomberman.sound.Sound;
 import uet.oop.bomberman.menu.start.ViewManager;
 
@@ -135,5 +136,4 @@ public class BombermanGame extends Application {
         }
         return "Bomberman64";
     }
-
 }
