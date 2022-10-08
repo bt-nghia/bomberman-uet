@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import uet.oop.bomberman.bar.StatusBar;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
@@ -18,8 +19,8 @@ import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.menu.Menu;
 import uet.oop.bomberman.sound.Sound;
+import uet.oop.bomberman.menu.start.ViewManager;
 
 public class BombermanGame extends Application {
 
@@ -50,30 +51,39 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
         gc.translate(0, 0);
 
+        stage.setResizable(false);
+
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
 
         // tao menu
-        Menu.createMenu(root);
+        StatusBar.createMenu(root);
+
 
         // Tao scene
         Scene scene = new Scene(root, CAMERA_WIDTH * Sprite.SCALED_SIZE, CAMERA_HEIGHT * Sprite.SCALED_SIZE + STATUS_BAR_HEIGHT);
+//        Scene scene = new Scene(root, 1600, 600);
         stage.setScene(scene);
         stage.show();
         stage.getIcons().add(new Image("textures/head.png"));
+
+        // khoi menu
+        ViewManager viewManager = new ViewManager(scene, stage, root);
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 if (gameStart == 0) {
-                    Menu.startMenu();
+//                    Menu.startMenu();
                 }
                 stage.setTitle(calculateFPSandSCORE(l));
                 if (gameStart == 1) {
+                    viewManager.startGame();
                     render();
                     update();
-                    Menu.updateMenu(l);
+                    StatusBar.updateMenu(l);
                 }
             }
         };
@@ -92,7 +102,6 @@ public class BombermanGame extends Application {
             EntitySetManagement.bomberMan.bombList.forEach(Bomb::update);
             EntitySetManagement.bomberMan.bombList.forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
         } catch (Exception ex) {
-//            ex.printStackTrace();
         }
     }
 
@@ -108,7 +117,6 @@ public class BombermanGame extends Application {
             EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
             EntitySetManagement.bomberMan.render(gc);
         } catch (Exception ex) {
-//            ex.printStackTrace();
         }
     }
 
