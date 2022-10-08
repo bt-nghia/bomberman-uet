@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.camera.CameraTranslate;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
@@ -162,7 +163,7 @@ public abstract class Entity {
 //        System.out.println(oldX + " " + newX);
 //        System.out.println(newX - oldX);
         if (this.x >= 7 * Sprite.SCALED_SIZE && this.x <= (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
-            BombermanGame.moveCamera(newX - oldX, 0);
+            CameraTranslate.moveCamera(newX - oldX, 0);
         }
         return oldX != newX;
     }
