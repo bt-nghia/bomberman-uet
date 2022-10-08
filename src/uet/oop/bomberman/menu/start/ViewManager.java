@@ -19,12 +19,13 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class ViewManager {
-    private  static final  int HEIGHT = 768; //480
-    private static final int WIDTH = 1024; //928
-    //    private static final int WIDTH = BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE; //928
-//    private  static final  int HEIGHT = BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE; //480
+//    private  static final  int HEIGHT = 768; //480
+//    private static final int WIDTH = 1024; //928
+    private static final int WIDTH = BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE; //928
+    private  static final  int HEIGHT = BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE; //480
     private static AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
@@ -103,11 +104,11 @@ public class ViewManager {
     }
 
     private  void createButtons(){
-        createStartButton();
-        createScoreButton();
-        createHelpButton();
-        createCreditsButton();
-        createExitButton();
+       createStartButton();
+       createScoreButton();
+       createHelpButton();
+       createCreditsButton();
+       createExitButton();
     }
 
     private void createStartButton(){

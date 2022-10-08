@@ -25,7 +25,7 @@ public class BombItem extends Item {
     public void update() {
         if (checkBoundBomber() && !isUsed) {
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
-            System.out.println("bomb - bomber");
+//            System.out.println("bomb - bomber");
             EntitySetManagement.bomberMan.setNumberOfBomb(2);
             this.isVisible = false;
             this.isUsed = true;

@@ -151,18 +151,15 @@ public abstract class Entity {
     }
 
     public boolean roundHorizontal() {
-//        System.out.print(this.x + " ");
         int oldX = this.x;
         if (this.x % Sprite.SCALED_SIZE > 2 * Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
         } else if (this.x % Sprite.SCALED_SIZE < Sprite.SCALED_SIZE / 3) {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
-//        System.out.println(this.x);
         int newX = this.x;
-//        System.out.println(oldX + " " + newX);
-//        System.out.println(newX - oldX);
-        if (this.x >= 7 * Sprite.SCALED_SIZE && this.x <= (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
+        if (2 * this.x > (BombermanGame.CAMERA_WIDTH-1) * Sprite.SCALED_SIZE
+                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH+1)/2) * Sprite.SCALED_SIZE) {
             CameraTranslate.moveCamera(newX - oldX, 0);
         }
         return oldX != newX;

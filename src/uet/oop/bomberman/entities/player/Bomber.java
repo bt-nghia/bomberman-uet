@@ -25,7 +25,6 @@ public class Bomber extends Entity implements Move {
     public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
     private int countDeathUpdate = 1;
-    private boolean rounded = false;
     public static int flameLength = 1;
 
     public int getNumberOfBomb() {
@@ -60,12 +59,14 @@ public class Bomber extends Entity implements Move {
                 }
             };
             // TODO : fix death when place 2 bombs at the same time
-//            TimerTask endGame = new TimerTask() {
-//                @Override
-//                public void run() {
+            TimerTask endGame = new TimerTask() {
+                @Override
+                public void run() {
+                    BombermanGame.gameStart = 1;
+                    Map.createMapByLevel(1);
 //                    System.exit(0);
-//                }
-//            };
+                }
+            };
             Timer timer = new Timer();
             if (countDeathUpdate > 0) {
                 timer.schedule(timerTaskPlayerDeath, 100L);
@@ -108,7 +109,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_up,
                 Sprite.player_up_1,
                 Sprite.player_up_2,
-                keepMoving, 30
+                keepMoving, 54
         ).getFxImage());
     }
 
@@ -130,7 +131,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_down,
                 Sprite.player_down_1,
                 Sprite.player_down_2,
-                keepMoving, 30
+                keepMoving, 54
         ).getFxImage()));
     }
 
@@ -141,7 +142,7 @@ public class Bomber extends Entity implements Move {
                 CameraTranslate.moveCamera(1, 0);
             }
             // special case
-            if (this.x == 7 * Sprite.SCALED_SIZE) {
+            if (this.x == (BombermanGame.CAMERA_WIDTH-1) / 2 * Sprite.SCALED_SIZE) {
                 CameraTranslate.moveCamera(1, 0);
             }
             this.x += 1;
@@ -150,7 +151,7 @@ public class Bomber extends Entity implements Move {
                     CameraTranslate.moveCamera(-1, 0);
                 }
                 this.x -= 1;
-                rounded = super.roundVertical();
+                super.roundVertical();
                 break;
             }
         }
@@ -162,7 +163,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_right,
                 Sprite.player_right_1,
                 Sprite.player_right_2,
-                keepMoving, 30
+                keepMoving, 54
         ).getFxImage());
     }
 
@@ -175,7 +176,7 @@ public class Bomber extends Entity implements Move {
                 count--;
             }
             // special case
-            if (this.x == (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
+            if (this.x == (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH + 1) / 2) * Sprite.SCALED_SIZE) {
                 CameraTranslate.moveCamera(-1, 0);
                 count++;
             }
@@ -187,7 +188,7 @@ public class Bomber extends Entity implements Move {
                 }
                 this.x += 1;
                 // intersect while moving horizontal -> round vertical to pass intersect
-                rounded = super.roundVertical();
+                super.roundVertical();
                 break;
             }
         }
@@ -199,7 +200,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_left,
                 Sprite.player_left_1,
                 Sprite.player_left_2,
-                keepMoving, 30
+                keepMoving, 54
         ).getFxImage());
 //        System.out.println("count: " + count);
     }
@@ -218,7 +219,6 @@ public class Bomber extends Entity implements Move {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -295,6 +295,7 @@ public class Bomber extends Entity implements Move {
     }
 
     public boolean canMoveCamera() {
-        return this.x >= 7 * Sprite.SCALED_SIZE && this.x <= (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE;
+        return 2 * this.x > (BombermanGame.CAMERA_WIDTH-1) * Sprite.SCALED_SIZE
+                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH+1)/2) * Sprite.SCALED_SIZE;
     }
 }
