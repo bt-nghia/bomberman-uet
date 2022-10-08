@@ -1,13 +1,12 @@
-package uet.oop.bomberman.view;
+package uet.oop.bomberman.menu.start;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Application;
+
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,31 +16,50 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import uet.oop.bomberman.BombermanGame;
 
 public class ViewManager {
     private  static final  int HEIGHT = 768; //480
     private static final int WIDTH = 1024; //928
-    private AnchorPane mainPane;
+    //    private static final int WIDTH = BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE; //928
+//    private  static final  int HEIGHT = BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE; //480
+    private static AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
     private final static int MENU_BUTTON_START_X = 100;
     private final static int MENU_BUTTON_START_Y = 150;
+    private static Text level, bomb, time, score;
 
     private BombermanSubScene creditsSubScene;
     private BombermanSubScene helpSubScene;
     private BombermanSubScene scoreSubScene;
-
+    private Group groupRoot;
     private BombermanSubScene sceneToHide;
     List<BombermanButton> menuButtons;
 
 
-//    public ViewManager(AnchorPane mainPane, Scene mainScene, Stage mainStage) {
-//        this.mainPane = mainPane;
-//        this.mainScene = mainScene;
-//        this.mainStage = mainStage;
-//    }
+    public ViewManager(AnchorPane mainPane, Scene mainScene, Stage mainStage) {
+        this.mainPane = mainPane;
+        this.mainScene = mainScene;
+        this.mainStage = mainStage;
+    }
+
+    public ViewManager(Scene mainScene, Stage stage, Group root) {
+        this.mainScene = mainScene;
+        this.mainStage = stage;
+        this.groupRoot = root;
+        mainPane = new AnchorPane();
+        menuButtons = new ArrayList<>();
+        stage.setScene(mainScene);
+        createSubScene();
+        createButtons();
+        createBackground();
+        createLogo();
+        root.getChildren().add(mainPane);
+    }
+
     public ViewManager() {
         menuButtons = new ArrayList<>();
         mainPane = new AnchorPane();
@@ -52,7 +70,6 @@ public class ViewManager {
         createButtons();
         createBackground();
         createLogo();
-
     }
 
     private void showSubScene(BombermanSubScene subScene){
@@ -79,18 +96,18 @@ public class ViewManager {
     }
 
     private void addMenuButton(BombermanButton button){
-        button.setLayoutX(MENU_BUTTON_START_X);
+        button.setLayoutX(MENU_BUTTON_START_X - 40);
         button.setLayoutY(MENU_BUTTON_START_Y + menuButtons.size() * 100);
         menuButtons.add(button);
         mainPane.getChildren().add(button);
     }
 
     private  void createButtons(){
-       createStartButton();
-       createScoreButton();
-       createHelpButton();
-       createCreditsButton();
-       createExitButton();
+        createStartButton();
+        createScoreButton();
+        createHelpButton();
+        createCreditsButton();
+        createExitButton();
     }
 
     private void createStartButton(){
@@ -101,6 +118,7 @@ public class ViewManager {
             @Override
             public void handle(ActionEvent event) {
                 // them ho vao day nhe
+                BombermanGame.gameStart = 1;
             }
         });
     }
@@ -153,16 +171,16 @@ public class ViewManager {
         });
     }
 
-    private void createBackground() {
-        Image backgroundImage = new Image("buttons/background.png.png", 256, 256, false, false);
+    private static void createBackground() {
+        Image backgroundImage = new Image("buttons/background.png", 256, 256, false, false);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
 
     private void createLogo(){
-        ImageView logo = new ImageView("buttons/logo.png");
-        logo.setLayoutX(400);
-        logo.setLayoutY(50);
+        ImageView logo = new ImageView("buttons/logo4.png");
+        logo.setLayoutX(80);
+        logo.setLayoutY(10);
 
         logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
@@ -180,7 +198,8 @@ public class ViewManager {
 
         mainPane.getChildren().add(logo);
     }
+
+    public void startGame() {
+        mainPane.setVisible(false);
+    }
 }
-
-
-

@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.camera.CameraTranslate;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.Move;
@@ -137,16 +138,16 @@ public class Bomber extends Entity implements Move {
     public void goRight() {
         for (int i = 1; i <= this.speed; ++i) {
             if (canMoveCamera()) {
-                BombermanGame.moveCamera(1, 0);
+                CameraTranslate.moveCamera(1, 0);
             }
             // special case
             if (this.x == 7 * Sprite.SCALED_SIZE) {
-                BombermanGame.moveCamera(1, 0);
+                CameraTranslate.moveCamera(1, 0);
             }
             this.x += 1;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 if (canMoveCamera()) {
-                    BombermanGame.moveCamera(-1, 0);
+                    CameraTranslate.moveCamera(-1, 0);
                 }
                 this.x -= 1;
                 rounded = super.roundVertical();
@@ -170,18 +171,18 @@ public class Bomber extends Entity implements Move {
         int count = 0;
         for (int i = 1; i <= this.speed; ++i) {
             if (canMoveCamera()) {
-                BombermanGame.moveCamera(-1, 0);
+                CameraTranslate.moveCamera(-1, 0);
                 count--;
             }
             // special case
             if (this.x == (BombermanGame.WIDTH - 8) * Sprite.SCALED_SIZE) {
-                BombermanGame.moveCamera(-1, 0);
+                CameraTranslate.moveCamera(-1, 0);
                 count++;
             }
             this.x -= 1;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
                 if (canMoveCamera()) {
-                    BombermanGame.moveCamera(1, 0);
+                    CameraTranslate.moveCamera(1, 0);
                     count--;
                 }
                 this.x += 1;
