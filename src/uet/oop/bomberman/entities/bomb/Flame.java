@@ -53,6 +53,7 @@ public class Flame extends Entity {
         destroyFlameEnemy();
         checkFlameWall();
         checkFlameBomber();
+        checkFlameOtherBomb();
 
         switch (direction) {
             case 1:
@@ -138,5 +139,16 @@ public class Flame extends Entity {
                 EntitySetManagement.bomberMan.setAlive(false);
             }
         }
+    }
+
+    public boolean checkFlameOtherBomb() {
+        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if(bomb.intersect(this)) {
+                bomb.setExploded(true);
+                // max number of bomb is 2 so i can return now;
+                return true;
+            }
+        }
+        return false;
     }
 }

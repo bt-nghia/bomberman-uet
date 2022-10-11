@@ -147,36 +147,36 @@ public class AStar extends SearchEngine {
 
 
     // for testing
-    public static void main(String[] args) {
-        int level = 2;
-        try {
-            String path = "res/levels/Level" + level + ".txt";
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine().trim();
-            String[] str = line.split("\\s+");
-            // str[0] -> level
-            BombermanGame.HEIGHT = Integer.parseInt(str[1]);
-            BombermanGame.WIDTH = Integer.parseInt(str[2]);
-            char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
-
-            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
-                line = bufferedReader.readLine();
-                for (int j = 0; j < BombermanGame.WIDTH; j++) {
-                    map2D[i][j] = line.charAt(j);
-                }
-            }
-            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
-                for (int j = 0; j < BombermanGame.WIDTH; j++) {
-                    System.out.print(map2D[i][j] + ",");
-                }
-                System.out.println();
-            }
-//            System.out.println("src" + "(" + map2D[11][13] + ")");
-            aStarSearch(map2D, new Pair<>(5, 7), new Pair<>(11, 11));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public static void main(String[] args) {
+//        int level = 2;
+//        try {
+//            String path = "res/levels/Level" + level + ".txt";
+//            File file = new File(path);
+//            FileReader fileReader = new FileReader(file);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            String line = bufferedReader.readLine().trim();
+//            String[] str = line.split("\\s+");
+//            // str[0] -> level
+//            BombermanGame.HEIGHT = Integer.parseInt(str[1]);
+//            BombermanGame.WIDTH = Integer.parseInt(str[2]);
+//            char[][] map2D = new char[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+//
+//            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+//                line = bufferedReader.readLine();
+//                for (int j = 0; j < BombermanGame.WIDTH; j++) {
+//                    map2D[i][j] = line.charAt(j);
+//                }
+//            }
+//            for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+//                for (int j = 0; j < BombermanGame.WIDTH; j++) {
+//                    System.out.print(map2D[i][j] + ",");
+//                }
+//                System.out.println();
+//            }
+////            System.out.println("src" + "(" + map2D[11][13] + ")");
+//            aStarSearch(map2D, new Pair<>(5, 7), new Pair<>(11, 11));
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 }

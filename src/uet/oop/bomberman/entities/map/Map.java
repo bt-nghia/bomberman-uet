@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.enemies.Minvo;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.Portal;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
@@ -55,12 +56,6 @@ public class Map {
                 } else {
                     EntitySetManagement.grassList.add(new Grass(j, i, Sprite.grass.getFxImage()));
                 }
-
-                if (map2D[i][j] == 'x') {
-                    // EntitySet.portal = new Portal(j, i, Sprite.portal.getFxImage());
-                    // cover the portal
-                    EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                }
                 switch (map2D[i][j]) {
                     case 'p':
                         EntitySetManagement.bomberMan = new Bomber(j, i, Sprite.player_right.getFxImage());
@@ -97,6 +92,11 @@ public class Map {
                         break;
                     case 's':
                         EntitySetManagement.itemList.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+                        EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        map2D[i][j] = '*';
+                        break;
+                    case 'x':
+                        EntitySetManagement.portal = new Portal(j, i, Sprite.portal.getFxImage());
                         EntitySetManagement.brickList.add(new Brick(j, i, Sprite.brick.getFxImage()));
                         map2D[i][j] = '*';
                         break;
