@@ -91,7 +91,7 @@ public class BombermanGame extends Application {
                     // render menu to play again
                     gameStart = 0;
                 } else if(gameStart == 3) {
-                    // win
+                    // win -> add img win and high score
                     // render menu play again
                     // luu high score
                     gameStart = 0;
