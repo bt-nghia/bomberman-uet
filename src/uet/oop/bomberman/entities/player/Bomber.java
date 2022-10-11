@@ -58,7 +58,7 @@ public class Bomber extends Entity implements Move {
                     Sound.stopSound("enemyDeath");
                 }
             };
-            // TODO : fix death when place 2 bombs at the same time
+            // TODO : fix death when place 2 bombs at the same time : (fixed)
             TimerTask endGame = new TimerTask() {
                 @Override
                 public void run() {
@@ -89,7 +89,7 @@ public class Bomber extends Entity implements Move {
         return this.isAlive;
     }
 
-    // TODO: lam tron de player di chuyen chinh xac vao 1 o
+    // TODO: lam tron de player di chuyen chinh xac vao 1 o (done)
     @Override
     public void goUp() {
         for (int i = 1; i <= this.speed; ++i) {
@@ -142,7 +142,7 @@ public class Bomber extends Entity implements Move {
                 CameraTranslate.moveCamera(1, 0);
             }
             // special case
-            if (this.x == (BombermanGame.CAMERA_WIDTH-1) / 2 * Sprite.SCALED_SIZE) {
+            if (this.x == (BombermanGame.CAMERA_WIDTH - 1) / 2 * Sprite.SCALED_SIZE) {
                 CameraTranslate.moveCamera(1, 0);
             }
             this.x += 1;
@@ -252,10 +252,6 @@ public class Bomber extends Entity implements Move {
         bombList.add(bomb);
     }
 
-    public void removeBomb(Bomb bomb) {
-
-    }
-
     public void plantTheBomb() {
         if (EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
             Bomb bomb = new Bomb(
@@ -281,7 +277,7 @@ public class Bomber extends Entity implements Move {
                         public void run() {
                             bomb.setImg(Sprite.bomb_exploded2.getFxImage());
                             bomb.addFlameDFS();
-                            bomb.setExplode(true);
+                            bomb.setExploded(true);
                         }
                     };
                     EntitySetManagement.bomberMan.addBomb(bomb);
@@ -295,7 +291,7 @@ public class Bomber extends Entity implements Move {
     }
 
     public boolean canMoveCamera() {
-        return 2 * this.x > (BombermanGame.CAMERA_WIDTH-1) * Sprite.SCALED_SIZE
-                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH+1)/2) * Sprite.SCALED_SIZE;
+        return 2 * this.x > (BombermanGame.CAMERA_WIDTH - 1) * Sprite.SCALED_SIZE
+                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH + 1) / 2) * Sprite.SCALED_SIZE;
     }
 }
