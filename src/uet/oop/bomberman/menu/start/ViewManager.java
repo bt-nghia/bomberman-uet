@@ -29,6 +29,12 @@ public class ViewManager {
     private final static int MENU_BUTTON_START_X = 100;
     private final static int MENU_BUTTON_START_Y = 150;
 
+    public enum menu{
+        HELP,
+        SCORES,
+        OPTIONS
+    }
+
     private BombermanSubScene creditsSubScene;
     private BombermanSubScene helpSubScene;
     private BombermanSubScene scoreSubScene;
@@ -77,16 +83,27 @@ public class ViewManager {
         sceneToHide = subScene;
     }
 
-    private void createSubScene() {
-        creditsSubScene = new BombermanSubScene(1014, 150);
+//<<<<<<< minhkhoiitem
+    private void createSubScene(){
+        creditsSubScene = new BombermanSubScene(menu.OPTIONS);
         mainPane.getChildren().add(creditsSubScene);
 
-        helpSubScene = new BombermanSubScene(1014, 150);
+        helpSubScene = new BombermanSubScene(menu.HELP);
         mainPane.getChildren().add(helpSubScene);
 
-        scoreSubScene = new BombermanSubScene(1014 - 676, 150);
-        scoreSubScene.setTranHiddenX(0);
-        scoreSubScene.setTranShowX(676);
+        scoreSubScene = new BombermanSubScene(menu.SCORES);
+//=======
+//    private void createSubScene() {
+//        creditsSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(creditsSubScene);
+//
+//        helpSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(helpSubScene);
+//
+//        scoreSubScene = new BombermanSubScene(1014 - 676, 150);
+//        scoreSubScene.setTranHiddenX(0);
+//        scoreSubScene.setTranShowX(676);
+//>>>>>>> nghiabt
         mainPane.getChildren().add(scoreSubScene);
     }
 
