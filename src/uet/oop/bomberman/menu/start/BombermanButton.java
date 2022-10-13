@@ -81,4 +81,14 @@ public class BombermanButton extends Button {
             }
         });
     }
+
+    public static int a = 1;
+
+    public void change() {
+        a++;
+    }
+
+    private static void chipu() {
+        System.out.println("nghia nghu");
+    }
 }

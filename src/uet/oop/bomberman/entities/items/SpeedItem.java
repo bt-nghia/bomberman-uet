@@ -26,7 +26,7 @@ public class SpeedItem extends Item {
     public void update() {
         if (checkBoundBomber() && !isUsed) {
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
-            System.out.println("speed - bomber");
+//            System.out.println("speed - bomber");
             int speed = EntitySetManagement.bomberMan.getSpeed();
             EntitySetManagement.bomberMan.setSpeed(speed + 4);
             this.isUsed = true;

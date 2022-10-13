@@ -45,8 +45,8 @@ public class Bomb extends Entity {
         return this.exploded;
     }
 
-    public void setExplode(boolean explode) {
-        this.exploded = explode;
+    public void setExploded(boolean exploded) {
+        this.exploded = exploded;
     }
 
     public int getKeepTransforming() {

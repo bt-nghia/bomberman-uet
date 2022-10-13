@@ -1,6 +1,8 @@
 package uet.oop.bomberman.controller;
 
 import javafx.scene.Scene;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -23,6 +25,11 @@ public class PlayerController {
                                 break;
                             case "SPACE":
                                 bomberman.plantTheBomb();
+                                break;
+                            // clear all enemies
+                            case "C":
+                                EntitySetManagement.enemyList.forEach(enemy -> enemy.setAlive(false));
+                                EntitySetManagement.enemyList.removeIf(enemy -> !enemy.isAlive());
                                 break;
                         }
                     }

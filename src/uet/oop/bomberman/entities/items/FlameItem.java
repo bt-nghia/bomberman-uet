@@ -26,7 +26,7 @@ public class FlameItem extends Item {
     public void update() {
         if (checkBoundBomber() && !isUsed) {
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
-            System.out.println("flame - bomber");
+//            System.out.println("flame - bomber");
             Bomber.flameLength += 1;
             this.isUsed = true;
             this.isVisible = false;

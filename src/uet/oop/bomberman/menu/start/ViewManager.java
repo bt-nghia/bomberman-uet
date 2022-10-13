@@ -16,21 +16,18 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class ViewManager {
-    private  static final  int HEIGHT = 768; //480
-    private static final int WIDTH = 1024; //928
-    //    private static final int WIDTH = BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE; //928
-//    private  static final  int HEIGHT = BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE; //480
+    private static final int WIDTH = BombermanGame.CAMERA_WIDTH * Sprite.SCALED_SIZE; //928
+    private static final int HEIGHT = BombermanGame.CAMERA_HEIGHT * Sprite.SCALED_SIZE; //480
     private static AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
     private final static int MENU_BUTTON_START_X = 100;
     private final static int MENU_BUTTON_START_Y = 150;
-    private static Text level, bomb, time, score;
 
     public enum menu{
         HELP,
@@ -58,15 +55,16 @@ public class ViewManager {
         this.groupRoot = root;
         mainPane = new AnchorPane();
         menuButtons = new ArrayList<>();
+        createBackground();
         stage.setScene(mainScene);
         createSubScene();
         createButtons();
-        createBackground();
         createLogo();
         root.getChildren().add(mainPane);
     }
 
     public ViewManager() {
+        createBackground();
         menuButtons = new ArrayList<>();
         mainPane = new AnchorPane();
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
@@ -74,18 +72,18 @@ public class ViewManager {
         mainStage.setScene(mainScene);
         createSubScene();
         createButtons();
-        createBackground();
         createLogo();
     }
 
-    private void showSubScene(BombermanSubScene subScene){
-        if(sceneToHide != null){
+    private void showSubScene(BombermanSubScene subScene) {
+        if (sceneToHide != null) {
             sceneToHide.moveSubScene();
         }
         subScene.moveSubScene();
         sceneToHide = subScene;
     }
 
+//<<<<<<< minhkhoiitem
     private void createSubScene(){
         creditsSubScene = new BombermanSubScene(menu.OPTIONS);
         mainPane.getChildren().add(creditsSubScene);
@@ -94,29 +92,41 @@ public class ViewManager {
         mainPane.getChildren().add(helpSubScene);
 
         scoreSubScene = new BombermanSubScene(menu.SCORES);
+//=======
+//    private void createSubScene() {
+//        creditsSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(creditsSubScene);
+//
+//        helpSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(helpSubScene);
+//
+//        scoreSubScene = new BombermanSubScene(1014 - 676, 150);
+//        scoreSubScene.setTranHiddenX(0);
+//        scoreSubScene.setTranShowX(676);
+//>>>>>>> nghiabt
         mainPane.getChildren().add(scoreSubScene);
     }
 
-    public Stage getMainStage(){
-        return  mainStage;
+    public Stage getMainStage() {
+        return mainStage;
     }
 
-    private void addMenuButton(BombermanButton button){
+    private void addMenuButton(BombermanButton button) {
         button.setLayoutX(MENU_BUTTON_START_X - 40);
-        button.setLayoutY(MENU_BUTTON_START_Y + menuButtons.size() * 100);
+        button.setLayoutY((MENU_BUTTON_START_Y - 95) + menuButtons.size() * 100);
         menuButtons.add(button);
         mainPane.getChildren().add(button);
     }
 
-    private  void createButtons(){
+    private void createButtons() {
         createStartButton();
         createScoreButton();
         createHelpButton();
-        createCreditsButton();
         createExitButton();
+        createCreditsButton();
     }
 
-    private void createStartButton(){
+    private void createStartButton() {
         BombermanButton startButton = new BombermanButton("PLAY");
         addMenuButton(startButton);
 
@@ -129,7 +139,7 @@ public class ViewManager {
         });
     }
 
-    private void createScoreButton(){
+    private void createScoreButton() {
         BombermanButton scoreButton = new BombermanButton("SCORES");
         addMenuButton(scoreButton);
 
@@ -141,7 +151,7 @@ public class ViewManager {
         });
     }
 
-    private void createHelpButton(){
+    private void createHelpButton() {
         BombermanButton helpButton = new BombermanButton("HELP");
         addMenuButton(helpButton);
 
@@ -153,7 +163,7 @@ public class ViewManager {
         });
     }
 
-    private void createCreditsButton(){
+    private void createCreditsButton() {
         BombermanButton creditsButton = new BombermanButton("CREDITS");
         addMenuButton(creditsButton);
 
@@ -165,7 +175,7 @@ public class ViewManager {
         });
     }
 
-    private void createExitButton(){
+    private void createExitButton() {
         BombermanButton exitButton = new BombermanButton("EXIT");
         addMenuButton(exitButton);
 
@@ -180,13 +190,19 @@ public class ViewManager {
     private static void createBackground() {
         Image backgroundImage = new Image("buttons/background.png", 256, 256, false, false);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+        ImageView imageView = new ImageView("textures/body.png");
+        imageView.setLayoutX(0);
+        imageView.setLayoutY(0);
+        imageView.setFitHeight(600);
+        imageView.setFitWidth(400);
         mainPane.setBackground(new Background(background));
+        mainPane.getChildren().add(imageView);
     }
 
-    private void createLogo(){
-        ImageView logo = new ImageView("buttons/logo4.png");
-        logo.setLayoutX(80);
-        logo.setLayoutY(10);
+    private void createLogo() {
+        ImageView logo = new ImageView("buttons/logo3.png");
+        logo.setLayoutX(340);
+        logo.setLayoutY(40);
 
         logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override

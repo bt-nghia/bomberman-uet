@@ -63,6 +63,7 @@ public class EntitySetManagement {
         brickList.clear();
         grassList.clear();
         wallList.clear();
+        itemList.clear();
         bomberMan = null;
         portal = null;
     }

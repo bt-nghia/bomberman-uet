@@ -1,7 +1,6 @@
-package uet.oop.bomberman.bar;
+package uet.oop.bomberman.menu;
 
 import javafx.scene.Group;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -13,7 +12,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class StatusBar {
     public static Text level, bomb, time, score;
 
-    public static void createMenu(Group root) {
+    public static void createStatusBar(Group root) {
         level = new Text("LEVEL: 1");
         level.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         level.setFill(Color.WHITE);
@@ -40,8 +39,8 @@ public class StatusBar {
         root.getChildren().add(pane);
     }
 
-    public static void updateMenu(long l) {
+    public static void updateStatusBar(long l) {
         score.setText("SCORE: " + BombermanGame.score);
+        level.setText("LEVEL: " + BombermanGame.currentLevel);
     }
-
 }

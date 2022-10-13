@@ -6,16 +6,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import java.util.Objects;
 
 public class Sound {
-    // xu ly da luong de play dc multiple track
-    public static void playSound(String sound) {
+    // play multiple track at same time
+    public static synchronized void playSound(String sound) {
         new Thread(new Runnable() {
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav")
+                            Objects.requireNonNull(BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav"))
                     );
                     clip.open(inputStream);
                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -29,13 +30,13 @@ public class Sound {
         ).start();
     }
 
-    public static void stopSound(String sound) {
+    public static synchronized void stopSound(String sound) {
         new Thread(new Runnable() {
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav")
+                            Objects.requireNonNull(BombermanGame.class.getResourceAsStream("/sound/" + sound + ".wav"))
                     );
                     clip.open(inputStream);
 //                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

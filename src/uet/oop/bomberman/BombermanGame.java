@@ -8,7 +8,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import uet.oop.bomberman.bar.StatusBar;
+import uet.oop.bomberman.camera.CameraTranslate;
+import uet.oop.bomberman.menu.StatusBar;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
@@ -37,6 +38,10 @@ public class BombermanGame extends Application {
     private boolean arrayFilled = false;
     public static int gameStart = 0;
     public static int STATUS_BAR_HEIGHT = 32;
+    public static int currentLevel = 0;
+    public static int nextLevel = 1;
+    public static int CAMERA_X = 0;
+    public static int CAMERA_Y = 0;
 
     public static void main(String[] args) {
         Sound.playSound("backGroundSound");
@@ -58,12 +63,11 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // tao menu
-        StatusBar.createMenu(root);
+        StatusBar.createStatusBar(root);
 
 
         // Tao scene
         Scene scene = new Scene(root, CAMERA_WIDTH * Sprite.SCALED_SIZE, CAMERA_HEIGHT * Sprite.SCALED_SIZE + STATUS_BAR_HEIGHT);
-//        Scene scene = new Scene(root, 1600, 600);
         stage.setScene(scene);
         stage.show();
         stage.getIcons().add(new Image("textures/head.png"));
@@ -75,21 +79,26 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (gameStart == 0) {
-//                    Menu.startMenu();
-                }
                 stage.setTitle(calculateFPSandSCORE(l));
                 if (gameStart == 1) {
+                    levelUp(viewManager, scene, l);
                     viewManager.startGame();
                     render();
                     update();
-                    StatusBar.updateMenu(l);
+                    StatusBar.updateStatusBar(l);
+                }
+                else if(gameStart == 2) {
+                    // render menu to play again
+                    gameStart = 0;
+                } else if(gameStart == 3) {
+                    // win -> add img win and high score
+                    // render menu play again
+                    // luu high score
+                    gameStart = 0;
                 }
             }
         };
         timer.start();
-        Map.createMapByLevel(1);
-        PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
     }
 
     public void update() {
@@ -98,10 +107,12 @@ public class BombermanGame extends Application {
             EntitySetManagement.enemyList.forEach(Entity::update);
             EntitySetManagement.grassList.forEach(Grass::update);
             EntitySetManagement.itemList.forEach(Item::update);
+            EntitySetManagement.portal.update();
             EntitySetManagement.brickList.forEach(Brick::update);
             EntitySetManagement.bomberMan.bombList.forEach(Bomb::update);
             EntitySetManagement.bomberMan.bombList.forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
         } catch (Exception ex) {
+//            ex.printStackTrace();
         }
     }
 
@@ -111,12 +122,14 @@ public class BombermanGame extends Application {
             EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
             EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
             EntitySetManagement.itemList.forEach(item -> item.render(gc));
+            EntitySetManagement.portal.render(gc);
             EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
             EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
             EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
             EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
             EntitySetManagement.bomberMan.render(gc);
         } catch (Exception ex) {
+//            ex.printStackTrace();
         }
     }
 
@@ -136,4 +149,20 @@ public class BombermanGame extends Application {
         return "Bomberman64";
     }
 
+    public void levelUp(ViewManager viewManager, Scene scene, Long l) {
+        if(currentLevel < nextLevel) {
+            // render map by level
+            EntitySetManagement.clearAll();
+            Map.createMapByLevel(nextLevel);
+            currentLevel = nextLevel;
+
+            // set camera position
+            CameraTranslate.moveCamera(CAMERA_X, CAMERA_Y);
+            CAMERA_X = 0;
+            CAMERA_Y = 0;
+
+            // add player's controller
+            PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
+        }
+    }
 }
