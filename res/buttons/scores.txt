@@ -1,0 +1,4 @@
+Nguyễn Văn A: 1000
+Nguyễn Văn B: 800
+Hoàng Thị C: 700
+Đặng Ngọc E: 500

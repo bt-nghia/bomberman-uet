@@ -32,6 +32,12 @@ public class ViewManager {
     private final static int MENU_BUTTON_START_Y = 150;
     private static Text level, bomb, time, score;
 
+    public enum menu{
+        HELP,
+        SCORES,
+        OPTIONS
+    }
+
     private BombermanSubScene creditsSubScene;
     private BombermanSubScene helpSubScene;
     private BombermanSubScene scoreSubScene;
@@ -81,13 +87,13 @@ public class ViewManager {
     }
 
     private void createSubScene(){
-        creditsSubScene = new BombermanSubScene();
+        creditsSubScene = new BombermanSubScene(menu.OPTIONS);
         mainPane.getChildren().add(creditsSubScene);
 
-        helpSubScene = new BombermanSubScene();
+        helpSubScene = new BombermanSubScene(menu.HELP);
         mainPane.getChildren().add(helpSubScene);
 
-        scoreSubScene = new BombermanSubScene();
+        scoreSubScene = new BombermanSubScene(menu.SCORES);
         mainPane.getChildren().add(scoreSubScene);
     }
 
