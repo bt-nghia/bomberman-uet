@@ -23,13 +23,8 @@ public class BombermanSubScene extends SubScene {
     private int tranHiddenX = -676;
     private int tranShowX = 0;
 
-//<<<<<<< minhkhoiitem
     public BombermanSubScene(ViewManager.menu option) {
-        super(new AnchorPane(), 300, 250);
-//=======
- //   public BombermanSubScene(int layoutX, int layoutY) {
- //       super(new AnchorPane(), 300, 260);
-//>>>>>>> nghiabt
+        super(new AnchorPane(), 300, 260);
         prefWidth(600);
         prefHeight(400);
         BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, 300, 260, false, true),
@@ -50,8 +45,10 @@ public class BombermanSubScene extends SubScene {
 
         root2.setBackground(new Background(image));
 
-        setLayoutX(layoutX);
-        setLayoutY(layoutY);
+//        setLayoutX(layoutX);
+//        setLayoutY(layoutY);
+        setLayoutX(1014);
+        setLayoutY(180 - 30);
     }
 
     public int getTranHiddenX() {
@@ -104,26 +101,26 @@ public class BombermanSubScene extends SubScene {
     }
 
     public VBox createHelpContent() {
-        Label label = createLabel("Hướng dẫn cách chơi:", 30, 50, 50);
-        Label label1 = createLabel("Di chuyển sang trái", 20, 50, 50);
+        Label label = createLabel("Hướng dẫn cách chơi:", 25, 50, 50);
+        Label label1 = createLabel("Di chuyển sang trái", 15, 50, 50);
         ImageView leftIcon = new ImageView(new Image("buttons/key_left.png", 20, 20, false, true));
         label1.setGraphic(leftIcon);
-        Label label2 = createLabel("Di chuyển sang phải", 20, 50, 50);
+        Label label2 = createLabel("Di chuyển sang phải", 15, 50, 50);
         ImageView rightIcon = new ImageView(new Image("buttons/key_right.png", 20, 20, false, true));
         label2.setGraphic(rightIcon);
-        Label label3 = createLabel("Di chuyển lên trên", 20, 50, 50);
+        Label label3 = createLabel("Di chuyển lên trên", 15, 50, 50);
         ImageView upIcon = new ImageView(new Image("buttons/key_up.png", 20, 20, false, true));
         label3.setGraphic(upIcon);
-        Label label4 = createLabel("Di chuyển xuống dưới", 20, 50, 50);
+        Label label4 = createLabel("Di chuyển xuống dưới", 15, 50, 50);
         ImageView downIcon = new ImageView(new Image("buttons/key_down.png", 20, 20, false, true));
         label4.setGraphic(downIcon);
-        Label label5 = createLabel("Đặt bomb", 20, 50, 50);
+        Label label5 = createLabel("Đặt bomb", 15, 50, 50);
         ImageView spaceIcon = new ImageView(new Image("buttons/key_space.png", 30, 30, false, true));
         label5.setGraphic(spaceIcon);
-        VBox box = new VBox(10);
+        VBox box = new VBox(6);
         box.getChildren().addAll(label, label1, label2, label3, label4, label5);
-        box.setLayoutX(50);
-        box.setLayoutY(50);
+        box.setLayoutX(40);
+        box.setLayoutY(40);
         return box;
     }
 
@@ -134,10 +131,10 @@ public class BombermanSubScene extends SubScene {
             VBox box = new VBox(10);
             box.setLayoutX(50);
             box.setLayoutY(50);
-            Label text = createLabel("Top người chơi điểm cao nhất:", 30, 50, 50);
+            Label text = createLabel("Top người chơi điểm cao:", 20, 30, 50);
             box.getChildren().add(text);
             while(sc.hasNextLine()) {
-                Label label = createLabel(" - " + sc.nextLine(), 20, 200, 50);
+                Label label = createLabel(" - " + sc.nextLine(), 15, 200, 50);
                 box.getChildren().add(label);
             }
             return box;

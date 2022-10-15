@@ -53,9 +53,8 @@ public class Bomber extends Entity implements Move {
             TimerTask timerTaskPlayerDeath = new TimerTask() {
                 @Override
                 public void run() {
-                    Sound.playSound("enemyDeath");
+                    Sound.playSound("enemyDeath", 1000);
                     setUpBomberDeath();
-                    Sound.stopSound("enemyDeath");
                 }
             };
             // TODO : fix death when place 2 bombs at the same time : (fixed)

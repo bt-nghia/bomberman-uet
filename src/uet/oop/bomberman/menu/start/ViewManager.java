@@ -190,13 +190,7 @@ public class ViewManager {
     private static void createBackground() {
         Image backgroundImage = new Image("buttons/background.png", 256, 256, false, false);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-        ImageView imageView = new ImageView("textures/body.png");
-        imageView.setLayoutX(0);
-        imageView.setLayoutY(0);
-        imageView.setFitHeight(600);
-        imageView.setFitWidth(400);
         mainPane.setBackground(new Background(background));
-        mainPane.getChildren().add(imageView);
     }
 
     private void createLogo() {
