@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.camera.CameraTranslate;
+import uet.oop.bomberman.menu.LevelUpScene;
 import uet.oop.bomberman.menu.StatusBar;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
@@ -43,10 +44,12 @@ public class BombermanGame extends Application {
     public static int CAMERA_X = 0;
     public static int CAMERA_Y = 0;
 
+    public static Group root = new Group();
+
+
     public static void main(String[] args) {
-        Sound.playSound("backGroundSound");
+        Sound.playSound("backGroundSound", Integer.MAX_VALUE);
         Application.launch(BombermanGame.class);
-        Sound.stopSound("backGroundSound");
     }
 
     @Override
@@ -59,7 +62,6 @@ public class BombermanGame extends Application {
         stage.setResizable(false);
 
         // Tao root container
-        Group root = new Group();
         root.getChildren().add(canvas);
 
         // tao menu
@@ -151,6 +153,8 @@ public class BombermanGame extends Application {
 
     public void levelUp(ViewManager viewManager, Scene scene, Long l) {
         if(currentLevel < nextLevel) {
+            LevelUpScene.renderLevelUpScene();
+
             // render map by level
             EntitySetManagement.clearAll();
             Map.createMapByLevel(nextLevel);
