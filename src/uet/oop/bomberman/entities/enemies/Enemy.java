@@ -119,8 +119,7 @@ public abstract class Enemy extends Entity {
     public void update() {
         if (!this.isAlive) {
             if (deathCount == 0) {
-                Sound.playSound("enemyDeath");
-                Sound.stopSound("enemyDeath");
+                Sound.playSound("enemyDeath", 1000);
                 deathCount = 1;
             }
         }
