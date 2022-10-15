@@ -183,7 +183,7 @@ public class Bomb extends Entity {
         TimerTask soundTask = new TimerTask() {
             @Override
             public void run() {
-                Sound.playSound("explosion");
+                Sound.playSound("explosion", 1000);
             }
         };
 
@@ -199,7 +199,6 @@ public class Bomb extends Entity {
             public void run() {
                 EntitySetManagement.removeBrick();
                 EntitySetManagement.removeEnemies();
-                Sound.stopSound("explosion");
             }
         };
 
