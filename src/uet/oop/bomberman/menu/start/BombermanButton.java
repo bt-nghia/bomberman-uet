@@ -6,6 +6,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class BombermanButton extends Button {
+    public static int a = 1;
     private final String FONT_PATH = "res/buttons/kenvector_future.ttf";
     private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('buttons/button_pressed.png');";
     private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('buttons/button.png');";
@@ -24,6 +26,10 @@ public class BombermanButton extends Button {
         setPrefHeight(49);
         setStyle(BUTTON_FREE_STYLE);
         initializeButtonListeners();
+    }
+
+    private static void chipu() {
+        System.out.println("nghia nghu");
     }
 
     private void setButtonFont() {
@@ -53,6 +59,7 @@ public class BombermanButton extends Button {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton().equals(MouseButton.PRIMARY)) {
+                    Sound.playSound("bombplanted", 500);
                     setButtonPressedStyle();
                 }
             }
@@ -82,13 +89,7 @@ public class BombermanButton extends Button {
         });
     }
 
-    public static int a = 1;
-
     public void change() {
         a++;
-    }
-
-    private static void chipu() {
-        System.out.println("nghia nghu");
     }
 }

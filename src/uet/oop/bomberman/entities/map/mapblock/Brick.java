@@ -11,6 +11,10 @@ public class Brick extends Entity {
 
     private boolean isBroken = false;
 
+    public Brick(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
+    }
+
     public boolean isBroken() {
         return isBroken;
     }
@@ -18,11 +22,6 @@ public class Brick extends Entity {
     public void setBroken(boolean isBroken) {
         this.isBroken = isBroken;
     }
-
-    public Brick(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
-    }
-
 
     public void setDestroyedImg() {
         this.keepMoving++;

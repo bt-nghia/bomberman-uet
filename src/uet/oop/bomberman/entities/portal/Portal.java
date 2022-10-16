@@ -1,9 +1,10 @@
-package uet.oop.bomberman.entities.items;
+package uet.oop.bomberman.entities.portal;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.items.Item;
 
 public class Portal extends Item {
 

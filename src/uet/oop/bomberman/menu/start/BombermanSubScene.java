@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import uet.oop.bomberman.BombermanGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;

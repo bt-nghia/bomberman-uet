@@ -8,12 +8,12 @@ import uet.oop.bomberman.entities.enemies.Minvo;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
-import uet.oop.bomberman.entities.items.Portal;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.entities.map.mapblock.Wall;
 import uet.oop.bomberman.entities.player.Bomber;
+import uet.oop.bomberman.entities.portal.Portal;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.BufferedReader;

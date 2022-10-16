@@ -13,14 +13,11 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 public abstract class Entity {
+    public int animate;
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int x;
-
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
-
-    public int animate;
-
     protected Image img;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
@@ -29,6 +26,11 @@ public abstract class Entity {
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
         this.animate = 60;
+    }
+
+    public static boolean checkIntersectDeep(Rectangle2D a, Rectangle2D b) {
+        if (b == null || a == null) return false;
+        return a.getMaxX() > b.getMinX() && a.getMaxY() > b.getMinY() && a.getMinX() < b.getMaxX() && a.getMinY() < b.getMaxY();
     }
 
     public void render(GraphicsContext gc) {
@@ -67,11 +69,6 @@ public abstract class Entity {
 
     public Rectangle2D getBoundary() {
         return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
-    }
-
-    public static boolean checkIntersectDeep(Rectangle2D a, Rectangle2D b) {
-        if (b == null || a == null) return false;
-        return a.getMaxX() > b.getMinX() && a.getMaxY() > b.getMinY() && a.getMinX() < b.getMaxX() && a.getMinY() < b.getMaxY();
     }
 
     public boolean intersect(Entity other) {
@@ -158,8 +155,8 @@ public abstract class Entity {
             this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
         }
         int newX = this.x;
-        if (2 * this.x > (BombermanGame.CAMERA_WIDTH-1) * Sprite.SCALED_SIZE
-                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH+1)/2) * Sprite.SCALED_SIZE) {
+        if (2 * this.x > (BombermanGame.CAMERA_WIDTH - 1) * Sprite.SCALED_SIZE
+                && this.x < (BombermanGame.WIDTH - (BombermanGame.CAMERA_WIDTH + 1) / 2) * Sprite.SCALED_SIZE) {
             CameraTranslate.moveCamera(newX - oldX, 0);
         }
         return oldX != newX;

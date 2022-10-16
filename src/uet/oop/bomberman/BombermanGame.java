@@ -9,8 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.camera.CameraTranslate;
-import uet.oop.bomberman.menu.LevelUpScene;
-import uet.oop.bomberman.menu.StatusBar;
 import uet.oop.bomberman.controller.PlayerController;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
@@ -21,6 +19,8 @@ import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.entities.map.mapblock.Brick;
 import uet.oop.bomberman.entities.map.mapblock.Grass;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.menu.LevelUpScene;
+import uet.oop.bomberman.menu.StatusBar;
 import uet.oop.bomberman.menu.start.ViewManager;
 import uet.oop.bomberman.sound.Sound;
 
@@ -34,18 +34,16 @@ public class BombermanGame extends Application {
     public static GraphicsContext gc;
     public static Canvas canvas;
     public static int score = 0;
-    private final long[] frameTimes = new long[100];
-    private int frameTimeIndex = 0;
-    private boolean arrayFilled = false;
     public static int gameStart = 0;
     public static int STATUS_BAR_HEIGHT = 32;
     public static int currentLevel = 0;
     public static int nextLevel = 1;
     public static int CAMERA_X = 0;
     public static int CAMERA_Y = 0;
-
     public static Group root = new Group();
-
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false;
 
     public static void main(String[] args) {
         Sound.playSound("backGroundSound", Integer.MAX_VALUE);
@@ -61,7 +59,6 @@ public class BombermanGame extends Application {
 
         stage.setResizable(false);
 
-        // Tao root container
         root.getChildren().add(canvas);
 
         // tao menu
@@ -88,11 +85,10 @@ public class BombermanGame extends Application {
                     render();
                     update();
                     StatusBar.updateStatusBar(l);
-                }
-                else if(gameStart == 2) {
+                } else if (gameStart == 2) {
                     // render menu to play again
                     gameStart = 0;
-                } else if(gameStart == 3) {
+                } else if (gameStart == 3) {
                     // win -> add img win and high score
                     // render menu play again
                     // luu high score
@@ -152,7 +148,7 @@ public class BombermanGame extends Application {
     }
 
     public void levelUp(ViewManager viewManager, Scene scene, Long l) {
-        if(currentLevel < nextLevel) {
+        if (currentLevel < nextLevel) {
             LevelUpScene.renderLevelUpScene();
 
             // render map by level

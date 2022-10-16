@@ -30,6 +30,7 @@ public class Flame extends Entity {
     public static int F_leftLast = 8;
 
     private int direction = -1;
+
     public Flame(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
@@ -142,8 +143,8 @@ public class Flame extends Entity {
     }
 
     public boolean checkFlameOtherBomb() {
-        for(Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if(bomb.intersect(this)) {
+        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+            if (bomb.intersect(this)) {
                 bomb.setExploded(true);
                 // max number of bomb is 2 so i can return now;
                 return true;

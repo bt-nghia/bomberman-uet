@@ -8,22 +8,6 @@ public abstract class SearchEngine {
     public final static int ROW = 13;
     public final static int COL = 31;
 
-    public static class cell {
-        public int parentX = -1, parentY = -1;
-        public double f, g, h;
-
-        @Override
-        public String toString() {
-            return "cell{" +
-                    "parentX=" + parentX +
-                    ", parentY=" + parentY +
-                    ", f=" + f +
-                    ", g=" + g +
-                    ", h=" + h +
-                    '}';
-        }
-    }
-
     public static boolean isValid(int row, int col) {
         return row >= 0 && row < ROW && col >= 0 && col < COL;
     }
@@ -62,5 +46,21 @@ public abstract class SearchEngine {
             return src;
         }
         return src;
+    }
+
+    public static class cell {
+        public int parentX = -1, parentY = -1;
+        public double f, g, h;
+
+        @Override
+        public String toString() {
+            return "cell{" +
+                    "parentX=" + parentX +
+                    ", parentY=" + parentY +
+                    ", f=" + f +
+                    ", g=" + g +
+                    ", h=" + h +
+                    '}';
+        }
     }
 }
