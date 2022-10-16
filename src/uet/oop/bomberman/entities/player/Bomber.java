@@ -11,6 +11,8 @@ import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.level.Level;
+import uet.oop.bomberman.menu.LevelUpScene;
 import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
@@ -59,20 +61,19 @@ public class Bomber extends Entity implements Move {
             };
             // TODO : fix death when place 2 bombs at the same time : (fixed)
             // TODO : add death & render game over scene
-            TimerTask endGame = new TimerTask() {
-                @Override
-                public void run() {
-//                    BombermanGame.gameStart = 1;
-//                    Map.createMapByLevel(1);
-                    System.exit(0);
-                }
-            };
             Timer timer = new Timer();
             if (countDeathUpdate > 0) {
                 timer.schedule(timerTaskPlayerDeath, 100L);
+                LevelUpScene.renderScene();
                 countDeathUpdate--;
             }
-            timer.schedule(endGame, 1000L);
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            },2000L);
         }
     }
 

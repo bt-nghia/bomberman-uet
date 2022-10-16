@@ -28,7 +28,7 @@ public class EntitySetManagement {
             int size = enemyList.size();
             enemyList.removeIf(enemy -> !enemy.isAlive());
             int newSize = enemyList.size();
-            BombermanGame.score += (size - newSize) * 1000;
+            BombermanGame.score += (size - newSize) * 10;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
