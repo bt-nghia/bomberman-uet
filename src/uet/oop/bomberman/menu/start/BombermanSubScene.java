@@ -5,7 +5,6 @@ import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import uet.oop.bomberman.BombermanGame;
 
 public class BombermanSubScene extends SubScene {
     private final static String FONT_PATH = "buttons/kenvector_future.ttf";

@@ -19,13 +19,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomber extends Entity implements Move {
-    private int speed = Sprite.SCALED_SIZE / 8;
+    public static int flameLength = 1;
+    public List<Bomb> bombList = new ArrayList<>();
+    private int speed = 4;
     private boolean isAlive = true;
     private int keepMoving = 0;
-    public List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb = 1;
     private int countDeathUpdate = 1;
-    public static int flameLength = 1;
+
+    public Bomber(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
+    }
 
     public int getNumberOfBomb() {
         return numberOfBomb;
@@ -43,28 +47,24 @@ public class Bomber extends Entity implements Move {
         this.speed = speed;
     }
 
-    public Bomber(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
-    }
-
     @Override
     public void update() {
         if (!this.isAlive) {
             TimerTask timerTaskPlayerDeath = new TimerTask() {
                 @Override
                 public void run() {
-                    Sound.playSound("enemyDeath");
+                    Sound.playSound("enemyDeath", 1500);
                     setUpBomberDeath();
-                    Sound.stopSound("enemyDeath");
                 }
             };
             // TODO : fix death when place 2 bombs at the same time : (fixed)
+            // TODO : add death & render game over scene
             TimerTask endGame = new TimerTask() {
                 @Override
                 public void run() {
-                    BombermanGame.gameStart = 1;
-                    Map.createMapByLevel(1);
-//                    System.exit(0);
+//                    BombermanGame.gameStart = 1;
+//                    Map.createMapByLevel(1);
+                    System.exit(0);
                 }
             };
             Timer timer = new Timer();
@@ -72,7 +72,7 @@ public class Bomber extends Entity implements Move {
                 timer.schedule(timerTaskPlayerDeath, 100L);
                 countDeathUpdate--;
             }
-//            timer.schedule(endGame, 1000L);
+            timer.schedule(endGame, 1000L);
         }
     }
 
@@ -81,12 +81,12 @@ public class Bomber extends Entity implements Move {
         gc.drawImage(this.img, (x + 4), y);
     }
 
-    public void setAlive(boolean alive) {
-        this.isAlive = alive;
-    }
-
     public boolean isAlive() {
         return this.isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
     }
 
     // TODO: lam tron de player di chuyen chinh xac vao 1 o (done)
@@ -109,7 +109,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_up,
                 Sprite.player_up_1,
                 Sprite.player_up_2,
-                keepMoving, 54
+                keepMoving, 36
         ).getFxImage());
     }
 
@@ -131,7 +131,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_down,
                 Sprite.player_down_1,
                 Sprite.player_down_2,
-                keepMoving, 54
+                keepMoving, 36
         ).getFxImage()));
     }
 
@@ -163,7 +163,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_right,
                 Sprite.player_right_1,
                 Sprite.player_right_2,
-                keepMoving, 54
+                keepMoving, 36
         ).getFxImage());
     }
 
@@ -200,7 +200,7 @@ public class Bomber extends Entity implements Move {
                 Sprite.player_left,
                 Sprite.player_left_1,
                 Sprite.player_left_2,
-                keepMoving, 54
+                keepMoving, 36
         ).getFxImage());
 //        System.out.println("count: " + count);
     }
@@ -253,6 +253,7 @@ public class Bomber extends Entity implements Move {
     }
 
     public void plantTheBomb() {
+
         if (EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
             Bomb bomb = new Bomb(
                     this.getX() / Sprite.SCALED_SIZE,
@@ -272,12 +273,14 @@ public class Bomber extends Entity implements Move {
             try {
                 // set time to explode
                 if (!duplicate) {
+                    Sound.playSound("bombplanted", 1000);
                     TimerTask timerTask = new TimerTask() {
                         @Override
                         public void run() {
                             bomb.setImg(Sprite.bomb_exploded2.getFxImage());
-                            bomb.addFlameDFS();
+                            bomb.addFlame();
                             bomb.setExploded(true);
+//                            Sound.stopSound("bombplanted");
                         }
                     };
                     EntitySetManagement.bomberMan.addBomb(bomb);

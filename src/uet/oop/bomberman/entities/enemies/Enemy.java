@@ -10,19 +10,27 @@ import java.util.Random;
 
 public abstract class Enemy extends Entity {
 
-    private int speed = 2;
-    private int speedX = this.speed;
-    private int speedY = 0;
-    private boolean isAlive = true;
     public static final int RIGHT = 0;
     public static final int LEFT = 1;
     public static final int DOWN = 2;
     public static final int UP = 3;
     protected int keepMoving = 0;
     protected int deathCount = 0;
+    private int speed = 2;
+    private int speedX = this.speed;
+    private int speedY = 0;
+    private boolean isAlive = true;
+
+    public Enemy(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
+    }
 
     public int getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public int getSpeedX() {
@@ -47,14 +55,6 @@ public abstract class Enemy extends Entity {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public Enemy(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
     }
 
     public void generateRandomDirection() {
@@ -119,8 +119,7 @@ public abstract class Enemy extends Entity {
     public void update() {
         if (!this.isAlive) {
             if (deathCount == 0) {
-                Sound.playSound("enemyDeath");
-                Sound.stopSound("enemyDeath");
+                Sound.playSound("enemyDeath", 1500);
                 deathCount = 1;
             }
         }

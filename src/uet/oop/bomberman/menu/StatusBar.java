@@ -10,6 +10,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class StatusBar {
+    public static int countDownTime = 20000;
     public static Text level, bomb, time, score;
 
     public static void createStatusBar(Group root) {
@@ -19,7 +20,7 @@ public class StatusBar {
         level.setX(100);
         level.setY(23);
 
-        time = new Text("TIME: 0");
+        time = new Text("TIME: " + countDownTime);
         time.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         time.setFill(Color.WHITE);
         time.setX(200 + 100);
@@ -42,5 +43,10 @@ public class StatusBar {
     public static void updateStatusBar(long l) {
         score.setText("SCORE: " + BombermanGame.score);
         level.setText("LEVEL: " + BombermanGame.currentLevel);
+        time.setText("TIME: " + countDownTime / 100);
+        countDownTime -= 2;
+        if (countDownTime == 0) {
+            System.exit(0);
+        }
     }
 }
