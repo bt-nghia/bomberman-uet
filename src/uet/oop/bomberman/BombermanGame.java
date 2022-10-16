@@ -24,6 +24,9 @@ import uet.oop.bomberman.menu.StatusBar;
 import uet.oop.bomberman.menu.start.ViewManager;
 import uet.oop.bomberman.sound.Sound;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class BombermanGame extends Application {
 
     // fix map size
@@ -149,20 +152,31 @@ public class BombermanGame extends Application {
 
     public void levelUp(ViewManager viewManager, Scene scene, Long l) {
         if (currentLevel < nextLevel) {
-            LevelUpScene.renderLevelUpScene();
+            LevelUpScene.renderScene();
 
-            // render map by level
-            EntitySetManagement.clearAll();
-            Map.createMapByLevel(nextLevel);
-            currentLevel = nextLevel;
+            if(nextLevel < 4) {
+                // render map by level
+                EntitySetManagement.clearAll();
+                Map.createMapByLevel(nextLevel);
+                currentLevel = nextLevel;
 
-            // set camera position
-            CameraTranslate.moveCamera(CAMERA_X, CAMERA_Y);
-            CAMERA_X = 0;
-            CAMERA_Y = 0;
+                // set camera position
+                CameraTranslate.moveCamera(CAMERA_X, CAMERA_Y);
+                CAMERA_X = 0;
+                CAMERA_Y = 0;
 
-            // add player's controller
-            PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
+                // add player's controller
+                PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
+            } else {
+                TimerTask exit = new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.exit(0);
+                    }
+                };
+                Timer timer = new Timer();
+                timer.schedule(exit, 2000);
+            }
         }
     }
 }

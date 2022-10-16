@@ -29,52 +29,14 @@ public class Oneal extends Enemy implements Move {
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
         slow = slow > 100 ? 0 : slow + 1;
         if (pair.getKey() * Sprite.SCALED_SIZE == this.y && pair.getValue() * Sprite.SCALED_SIZE == this.x) {
-            Random random = new Random();
-            int direction = random.nextInt(4);
-            switch (direction) {
-                case RIGHT:
-                    goRight();
-                    break;
-                case LEFT:
-                    goLeft();
-                    break;
-                case UP:
-                    goUp();
-                    break;
-                case DOWN:
-                    goDown();
-                    break;
-            }
+            moveFree();
         } else {
-            if (this.y < pair.getKey() * Sprite.SCALED_SIZE) {
-                if (slow % 2 == 0) {
-                    goDown();
-                }
-            }
-            if (this.y > pair.getKey() * Sprite.SCALED_SIZE) {
-                if (slow % 2 == 0) {
-                    goUp();
-                }
-            }
-            if (this.x > pair.getValue() * Sprite.SCALED_SIZE) {
-                if (slow % 2 == 0) {
-                    goLeft();
-                }
-            }
-            if (this.x < pair.getValue() * Sprite.SCALED_SIZE) {
-                if (slow % 2 == 0) {
-                    goRight();
-                }
-            }
-            if (!this.isAlive()) {
-                setImg(Sprite.oneal_dead.getFxImage());
-            }
+            move(pair);
         }
     }
 
     @Override
     public void goUp() {
-//        System.out.println("u");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y--;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
@@ -92,7 +54,6 @@ public class Oneal extends Enemy implements Move {
 
     @Override
     public void goRight() {
-//        System.out.println("r");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x++;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -110,7 +71,6 @@ public class Oneal extends Enemy implements Move {
 
     @Override
     public void goLeft() {
-//        System.out.println("l");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.x--;
             if (checkBoundBrick() || checkBoundBomb() || checkBoundWall()) {
@@ -128,7 +88,6 @@ public class Oneal extends Enemy implements Move {
 
     @Override
     public void goDown() {
-//        System.out.println("d");
         for (int i = 0; i < this.getSpeed(); i++) {
             this.y++;
             if (checkBoundBomb() || checkBoundBrick() || checkBoundWall()) {
@@ -150,5 +109,50 @@ public class Oneal extends Enemy implements Move {
                 new Pair<>(this.y / Sprite.SCALED_SIZE, this.x / Sprite.SCALED_SIZE),
                 new Pair<>(row, col)
         );
+    }
+
+    public void move(Pair<Integer, Integer> pair) {
+        if (this.y < pair.getKey() * Sprite.SCALED_SIZE) {
+            if (slow % 2 == 0) {
+                goDown();
+            }
+        }
+        if (this.y > pair.getKey() * Sprite.SCALED_SIZE) {
+            if (slow % 2 == 0) {
+                goUp();
+            }
+        }
+        if (this.x > pair.getValue() * Sprite.SCALED_SIZE) {
+            if (slow % 2 == 0) {
+                goLeft();
+            }
+        }
+        if (this.x < pair.getValue() * Sprite.SCALED_SIZE) {
+            if (slow % 2 == 0) {
+                goRight();
+            }
+        }
+        if (!this.isAlive()) {
+            setImg(Sprite.oneal_dead.getFxImage());
+        }
+    }
+
+    public void moveFree() {
+        Random random = new Random();
+        int direction = random.nextInt(4);
+        switch (direction) {
+            case RIGHT:
+                goRight();
+                break;
+            case LEFT:
+                goLeft();
+                break;
+            case UP:
+                goUp();
+                break;
+            case DOWN:
+                goDown();
+                break;
+        }
     }
 }
