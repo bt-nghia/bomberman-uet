@@ -31,6 +31,12 @@ public class ViewManager {
     private Group groupRoot;
     private BombermanSubScene sceneToHide;
 
+    public enum menu{
+        HELP,
+        SCORES,
+        OPTIONS
+    }
+
 
     public ViewManager(AnchorPane mainPane, Scene mainScene, Stage mainStage) {
         ViewManager.mainPane = mainPane;
@@ -67,14 +73,7 @@ public class ViewManager {
     private static void createBackground() {
         Image backgroundImage = new Image("buttons/background.png", 256, 256, false, false);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-//        ImageView imageView = new ImageView("textures/body.png");
-//        imageView.setLayoutX(0);
-//        imageView.setLayoutY(0);
-//        imageView.setFitHeight(600);
-//        imageView.setFitWidth(400);
-
         mainPane.setBackground(new Background(background));
-//        mainPane.getChildren().add(imageView);
     }
 
     private void showSubScene(BombermanSubScene subScene) {
@@ -85,16 +84,27 @@ public class ViewManager {
         sceneToHide = subScene;
     }
 
-    private void createSubScene() {
-        creditsSubScene = new BombermanSubScene(1014, 150);
+//<<<<<<< minhkhoiitem
+    private void createSubScene(){
+        creditsSubScene = new BombermanSubScene(menu.OPTIONS);
         mainPane.getChildren().add(creditsSubScene);
 
-        helpSubScene = new BombermanSubScene(1014, 150);
+        helpSubScene = new BombermanSubScene(menu.HELP);
         mainPane.getChildren().add(helpSubScene);
 
-        scoreSubScene = new BombermanSubScene(1014 - 676, 150);
-        scoreSubScene.setTranHiddenX(0);
-        scoreSubScene.setTranShowX(676);
+        scoreSubScene = new BombermanSubScene(menu.SCORES);
+//=======
+//    private void createSubScene() {
+//        creditsSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(creditsSubScene);
+//
+//        helpSubScene = new BombermanSubScene(1014, 150);
+//        mainPane.getChildren().add(helpSubScene);
+//
+//        scoreSubScene = new BombermanSubScene(1014 - 676, 150);
+//        scoreSubScene.setTranHiddenX(0);
+//        scoreSubScene.setTranShowX(676);
+//>>>>>>> nghiabt
         mainPane.getChildren().add(scoreSubScene);
     }
 
@@ -176,6 +186,12 @@ public class ViewManager {
             }
         });
     }
+
+//    private static void createBackground() {
+//        Image backgroundImage = new Image("buttons/background.png", 256, 256, false, false);
+//        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+//        mainPane.setBackground(new Background(background));
+//    }
 
     private void createLogo() {
         ImageView logo = new ImageView("buttons/logo3.png");

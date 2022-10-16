@@ -59,8 +59,6 @@ public class BombermanGame extends Application {
 
         stage.setResizable(false);
 
-        // Tao root container
-//        Group root = new Group();
         root.getChildren().add(canvas);
 
         // tao menu
@@ -152,6 +150,7 @@ public class BombermanGame extends Application {
     public void levelUp(ViewManager viewManager, Scene scene, Long l) {
         if (currentLevel < nextLevel) {
             LevelUpScene.renderLevelUpScene();
+
             // render map by level
             EntitySetManagement.clearAll();
             Map.createMapByLevel(nextLevel);
