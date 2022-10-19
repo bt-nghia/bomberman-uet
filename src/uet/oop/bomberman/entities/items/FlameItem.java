@@ -39,7 +39,11 @@ public class FlameItem extends Item {
                 }
             };
             Timer timer = new Timer();
-            timer.schedule(upToDate, 10000);
+            try {
+                timer.schedule(upToDate, 10000);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

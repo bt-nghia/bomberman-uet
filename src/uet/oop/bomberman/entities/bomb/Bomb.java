@@ -190,9 +190,13 @@ public class Bomb extends Entity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(soundTask, 3010);
-        timer.schedule(timerTask1, 3500L);
-        timer.schedule(timerTask2, 3530L);
+        try {
+            timer.schedule(soundTask, 3010);
+            timer.schedule(timerTask1, 3500L);
+            timer.schedule(timerTask2, 3530L);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
     }
 

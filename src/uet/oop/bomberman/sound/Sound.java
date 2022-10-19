@@ -31,7 +31,11 @@ public class Sound {
                         }
                     };
                     Timer timer = new Timer();
-                    timer.schedule(stopSoundTask, time);
+                    try {
+                        timer.schedule(stopSoundTask, time);
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 } catch (Exception e) {
                     System.out.println("sound track error " + e.getMessage());
                 }
