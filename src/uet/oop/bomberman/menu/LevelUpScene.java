@@ -28,12 +28,14 @@ public class LevelUpScene {
             renderYourScore();
             pane.getChildren().add(youWin);
             pane.getChildren().add(yourScore);
+            ScoreSave.saveScore();
         } else if(!EntitySetManagement.bomberMan.isAlive()) {
             renderGameOver();
             renderYourScore();
             pane.getChildren().add(gameOver);
             pane.getChildren().add(yourScore);
             time = 2000;
+            ScoreSave.saveScore();
         } else {
             renderLevelUp();
             pane.getChildren().add(level);
@@ -48,7 +50,11 @@ public class LevelUpScene {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(lev, time);
+        try {
+            timer.schedule(lev, time);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void renderYouWin() {

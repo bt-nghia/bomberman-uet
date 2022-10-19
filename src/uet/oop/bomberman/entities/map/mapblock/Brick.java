@@ -6,7 +6,7 @@ import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Brick extends Entity {
+public class Brick extends MapBlock {
     private int keepMoving = 0;
 
     private boolean isBroken = false;

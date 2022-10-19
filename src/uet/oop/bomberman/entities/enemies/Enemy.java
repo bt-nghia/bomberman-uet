@@ -3,12 +3,13 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
 import java.util.Random;
 
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends Entity implements Move {
 
     public static final int RIGHT = 0;
     public static final int LEFT = 1;

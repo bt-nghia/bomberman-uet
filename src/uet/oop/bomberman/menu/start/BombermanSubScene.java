@@ -8,9 +8,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import uet.oop.bomberman.BombermanGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class BombermanSubScene extends SubScene {
@@ -130,17 +136,22 @@ public class BombermanSubScene extends SubScene {
             VBox box = new VBox(10);
             box.setLayoutX(50);
             box.setLayoutY(50);
-            Label text = createLabel("Top người chơi điểm cao:", 20, 30, 50);
+            Label text = createLabel(/*"Top người chơi điểm cao:"*/"HIGH SCORE: ", 20, 30 + 270, 50);
             box.getChildren().add(text);
+            List<Integer> highScore = new ArrayList<>();
             while(sc.hasNextLine()) {
-                Label label = createLabel(" - " + sc.nextLine(), 15, 200, 50);
+                highScore.add(Integer.parseInt(sc.nextLine()));
+//                Label label = createLabel(" - " + sc.nextLine(), 15, 200, 50);
+//                box.getChildren().add(label);
+            }
+            highScore.sort(Collections.reverseOrder());
+            for(int i = 0; i < Math.min(4, highScore.size()); i++) {
+                Label label = createLabel("Anonymous #" + (i + 1) + " - "  + highScore.get(i).toString(), 15, 200 + 270, 50);
                 box.getChildren().add(label);
             }
             return box;
-        } catch (FileNotFoundException fileException) {
-            System.out.println(fileException);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception fileException) {
+            System.out.println(fileException.getMessage());
         }
         return null;
     }

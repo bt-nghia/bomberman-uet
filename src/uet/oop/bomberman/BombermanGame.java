@@ -175,7 +175,11 @@ public class BombermanGame extends Application {
                     }
                 };
                 Timer timer = new Timer();
-                timer.schedule(exit, 2000);
+                try {
+                    timer.schedule(exit, 2000);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Balloom extends Enemy implements Move {
+public class Balloom extends Enemy {
 
     public Balloom(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);

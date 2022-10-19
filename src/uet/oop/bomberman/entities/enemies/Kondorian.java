@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class Kondorian extends Enemy implements Move {
+public class Kondorian extends Enemy {
     private int keepMoving = 1;
     private int lastMove = 1;
 

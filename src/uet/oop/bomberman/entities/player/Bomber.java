@@ -21,7 +21,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomber extends Entity implements Move {
-    public static int flameLength = 1;
     public List<Bomb> bombList = new ArrayList<>();
     private int speed = 4;
     private boolean isAlive = true;
@@ -286,7 +285,11 @@ public class Bomber extends Entity implements Move {
                     };
                     EntitySetManagement.bomberMan.addBomb(bomb);
                     Timer timerEx = new Timer();
-                    timerEx.schedule(timerTask, 3000);
+                    try {
+                        timerEx.schedule(timerTask, 3000);
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
