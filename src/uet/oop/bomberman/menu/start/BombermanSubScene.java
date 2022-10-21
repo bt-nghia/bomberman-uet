@@ -131,7 +131,7 @@ public class BombermanSubScene extends SubScene {
 
     public VBox createScoresContent()  {
         try{
-            File file = new File("res/buttons/scores.txt");
+            File file = new File("res/score/highscores.txt");
             Scanner sc = new Scanner(file);
             VBox box = new VBox(10);
             box.setLayoutX(50);

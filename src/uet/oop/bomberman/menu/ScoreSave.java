@@ -11,7 +11,7 @@ public class ScoreSave {
     public static void saveScore() {
         try {
             Files.write(
-                    Paths.get("res/buttons/scores.txt"),
+                    Paths.get("res/score/highscores.txt"),
                     ("\n" + ((Integer) BombermanGame.score).toString()).getBytes(),
                     StandardOpenOption.APPEND);
         } catch (IOException ex) {
