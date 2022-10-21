@@ -145,7 +145,7 @@ public class BombermanGame extends Application {
             long elapsedNanos = now - oldFrameTime;
             long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
             double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
-            return "Bomberman64 |  " + String.format(" FPS : %.2f", frameRate);
+            return "Bomberman64   " + String.format(" FPS : %.2f", frameRate);
         }
         return "Bomberman64";
     }

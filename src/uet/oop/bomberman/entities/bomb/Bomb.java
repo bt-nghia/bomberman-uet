@@ -19,7 +19,7 @@ public class Bomb extends Entity {
     public boolean passOver = true;
     public int timeToExplode = 0;
     public List<Flame> allFlame = new ArrayList<>();
-    private int bombNum = 1;
+    public static int bombNum = 1;
     private int keepTransforming = 0;
     private boolean exploded = false;
 
