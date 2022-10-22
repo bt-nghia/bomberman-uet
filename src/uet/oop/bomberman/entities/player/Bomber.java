@@ -238,7 +238,7 @@ public class Bomber extends Entity implements Move {
             if (!(Math.abs(diffX) < Sprite.SCALED_SIZE && Math.abs(diffY) < Sprite.SCALED_SIZE)) {
                 bomb.setPassOver(false);
             }
-            if (bomb.passOver) {
+            if (bomb.isPassOver()) {
                 return false;
             }
             if (this.intersect(bomb)) {

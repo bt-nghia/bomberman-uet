@@ -11,8 +11,8 @@ import java.util.Random;
 
 
 public class Oneal extends Enemy {
-    int slow = 0;
-    int keepMoving = 0;
+    private int slow = 0;
+    private int keepMoving = 0;
 
     public Oneal(int x, int y, Image img) {
         super(x, y, img);

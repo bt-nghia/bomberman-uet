@@ -17,7 +17,7 @@ import java.util.TimerTask;
 public class Bomb extends Entity {
     public static int radius = 1;
     public static int animation = 0;
-    public boolean passOver = true;
+    private boolean passOver = true;
     public int timeToExplode = 0;
     private List<Flame> allFlame = new ArrayList<>();
     public static int bombNum = 1;
@@ -55,6 +55,10 @@ public class Bomb extends Entity {
 
     public void setBombNum(int bombNum) {
         this.bombNum = bombNum;
+    }
+
+    public boolean isPassOver() {
+        return passOver;
     }
 
     public void addFlame() {

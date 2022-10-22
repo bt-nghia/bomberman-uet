@@ -21,14 +21,14 @@ public class Flame extends Entity {
     7 : right last
     8 : left last
      */
-    public static int F_up = 1;
-    public static int F_down = 2;
-    public static int F_right = 3;
-    public static int F_left = 4;
-    public static int F_upLast = 5;
-    public static int F_downLast = 6;
-    public static int F_rightLast = 7;
-    public static int F_leftLast = 8;
+    public static final int F_up = 1;
+    public static final int F_down = 2;
+    public static final int F_right = 3;
+    public static final int F_left = 4;
+    public static final int F_upLast = 5;
+    public static final int F_downLast = 6;
+    public static final int F_rightLast = 7;
+    public static final int F_leftLast = 8;
 
     private int direction = -1;
 
