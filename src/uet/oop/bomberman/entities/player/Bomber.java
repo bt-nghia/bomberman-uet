@@ -21,7 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomber extends Entity implements Move {
-    public List<Bomb> bombList = new ArrayList<>();
+    private List<Bomb> bombList = new ArrayList<>();
     private int speed = 4;
     private boolean isAlive = true;
     private int keepMoving = 0;
@@ -46,6 +46,14 @@ public class Bomber extends Entity implements Move {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public List<Bomb> getBombList() {
+        return bombList;
+    }
+
+    public void setBombList(List<Bomb> bombList) {
+        this.bombList = bombList;
     }
 
     @Override

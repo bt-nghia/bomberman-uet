@@ -44,7 +44,7 @@ public class EntitySetManagement {
 
     public void removeBomb() {
         try {
-            this.bomberMan.bombList.removeIf(Bomb::exploded);
+            this.bomberMan.getBombList().removeIf(Bomb::exploded);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

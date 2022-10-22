@@ -3,8 +3,6 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.EntitySetManagement;
-import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.entities.enemies.searchengine.AStar;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;

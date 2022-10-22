@@ -19,7 +19,7 @@ public class Bomb extends Entity {
     public static int animation = 0;
     public boolean passOver = true;
     public int timeToExplode = 0;
-    public List<Flame> allFlame = new ArrayList<>();
+    private List<Flame> allFlame = new ArrayList<>();
     public static int bombNum = 1;
     private int keepTransforming = 0;
     private boolean exploded = false;
@@ -43,6 +43,18 @@ public class Bomb extends Entity {
 
     public void setKeepTransforming(int keepTransforming) {
         this.keepTransforming = keepTransforming;
+    }
+
+    public void setAllFlame(List<Flame> allFlame) {
+        this.allFlame = allFlame;
+    }
+
+    public int getBombNum() {
+        return bombNum;
+    }
+
+    public void setBombNum(int bombNum) {
+        this.bombNum = bombNum;
     }
 
     public void addFlame() {
