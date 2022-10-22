@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.items;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.map.Map;
@@ -29,14 +30,14 @@ public class BombItem extends Item {
             Sound.playSound("itemcollect", 1500);
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
             Bomb.bombNum++;
-            EntitySetManagement.bomberMan.setNumberOfBomb(Bomb.bombNum);
+            BombermanGame.entitySetManagement.getBomberMan().setNumberOfBomb(Bomb.bombNum);
             this.isVisible = false;
             this.isUsed = true;
             TimerTask upToDate = new TimerTask() {
                 @Override
                 public void run() {
                     Bomb.bombNum--;
-                    EntitySetManagement.bomberMan.setNumberOfBomb(Bomb.bombNum);
+                    BombermanGame.entitySetManagement.getBomberMan().setNumberOfBomb(Bomb.bombNum);
                 }
             };
             Timer timer = new Timer();

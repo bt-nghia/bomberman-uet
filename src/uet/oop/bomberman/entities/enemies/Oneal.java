@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import javafx.util.Pair;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.Move;
 import uet.oop.bomberman.entities.enemies.searchengine.AStar;
@@ -23,8 +24,8 @@ public class Oneal extends Enemy {
     public void update() {
         super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
-        int destRow = EntitySetManagement.bomberMan.getY() / Sprite.SCALED_SIZE;
-        int destCol = EntitySetManagement.bomberMan.getX() / Sprite.SCALED_SIZE;
+        int destRow = BombermanGame.entitySetManagement.getBomberMan().getY() / Sprite.SCALED_SIZE;
+        int destCol = BombermanGame.entitySetManagement.getBomberMan().getX() / Sprite.SCALED_SIZE;
 
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
         slow = slow > 100 ? 0 : slow + 1;

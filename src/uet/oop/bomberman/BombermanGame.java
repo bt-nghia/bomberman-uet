@@ -47,6 +47,7 @@ public class BombermanGame extends Application {
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
+    public static EntitySetManagement entitySetManagement = new EntitySetManagement();
 
     public static void main(String[] args) {
         Sound.playSound("backGroundSound", Integer.MAX_VALUE);
@@ -104,14 +105,14 @@ public class BombermanGame extends Application {
 
     public void update() {
         try {
-            EntitySetManagement.bomberMan.update();
-            EntitySetManagement.enemyList.forEach(Entity::update);
-            EntitySetManagement.grassList.forEach(Grass::update);
-            EntitySetManagement.itemList.forEach(Item::update);
-            EntitySetManagement.portal.update();
-            EntitySetManagement.brickList.forEach(Brick::update);
-            EntitySetManagement.bomberMan.bombList.forEach(Bomb::update);
-            EntitySetManagement.bomberMan.bombList.forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
+            entitySetManagement.getBomberMan().update();
+            entitySetManagement.getEnemyList().forEach(Entity::update);
+            entitySetManagement.getGrassList().forEach(Grass::update);
+            entitySetManagement.getItemList().forEach(Item::update);
+            entitySetManagement.getPortal().update();
+            entitySetManagement.getBrickList().forEach(Brick::update);
+            entitySetManagement.getBomberMan().bombList.forEach(Bomb::update);
+            entitySetManagement.getBomberMan().bombList.forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
         } catch (Exception ex) {
 //            ex.printStackTrace();
         }
@@ -120,15 +121,15 @@ public class BombermanGame extends Application {
     public void render() {
         try {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            EntitySetManagement.grassList.forEach(grass -> grass.render(gc));
-            EntitySetManagement.wallList.forEach(wall -> wall.render(gc));
-            EntitySetManagement.itemList.forEach(item -> item.render(gc));
-            EntitySetManagement.portal.render(gc);
-            EntitySetManagement.brickList.forEach(brick -> brick.render(gc));
-            EntitySetManagement.enemyList.forEach(enemy -> enemy.render(gc));
-            EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.render(gc));
-            EntitySetManagement.bomberMan.bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
-            EntitySetManagement.bomberMan.render(gc);
+            entitySetManagement.getGrassList().forEach(grass -> grass.render(gc));
+            entitySetManagement.getWallList().forEach(wall -> wall.render(gc));
+            entitySetManagement.getItemList().forEach(item -> item.render(gc));
+            entitySetManagement.getPortal().render(gc);
+            entitySetManagement.getBrickList().forEach(brick -> brick.render(gc));
+            entitySetManagement.getEnemyList().forEach(enemy -> enemy.render(gc));
+            entitySetManagement.getBomberMan().bombList.forEach(bomb -> bomb.render(gc));
+            entitySetManagement.getBomberMan().bombList.forEach(bomb -> bomb.allFlame.forEach(flame -> flame.render(gc)));
+            entitySetManagement.getBomberMan().render(gc);
         } catch (Exception ex) {
 //            ex.printStackTrace();
         }
@@ -156,7 +157,7 @@ public class BombermanGame extends Application {
 
             if(nextLevel < 4) {
                 // render map by level
-                EntitySetManagement.clearAll();
+                entitySetManagement.clearAll();
                 Map.createMapByLevel(nextLevel);
                 currentLevel = nextLevel;
 
@@ -166,7 +167,7 @@ public class BombermanGame extends Application {
                 CAMERA_Y = 0;
 
                 // add player's controller
-                PlayerController.bomberController(scene, EntitySetManagement.bomberMan);
+                PlayerController.bomberController(scene, entitySetManagement.getBomberMan(), entitySetManagement);
             } else {
                 TimerTask exit = new TimerTask() {
                     @Override

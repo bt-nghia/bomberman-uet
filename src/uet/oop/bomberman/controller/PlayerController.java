@@ -6,7 +6,7 @@ import uet.oop.bomberman.entities.player.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class PlayerController {
-    public static void bomberController(Scene scene, Bomber bomberman) {
+    public static void bomberController(Scene scene, Bomber bomberman, EntitySetManagement entitySetManagement) {
         if (bomberman.isAlive()) {
             scene.setOnKeyPressed(event -> {
                         switch (event.getCode().toString()) {
@@ -27,8 +27,8 @@ public class PlayerController {
                                 break;
                             // clear all enemies
                             case "C":
-                                EntitySetManagement.enemyList.forEach(enemy -> enemy.setAlive(false));
-                                EntitySetManagement.enemyList.removeIf(enemy -> !enemy.isAlive());
+                                entitySetManagement.getEnemyList().forEach(enemy -> enemy.setAlive(false));
+                                entitySetManagement.getEnemyList().removeIf(enemy -> !enemy.isAlive());
                                 break;
                         }
                     }

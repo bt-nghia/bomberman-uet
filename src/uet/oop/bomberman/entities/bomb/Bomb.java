@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.bomb;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
@@ -177,15 +178,15 @@ public class Bomb extends Entity {
         TimerTask timerTask1 = new TimerTask() {
             @Override
             public void run() {
-                EntitySetManagement.removeBomb();
+                BombermanGame.entitySetManagement.removeBomb();
             }
         };
 
         TimerTask timerTask2 = new TimerTask() {
             @Override
             public void run() {
-                EntitySetManagement.removeBrick();
-                EntitySetManagement.removeEnemies();
+                BombermanGame.entitySetManagement.removeBrick();
+                BombermanGame.entitySetManagement.removeEnemies();
             }
         };
 

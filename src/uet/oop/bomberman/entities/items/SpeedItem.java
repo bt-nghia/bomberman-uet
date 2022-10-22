@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.items;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
@@ -28,15 +29,15 @@ public class SpeedItem extends Item {
         if (checkBoundBomber() && !isUsed) {
             Sound.playSound("itemcollect", 1500);
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
-            int speed = EntitySetManagement.bomberMan.getSpeed();
-            EntitySetManagement.bomberMan.setSpeed(speed + 4);
+            int speed = BombermanGame.entitySetManagement.getBomberMan().getSpeed();
+            BombermanGame.entitySetManagement.getBomberMan().setSpeed(speed + 4);
             this.isUsed = true;
             this.isVisible = false;
             TimerTask upToDate = new TimerTask() {
                 @Override
                 public void run() {
-                    int speed = EntitySetManagement.bomberMan.getSpeed();
-                    EntitySetManagement.bomberMan.setSpeed(speed - 4);
+                    int speed = BombermanGame.entitySetManagement.getBomberMan().getSpeed();
+                    BombermanGame.entitySetManagement.getBomberMan().setSpeed(speed - 4);
                 }
             };
             Timer timer = new Timer();

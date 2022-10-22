@@ -1,19 +1,8 @@
 package uet.oop.bomberman.entities;
 
 public interface Move {
-    default void goUp() {
-
-    }
-
-    default void goDown() {
-
-    }
-
-    default void goRight() {
-
-    }
-
-    default void goLeft() {
-
-    }
+    void goUp();
+    void goRight();
+    void goLeft();
+    void goDown();
 }
