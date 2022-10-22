@@ -15,15 +15,15 @@ import java.util.List;
 
 public class EntitySetManagement {
 
-    public static List<Wall> wallList = new ArrayList<>();
-    public static List<Grass> grassList = new ArrayList<>();
-    public static List<Enemy> enemyList = new ArrayList<>();
-    public static List<Brick> brickList = new ArrayList<>();
-    public static List<Item> itemList = new ArrayList<>();
-    public static Entity portal = null;
-    public static Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
+    private List<Wall> wallList = new ArrayList<>();
+    private List<Grass> grassList = new ArrayList<>();
+    private List<Enemy> enemyList = new ArrayList<>();
+    private List<Brick> brickList = new ArrayList<>();
+    private List<Item> itemList = new ArrayList<>();
+    private Entity portal = null;
+    private Bomber bomberMan = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
-    public static void removeEnemies() {
+    public void removeEnemies() {
         try {
             int size = enemyList.size();
             enemyList.removeIf(enemy -> !enemy.isAlive());
@@ -34,31 +34,31 @@ public class EntitySetManagement {
         }
     }
 
-    public static void removeBrick() {
+    public void removeBrick() {
         try {
-            brickList.removeIf(Brick::isBroken);
+            this.brickList.removeIf(Brick::isBroken);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public static void removeBomb() {
+    public void removeBomb() {
         try {
-            EntitySetManagement.bomberMan.bombList.removeIf(Bomb::exploded);
+            this.bomberMan.bombList.removeIf(Bomb::exploded);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public static void removeUsedItems() {
+    public void removeUsedItems() {
         try {
-            EntitySetManagement.itemList.removeIf(Item::isUsed);
+            this.itemList.removeIf(Item::isUsed);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public static void clearAll() {
+    public void clearAll() {
         enemyList.clear();
         brickList.clear();
         grassList.clear();
@@ -66,5 +66,61 @@ public class EntitySetManagement {
         itemList.clear();
         bomberMan = null;
         portal = null;
+    }
+
+    public List<Wall> getWallList() {
+        return wallList;
+    }
+
+    public void setWallList(List<Wall> wallList) {
+        this.wallList = wallList;
+    }
+
+    public List<Grass> getGrassList() {
+        return grassList;
+    }
+
+    public void setGrassList(List<Grass> grassList) {
+        this.grassList = grassList;
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
+
+    public void setEnemyList(List<Enemy> enemyList) {
+        this.enemyList = enemyList;
+    }
+
+    public List<Brick> getBrickList() {
+        return brickList;
+    }
+
+    public void setBrickList(List<Brick> brickList) {
+        this.brickList = brickList;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
+    public Entity getPortal() {
+        return portal;
+    }
+
+    public void setPortal(Entity portal) {
+        this.portal = portal;
+    }
+
+    public Bomber getBomberMan() {
+        return bomberMan;
+    }
+
+    public void setBomberMan(Bomber bomberMan) {
+        this.bomberMan = bomberMan;
     }
 }

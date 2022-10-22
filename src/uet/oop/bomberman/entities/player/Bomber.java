@@ -207,14 +207,14 @@ public class Bomber extends Entity implements Move {
 
     public boolean checkPortal() {
         // check if player go to portal or not
-        if (EntitySetManagement.enemyList.size() > 0) {
+        if (BombermanGame.entitySetManagement.getEnemyList().size() > 0) {
             return false;
         }
-        return this.intersect(EntitySetManagement.portal);
+        return this.intersect(BombermanGame.entitySetManagement.getPortal());
     }
 
     public boolean touchEnemiesOrFlame() {
-        for (Enemy enemy : EntitySetManagement.enemyList) {
+        for (Enemy enemy : BombermanGame.entitySetManagement.getEnemyList()) {
             if (this.intersect(enemy)) {
                 return true;
             }
@@ -254,7 +254,7 @@ public class Bomber extends Entity implements Move {
 
     public void plantTheBomb() {
 
-        if (EntitySetManagement.bomberMan.bombList.size() < EntitySetManagement.bomberMan.numberOfBomb) {
+        if (BombermanGame.entitySetManagement.getBomberMan().bombList.size() < BombermanGame.entitySetManagement.getBomberMan().numberOfBomb) {
             Bomb bomb = new Bomb(
                     this.getX() / Sprite.SCALED_SIZE,
                     this.getY() / Sprite.SCALED_SIZE,
@@ -265,7 +265,7 @@ public class Bomber extends Entity implements Move {
             Map.map2D[bomb.getY() / Sprite.SCALED_SIZE][bomb.getX() / Sprite.SCALED_SIZE] = '*';
             // check duplicate bomb
             boolean duplicate = false;
-            for (Bomb bombExist : EntitySetManagement.bomberMan.bombList) {
+            for (Bomb bombExist : BombermanGame.entitySetManagement.getBomberMan().bombList) {
                 if (bombExist.intersect(bomb)) {
                     duplicate = true;
                 }
@@ -283,7 +283,7 @@ public class Bomber extends Entity implements Move {
 //                            Sound.stopSound("bombplanted");
                         }
                     };
-                    EntitySetManagement.bomberMan.addBomb(bomb);
+                    BombermanGame.entitySetManagement.getBomberMan().addBomb(bomb);
                     Timer timerEx = new Timer();
                     try {
                         timerEx.schedule(timerTask, 3000);

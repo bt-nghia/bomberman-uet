@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.Move;
@@ -91,8 +92,8 @@ public abstract class Enemy extends Entity implements Move {
     }
 
     public void checkBomber() {
-        if (this.intersect(EntitySetManagement.bomberMan)) {
-            EntitySetManagement.bomberMan.setAlive(false);
+        if (this.intersect(BombermanGame.entitySetManagement.getBomberMan())) {
+            BombermanGame.entitySetManagement.getBomberMan().setAlive(false);
         }
     }
 
@@ -125,5 +126,25 @@ public abstract class Enemy extends Entity implements Move {
             }
         }
         checkBomber();
+    }
+
+    @Override
+    public void goUp() {
+
+    }
+
+    @Override
+    public void goDown() {
+
+    }
+
+    @Override
+    public void goLeft() {
+
+    }
+
+    @Override
+    public void goRight() {
+
     }
 }

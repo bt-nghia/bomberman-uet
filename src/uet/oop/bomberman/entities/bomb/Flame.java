@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.bomb;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.Enemy;
@@ -105,7 +106,7 @@ public class Flame extends Entity {
     }
 
     public boolean checkFlameBrick() {
-        for (Brick brick : EntitySetManagement.brickList) {
+        for (Brick brick : BombermanGame.entitySetManagement.getBrickList()) {
             if (this.intersect(brick)) {
                 brick.setBroken(true);
                 return true;
@@ -115,7 +116,7 @@ public class Flame extends Entity {
     }
 
     public boolean checkFlameWall() {
-        for (Wall wall : EntitySetManagement.wallList) {
+        for (Wall wall : BombermanGame.entitySetManagement.getWallList()) {
             if (this.intersect(wall)) {
                 return true;
             }
@@ -124,7 +125,7 @@ public class Flame extends Entity {
     }
 
     public void destroyFlameEnemy() {
-        for (Enemy enemy : EntitySetManagement.enemyList) {
+        for (Enemy enemy : BombermanGame.entitySetManagement.getEnemyList()) {
             if (this.intersect(enemy) || enemy.checkBoundBombExplosion()) {
                 enemy.setAlive(false);
             }
@@ -132,18 +133,18 @@ public class Flame extends Entity {
     }
 
     public void checkFlameBomber() {
-        if (this.intersect(EntitySetManagement.bomberMan)) {
-            EntitySetManagement.bomberMan.setAlive(false);
+        if (this.intersect(BombermanGame.entitySetManagement.getBomberMan())) {
+            BombermanGame.entitySetManagement.getBomberMan().setAlive(false);
         }
-        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
-            if (bomb.intersect(EntitySetManagement.bomberMan) && bomb.exploded()) {
-                EntitySetManagement.bomberMan.setAlive(false);
+        for (Bomb bomb : BombermanGame.entitySetManagement.getBomberMan().bombList) {
+            if (bomb.intersect(BombermanGame.entitySetManagement.getBomberMan()) && bomb.exploded()) {
+                BombermanGame.entitySetManagement.getBomberMan().setAlive(false);
             }
         }
     }
 
     public boolean checkFlameOtherBomb() {
-        for (Bomb bomb : EntitySetManagement.bomberMan.bombList) {
+        for (Bomb bomb : BombermanGame.entitySetManagement.getBomberMan().bombList) {
             if (bomb.intersect(this)) {
                 bomb.setExploded(true);
                 // max number of bomb is 2 so i can return now;

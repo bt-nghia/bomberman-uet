@@ -1,8 +1,10 @@
 package uet.oop.bomberman.entities.items;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
+import uet.oop.bomberman.entities.bomb.Bomb;
 
 public abstract class Item extends Entity {
     protected boolean isVisible = true;
@@ -18,7 +20,7 @@ public abstract class Item extends Entity {
     public abstract void update();
 
     protected boolean checkBoundBomber() {
-        return this.intersect(EntitySetManagement.bomberMan);
+        return this.intersect(BombermanGame.entitySetManagement.getBomberMan());
     }
 
     public boolean isVisible() {
@@ -39,7 +41,7 @@ public abstract class Item extends Entity {
 
     public void removeItem() {
         try {
-            EntitySetManagement.itemList.removeIf(Item::checkBoundBomber);
+            BombermanGame.entitySetManagement.getItemList().removeIf(Item::checkBoundBomber);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

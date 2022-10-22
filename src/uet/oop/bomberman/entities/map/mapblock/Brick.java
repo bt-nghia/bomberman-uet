@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.map.mapblock;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.map.Map;
@@ -44,6 +45,6 @@ public class Brick extends MapBlock {
     }
 
     public void removeBroken() {
-        EntitySetManagement.brickList.removeIf(Brick::isBroken);
+        BombermanGame.entitySetManagement.getBrickList().removeIf(Brick::isBroken);
     }
 }
