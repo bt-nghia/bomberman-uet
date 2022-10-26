@@ -120,22 +120,6 @@ public class AStar extends SearchEngine {
             if (isDest) {
                 break;
             }
-            isDest = pathProcessor(i, j, i + 1, j - 1, dest, fx, gx, hx, cellDetails, closedList, grid, openList);
-            if (isDest) {
-                break;
-            }
-            isDest = pathProcessor(i, j, i - 1, j - 1, dest, fx, gx, hx, cellDetails, closedList, grid, openList);
-            if (isDest) {
-                break;
-            }
-            isDest = pathProcessor(i, j, i - 1, j + 1, dest, fx, gx, hx, cellDetails, closedList, grid, openList);
-            if (isDest) {
-                break;
-            }
-            isDest = pathProcessor(i, j, i + 1, j + 1, dest, fx, gx, hx, cellDetails, closedList, grid, openList);
-            if (isDest) {
-                break;
-            }
         }
 //        System.out.println("trace:\n");
         return tracePath(cellDetails, new Pair<>(src.getKey(), src.getValue()), dest);

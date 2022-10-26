@@ -76,7 +76,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBrick() {
-        for (Brick brick : BombermanGame.entitySetManagement.getBrickList()) {
+        for (Brick brick : EntitySetManagement.getEntitySetManagement().getBrickList()) {
             if (this.intersect(brick)) {
                 return true;
             }
@@ -85,7 +85,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundWall() {
-        for (Wall wall : BombermanGame.entitySetManagement.getWallList()) {
+        for (Wall wall : EntitySetManagement.getEntitySetManagement().getWallList()) {
             if (this.intersect(wall)) {
                 return true;
             }
@@ -94,7 +94,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBomb() {
-        for (Bomb bomb : BombermanGame.entitySetManagement.getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
             if (this.intersect(bomb)) {
                 return true;
             }
@@ -103,7 +103,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBombExplosion() {
-        for (Bomb bomb : BombermanGame.entitySetManagement.getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
             if (this.intersect(bomb) && bomb.exploded()) {
                 return true;
             }

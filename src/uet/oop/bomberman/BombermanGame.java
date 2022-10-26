@@ -47,7 +47,7 @@ public class BombermanGame extends Application {
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
-    public static EntitySetManagement entitySetManagement = new EntitySetManagement();
+    public EntitySetManagement entitySetManagement = EntitySetManagement.getEntitySetManagement();
 
     public static void main(String[] args) {
         Sound.playSound("backGroundSound", Integer.MAX_VALUE);

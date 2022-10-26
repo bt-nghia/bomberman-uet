@@ -20,7 +20,7 @@ public abstract class Item extends Entity {
     public abstract void update();
 
     protected boolean checkBoundBomber() {
-        return this.intersect(BombermanGame.entitySetManagement.getBomberMan());
+        return this.intersect(EntitySetManagement.getEntitySetManagement().getBomberMan());
     }
 
     public boolean isVisible() {
@@ -41,7 +41,7 @@ public abstract class Item extends Entity {
 
     public void removeItem() {
         try {
-            BombermanGame.entitySetManagement.getItemList().removeIf(Item::checkBoundBomber);
+            EntitySetManagement.getEntitySetManagement().getItemList().removeIf(Item::checkBoundBomber);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

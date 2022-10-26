@@ -30,14 +30,14 @@ public class BombItem extends Item {
             Sound.playSound("itemcollect", 1500);
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
             Bomb.bombNum++;
-            BombermanGame.entitySetManagement.getBomberMan().setNumberOfBomb(Bomb.bombNum);
+            EntitySetManagement.getEntitySetManagement().getBomberMan().setNumberOfBomb(Bomb.bombNum);
             this.isVisible = false;
             this.isUsed = true;
             TimerTask upToDate = new TimerTask() {
                 @Override
                 public void run() {
                     Bomb.bombNum--;
-                    BombermanGame.entitySetManagement.getBomberMan().setNumberOfBomb(Bomb.bombNum);
+                    EntitySetManagement.getEntitySetManagement().getBomberMan().setNumberOfBomb(Bomb.bombNum);
                 }
             };
             Timer timer = new Timer();

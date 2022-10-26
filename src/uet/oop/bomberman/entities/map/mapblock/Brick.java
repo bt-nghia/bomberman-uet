@@ -45,6 +45,6 @@ public class Brick extends MapBlock {
     }
 
     public void removeBroken() {
-        BombermanGame.entitySetManagement.getBrickList().removeIf(Brick::isBroken);
+        EntitySetManagement.getEntitySetManagement().getBrickList().removeIf(Brick::isBroken);
     }
 }

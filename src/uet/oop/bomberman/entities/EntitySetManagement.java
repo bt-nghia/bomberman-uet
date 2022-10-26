@@ -12,8 +12,21 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EntitySetManagement {
+
+    // singleton pattern
+    private static EntitySetManagement entitySetManagement = null;
+
+    private EntitySetManagement() {}
+
+    public static EntitySetManagement getEntitySetManagement() {
+        if(Objects.isNull(entitySetManagement)) {
+            entitySetManagement = new EntitySetManagement();
+        }
+        return entitySetManagement;
+    }
 
     private List<Wall> wallList = new ArrayList<>();
     private List<Grass> grassList = new ArrayList<>();

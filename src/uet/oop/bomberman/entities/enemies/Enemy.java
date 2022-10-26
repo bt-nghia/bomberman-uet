@@ -92,8 +92,8 @@ public abstract class Enemy extends Entity implements Move {
     }
 
     public void checkBomber() {
-        if (this.intersect(BombermanGame.entitySetManagement.getBomberMan())) {
-            BombermanGame.entitySetManagement.getBomberMan().setAlive(false);
+        if (this.intersect(EntitySetManagement.getEntitySetManagement().getBomberMan())) {
+            EntitySetManagement.getEntitySetManagement().getBomberMan().setAlive(false);
         }
     }
 

@@ -29,15 +29,15 @@ public class SpeedItem extends Item {
         if (checkBoundBomber() && !isUsed) {
             Sound.playSound("itemcollect", 1500);
             Map.map2D[this.y / Sprite.SCALED_SIZE][this.x / Sprite.SCALED_SIZE] = ' ';
-            int speed = BombermanGame.entitySetManagement.getBomberMan().getSpeed();
-            BombermanGame.entitySetManagement.getBomberMan().setSpeed(speed + 4);
+            int speed = EntitySetManagement.getEntitySetManagement().getBomberMan().getSpeed();
+            EntitySetManagement.getEntitySetManagement().getBomberMan().setSpeed(speed + 4);
             this.isUsed = true;
             this.isVisible = false;
             TimerTask upToDate = new TimerTask() {
                 @Override
                 public void run() {
-                    int speed = BombermanGame.entitySetManagement.getBomberMan().getSpeed();
-                    BombermanGame.entitySetManagement.getBomberMan().setSpeed(speed - 4);
+                    int speed = EntitySetManagement.getEntitySetManagement().getBomberMan().getSpeed();
+                    EntitySetManagement.getEntitySetManagement().getBomberMan().setSpeed(speed - 4);
                 }
             };
             Timer timer = new Timer();
