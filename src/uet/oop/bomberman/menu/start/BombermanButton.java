@@ -34,7 +34,7 @@ public class BombermanButton extends Button {
 
     private void setButtonFont() {
         try {
-            setFont(Font.loadFont(Files.newInputStream(Paths.get(FONT_PATH)), 23));
+            setFont(Font.loadFont(Files.newInputStream(Paths.get( FONT_PATH)), 23));
         } catch (FileNotFoundException e) {
             setFont(Font.font("Verdana", 23));
         } catch (IOException e) {
