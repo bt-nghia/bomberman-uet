@@ -29,7 +29,7 @@ public class LevelUpScene {
             pane.getChildren().add(youWin);
             pane.getChildren().add(yourScore);
             ScoreSave.saveScore();
-        } else if(!BombermanGame.entitySetManagement.getBomberMan().isAlive()) {
+        } else if(!EntitySetManagement.getEntitySetManagement().getBomberMan().isAlive()) {
             renderGameOver();
             renderYourScore();
             pane.getChildren().add(gameOver);

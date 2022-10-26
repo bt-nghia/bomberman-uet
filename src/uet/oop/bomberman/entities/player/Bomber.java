@@ -215,14 +215,14 @@ public class Bomber extends Entity implements Move {
 
     public boolean checkPortal() {
         // check if player go to portal or not
-        if (BombermanGame.entitySetManagement.getEnemyList().size() > 0) {
+        if (EntitySetManagement.getEntitySetManagement().getEnemyList().size() > 0) {
             return false;
         }
-        return this.intersect(BombermanGame.entitySetManagement.getPortal());
+        return this.intersect(EntitySetManagement.getEntitySetManagement().getPortal());
     }
 
     public boolean touchEnemiesOrFlame() {
-        for (Enemy enemy : BombermanGame.entitySetManagement.getEnemyList()) {
+        for (Enemy enemy : EntitySetManagement.getEntitySetManagement().getEnemyList()) {
             if (this.intersect(enemy)) {
                 return true;
             }
@@ -262,7 +262,7 @@ public class Bomber extends Entity implements Move {
 
     public void plantTheBomb() {
 
-        if (BombermanGame.entitySetManagement.getBomberMan().bombList.size() < BombermanGame.entitySetManagement.getBomberMan().numberOfBomb) {
+        if (EntitySetManagement.getEntitySetManagement().getBomberMan().bombList.size() < EntitySetManagement.getEntitySetManagement().getBomberMan().numberOfBomb) {
             Bomb bomb = new Bomb(
                     this.getX() / Sprite.SCALED_SIZE,
                     this.getY() / Sprite.SCALED_SIZE,
@@ -273,7 +273,7 @@ public class Bomber extends Entity implements Move {
             Map.map2D[bomb.getY() / Sprite.SCALED_SIZE][bomb.getX() / Sprite.SCALED_SIZE] = '*';
             // check duplicate bomb
             boolean duplicate = false;
-            for (Bomb bombExist : BombermanGame.entitySetManagement.getBomberMan().bombList) {
+            for (Bomb bombExist : EntitySetManagement.getEntitySetManagement().getBomberMan().bombList) {
                 if (bombExist.intersect(bomb)) {
                     duplicate = true;
                 }
@@ -291,7 +291,7 @@ public class Bomber extends Entity implements Move {
 //                            Sound.stopSound("bombplanted");
                         }
                     };
-                    BombermanGame.entitySetManagement.getBomberMan().addBomb(bomb);
+                    EntitySetManagement.getEntitySetManagement().getBomberMan().addBomb(bomb);
                     Timer timerEx = new Timer();
                     try {
                         timerEx.schedule(timerTask, 3000);

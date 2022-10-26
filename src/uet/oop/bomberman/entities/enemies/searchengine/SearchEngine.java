@@ -42,7 +42,7 @@ public abstract class SearchEngine {
                 return pathStack.pop();
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-//            System.out.println("player blocked");
+            System.out.println("player blocked");
             return src;
         }
         return src;

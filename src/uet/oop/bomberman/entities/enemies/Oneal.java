@@ -2,7 +2,7 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.EntitySetManagement;
 import uet.oop.bomberman.entities.enemies.searchengine.AStar;
 import uet.oop.bomberman.entities.map.Map;
 import uet.oop.bomberman.graphics.Sprite;
@@ -22,10 +22,12 @@ public class Oneal extends Enemy {
     public void update() {
         super.update();
         keepMoving = keepMoving > 100 ? 0 : keepMoving + 1;
-        int destRow = BombermanGame.entitySetManagement.getBomberMan().getY() / Sprite.SCALED_SIZE;
-        int destCol = BombermanGame.entitySetManagement.getBomberMan().getX() / Sprite.SCALED_SIZE;
-
+        int destRow = EntitySetManagement.getEntitySetManagement().getBomberMan().getY() / Sprite.SCALED_SIZE;
+        int destCol = EntitySetManagement.getEntitySetManagement().getBomberMan().getX() / Sprite.SCALED_SIZE;
         Pair<Integer, Integer> pair = nextPosition(destRow, destCol);
+//        System.out.println(destRow +  " " + destCol);
+//        System.out.println(pair.toString());
+//        System.out.println((this.y/32) + " " + (this.x/32));
         slow = slow > 100 ? 0 : slow + 1;
         if (pair.getKey() * Sprite.SCALED_SIZE == this.y && pair.getValue() * Sprite.SCALED_SIZE == this.x) {
             moveFree();
@@ -113,21 +115,25 @@ public class Oneal extends Enemy {
     public void move(Pair<Integer, Integer> pair) {
         if (this.y < pair.getKey() * Sprite.SCALED_SIZE) {
             if (slow % 2 == 0) {
+                System.out.println("d");
                 goDown();
             }
         }
         if (this.y > pair.getKey() * Sprite.SCALED_SIZE) {
             if (slow % 2 == 0) {
+                System.out.println("u");
                 goUp();
             }
         }
         if (this.x > pair.getValue() * Sprite.SCALED_SIZE) {
             if (slow % 2 == 0) {
+                System.out.println("l");
                 goLeft();
             }
         }
         if (this.x < pair.getValue() * Sprite.SCALED_SIZE) {
             if (slow % 2 == 0) {
+                System.out.println("r");
                 goRight();
             }
         }

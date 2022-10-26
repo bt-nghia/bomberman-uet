@@ -194,15 +194,15 @@ public class Bomb extends Entity {
         TimerTask timerTask1 = new TimerTask() {
             @Override
             public void run() {
-                BombermanGame.entitySetManagement.removeBomb();
+                EntitySetManagement.getEntitySetManagement().removeBomb();
             }
         };
 
         TimerTask timerTask2 = new TimerTask() {
             @Override
             public void run() {
-                BombermanGame.entitySetManagement.removeBrick();
-                BombermanGame.entitySetManagement.removeEnemies();
+                EntitySetManagement.getEntitySetManagement().removeBrick();
+                EntitySetManagement.getEntitySetManagement().removeEnemies();
             }
         };
 

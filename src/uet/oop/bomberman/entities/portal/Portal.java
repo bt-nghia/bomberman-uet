@@ -22,7 +22,7 @@ public class Portal extends Item {
 
     @Override
     public void update() {
-        if (this.intersect(BombermanGame.entitySetManagement.getBomberMan()) && BombermanGame.entitySetManagement.getEnemyList().size() == 0) {
+        if (this.intersect(EntitySetManagement.getEntitySetManagement().getBomberMan()) && EntitySetManagement.getEntitySetManagement().getEnemyList().size() == 0) {
             BombermanGame.nextLevel++;
         }
     }

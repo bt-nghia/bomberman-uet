@@ -52,52 +52,52 @@ public class Map {
         for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 if (i == 0 || j == 0 || i == BombermanGame.HEIGHT - 1 || j == BombermanGame.WIDTH - 1 || map2D[i][j] == '#') {
-                    BombermanGame.entitySetManagement.getWallList().add(new Wall(j, i, Sprite.wall.getFxImage()));
+                    EntitySetManagement.getEntitySetManagement().getWallList().add(new Wall(j, i, Sprite.wall.getFxImage()));
                 } else {
-                    BombermanGame.entitySetManagement.getGrassList().add(new Grass(j, i, Sprite.grass.getFxImage()));
+                    EntitySetManagement.getEntitySetManagement().getGrassList().add(new Grass(j, i, Sprite.grass.getFxImage()));
                 }
                 switch (map2D[i][j]) {
                     case 'p':
-                        BombermanGame.entitySetManagement.setBomberMan(new Bomber(j, i, Sprite.player_right.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().setBomberMan(new Bomber(j, i, Sprite.player_right.getFxImage()));
                         map2D[i][j] = ' ';
                         break;
                     case '1':
-                        BombermanGame.entitySetManagement.getEnemyList().add(new Balloom(j, i, Sprite.balloom_left3.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getEnemyList().add(new Balloom(j, i, Sprite.balloom_left3.getFxImage()));
                         break;
                     case '2':
-                        BombermanGame.entitySetManagement.getEnemyList().add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getEnemyList().add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
                         break;
                     case '3':
-                        BombermanGame.entitySetManagement.getEnemyList().add(new Minvo(j, i, Sprite.minvo_right1.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getEnemyList().add(new Minvo(j, i, Sprite.minvo_right1.getFxImage()));
                         break;
                     case '4':
-                        BombermanGame.entitySetManagement.getEnemyList().add(new Kondorian(j, i, Sprite.kondoria_right1.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getEnemyList().add(new Kondorian(j, i, Sprite.kondoria_right1.getFxImage()));
                         break;
                     case '#':
-                        BombermanGame.entitySetManagement.getWallList().add(new Wall(j, i, Sprite.wall.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getWallList().add(new Wall(j, i, Sprite.wall.getFxImage()));
                         break;
                     case '*':
-                        BombermanGame.entitySetManagement.getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
                         break;
                     case 'b':
-                        BombermanGame.entitySetManagement.getItemList().add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
-                        BombermanGame.entitySetManagement.getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getItemList().add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
                         // set map brick so A_star can work
                         map2D[i][j] = '*';
                         break;
                     case 'f':
-                        BombermanGame.entitySetManagement.getItemList().add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
-                        BombermanGame.entitySetManagement.getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getItemList().add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
                         map2D[i][j] = '*';
                         break;
                     case 's':
-                        BombermanGame.entitySetManagement.getItemList().add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
-                        BombermanGame.entitySetManagement.getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getItemList().add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
                         map2D[i][j] = '*';
                         break;
                     case 'x':
-                        BombermanGame.entitySetManagement.setPortal(new Portal(j, i, Sprite.portal.getFxImage()));
-                        BombermanGame.entitySetManagement.getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().setPortal(new Portal(j, i, Sprite.portal.getFxImage()));
+                        EntitySetManagement.getEntitySetManagement().getBrickList().add(new Brick(j, i, Sprite.brick.getFxImage()));
                         map2D[i][j] = '*';
                         break;
                     default:
@@ -115,5 +115,6 @@ public class Map {
             }
             System.out.println();
         }
+        System.out.println(map2D[5][16]);
     }
 }
