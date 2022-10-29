@@ -136,7 +136,7 @@ public class Flame extends Entity {
         if (this.intersect(EntitySetManagement.getEntitySetManagement().getBomberMan())) {
             EntitySetManagement.getEntitySetManagement().getBomberMan().setAlive(false);
         }
-        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBombList()) {
             if (bomb.intersect(EntitySetManagement.getEntitySetManagement().getBomberMan()) && bomb.exploded()) {
                 EntitySetManagement.getEntitySetManagement().getBomberMan().setAlive(false);
             }
@@ -144,7 +144,7 @@ public class Flame extends Entity {
     }
 
     public boolean checkFlameOtherBomb() {
-        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBombList()) {
             if (bomb.intersect(this)) {
                 bomb.setExploded(true);
                 // max number of bomb is 2 so i can return now;

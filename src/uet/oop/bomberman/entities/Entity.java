@@ -94,7 +94,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBomb() {
-        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBombList()) {
             if (this.intersect(bomb)) {
                 return true;
             }
@@ -103,7 +103,7 @@ public abstract class Entity {
     }
 
     public boolean checkBoundBombExplosion() {
-        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBomberMan().getBombList()) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBombList()) {
             if (this.intersect(bomb) && bomb.exploded()) {
                 return true;
             }

@@ -111,8 +111,8 @@ public class BombermanGame extends Application {
             entitySetManagement.getItemList().forEach(Item::update);
             entitySetManagement.getPortal().update();
             entitySetManagement.getBrickList().forEach(Brick::update);
-            entitySetManagement.getBomberMan().getBombList().forEach(Bomb::update);
-            entitySetManagement.getBomberMan().getBombList().forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
+            entitySetManagement.getBombList().forEach(Bomb::update);
+            entitySetManagement.getBombList().forEach(flameList -> flameList.getAllFlame().forEach(Flame::update));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -127,8 +127,8 @@ public class BombermanGame extends Application {
             entitySetManagement.getPortal().render(gc);
             entitySetManagement.getBrickList().forEach(brick -> brick.render(gc));
             entitySetManagement.getEnemyList().forEach(enemy -> enemy.render(gc));
-            entitySetManagement.getBomberMan().getBombList().forEach(bomb -> bomb.render(gc));
-            entitySetManagement.getBomberMan().getBombList().forEach(bomb -> bomb.getAllFlame().forEach(flame -> flame.render(gc)));
+            entitySetManagement.getBombList().forEach(bomb -> bomb.render(gc));
+            entitySetManagement.getBombList().forEach(bomb -> bomb.getAllFlame().forEach(flame -> flame.render(gc)));
             entitySetManagement.getBomberMan().render(gc);
         } catch (Exception ex) {
             ex.printStackTrace();

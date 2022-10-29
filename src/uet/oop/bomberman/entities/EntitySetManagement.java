@@ -28,6 +28,7 @@ public class EntitySetManagement {
         return entitySetManagement;
     }
 
+    private List<Bomb> bombList = new ArrayList<>();
     private List<Wall> wallList = new ArrayList<>();
     private List<Grass> grassList = new ArrayList<>();
     private List<Enemy> enemyList = new ArrayList<>();
@@ -57,7 +58,7 @@ public class EntitySetManagement {
 
     public void removeBomb() {
         try {
-            this.bomberMan.getBombList().removeIf(Bomb::exploded);
+            EntitySetManagement.getEntitySetManagement().getBombList().removeIf(Bomb::exploded);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -135,5 +136,13 @@ public class EntitySetManagement {
 
     public void setBomberMan(Bomber bomberMan) {
         this.bomberMan = bomberMan;
+    }
+
+    public List<Bomb> getBombList() {
+        return bombList;
+    }
+
+    public void setBombList(List<Bomb> bombList) {
+        this.bombList = bombList;
     }
 }
