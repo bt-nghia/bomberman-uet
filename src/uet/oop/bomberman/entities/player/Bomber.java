@@ -21,7 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomber extends Entity implements Move {
-    private List<Bomb> bombList = new ArrayList<>();
+//    private List<Bomb> bombList = new ArrayList<>();
     private int speed = 4;
     private boolean isAlive = true;
     private int keepMoving = 0;
@@ -48,13 +48,13 @@ public class Bomber extends Entity implements Move {
         this.speed = speed;
     }
 
-    public List<Bomb> getBombList() {
-        return bombList;
-    }
-
-    public void setBombList(List<Bomb> bombList) {
-        this.bombList = bombList;
-    }
+//    public List<Bomb> getBombList() {
+//        return bombList;
+//    }
+//
+//    public void setBombList(List<Bomb> bombList) {
+//        this.bombList = bombList;
+//    }
 
     @Override
     public void update() {
@@ -232,7 +232,7 @@ public class Bomber extends Entity implements Move {
 
     @Override
     public boolean checkBoundBomb() {
-        for (Bomb bomb : bombList) {
+        for (Bomb bomb : EntitySetManagement.getEntitySetManagement().getBombList()) {
             double diffX = this.getX() - bomb.getX();
             double diffY = this.getY() - bomb.getY();
             if (!(Math.abs(diffX) < Sprite.SCALED_SIZE && Math.abs(diffY) < Sprite.SCALED_SIZE)) {
@@ -257,12 +257,12 @@ public class Bomber extends Entity implements Move {
     }
 
     public void addBomb(Bomb bomb) {
-        bombList.add(bomb);
+        EntitySetManagement.getEntitySetManagement().getBombList().add(bomb);
     }
 
     public void plantTheBomb() {
 
-        if (EntitySetManagement.getEntitySetManagement().getBomberMan().bombList.size() < EntitySetManagement.getEntitySetManagement().getBomberMan().numberOfBomb) {
+        if (EntitySetManagement.getEntitySetManagement().getBombList().size() < EntitySetManagement.getEntitySetManagement().getBomberMan().numberOfBomb) {
             Bomb bomb = new Bomb(
                     this.getX() / Sprite.SCALED_SIZE,
                     this.getY() / Sprite.SCALED_SIZE,
@@ -273,7 +273,7 @@ public class Bomber extends Entity implements Move {
             Map.map2D[bomb.getY() / Sprite.SCALED_SIZE][bomb.getX() / Sprite.SCALED_SIZE] = '*';
             // check duplicate bomb
             boolean duplicate = false;
-            for (Bomb bombExist : EntitySetManagement.getEntitySetManagement().getBomberMan().bombList) {
+            for (Bomb bombExist : EntitySetManagement.getEntitySetManagement().getBombList()) {
                 if (bombExist.intersect(bomb)) {
                     duplicate = true;
                 }
